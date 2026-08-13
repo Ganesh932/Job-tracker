@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#111827">
+<link rel="manifest" href="manifest.webmanifest">
+<title>Job Tracker</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#f5f7fb;color:#111827}
+header{position:sticky;top:0;background:#fff;padding:16px;z-index:2;border-bottom:1px solid #e5e7eb}
+h1{margin:0;font-size:24px}.sub{color:#6b7280;font-size:13px;margin-top:4px}
+main{padding:14px 14px 90px;max-width:700px;margin:auto}
+.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:14px 0}.card{background:#fff;border-radius:14px;padding:12px 6px;text-align:center;box-shadow:0 1px 5px #00000010}.num{font-size:20px;font-weight:700}.label{font-size:11px;color:#6b7280}
+input,select,textarea,button{font:inherit}input,select,textarea{width:100%;padding:11px;border:1px solid #d1d5db;border-radius:10px;background:#fff;margin:5px 0 10px}
+button{border:0;border-radius:11px;padding:11px 14px;background:#111827;color:#fff;font-weight:600}.secondary{background:#e5e7eb;color:#111827}
+.row{display:flex;gap:8px}.row>*{flex:1}.app{background:#fff;border-radius:15px;padding:14px;margin:10px 0;box-shadow:0 1px 6px #00000010}.app h3{margin:0 0 4px}.muted{color:#6b7280;font-size:13px}.pill{display:inline-block;padding:5px 8px;border-radius:999px;background:#eef2ff;font-size:12px;margin-top:8px}
+#add{display:none;background:#fff;border-radius:16px;padding:16px;margin-top:12px}.bottom{position:fixed;bottom:0;left:0;right:0;padding:10px 14px calc(10px + env(safe-area-inset-bottom));background:#fff;border-top:1px solid #e5e7eb}.bottom button{width:100%}
+.empty{text-align:center;color:#6b7280;padding:30px}
+</style>
+</head>
+<body>
+<header><h1>💼 Job Tracker</h1><div class="sub">LinkedIn & Naukri application tracker</div></header>
+<main>
+<section class="cards">
+<div class="card"><div class="num" id="total">0</div><div class="label">Total</div></div>
+<div class="card"><div class="num" id="interviews">0</div><div class="label">Interviews</div></div>
+<div class="card"><div class="num" id="offers">0</div><div class="label">Offers</div></div>
+<div class="card"><div class="num" id="rejected">0</div><div class="label">Rejected</div></div>
+</section>
+
+<input id="search" placeholder="🔎 Search company or role">
+<div class="row">
+<select id="filter"><option value="">All statuses</option></select>
+<button onclick="showAdd()">+ Add</button>
+</div>
+
+<section id="add">
+<h2>Add Application</h2>
+<input id="company" placeholder="Company *">
+<input id="role" placeholder="Job title">
+<div class="row"><select id="source"><option>LinkedIn</option><option>Naukri</option><option>Other</option></select><select id="status"></select></div>
+<input id="person" placeholder="Recruiter / contacted person">
+<input id="email" placeholder="Contact email">
+<input id="url" placeholder="Job URL">
+<textarea id="jd" rows="7" placeholder="Job description"></textarea>
+<textarea id="notes" rows="4" placeholder="Notes"></textarea>
+<div class="row"><button onclick="saveApp()">Save</button><button class="secondary" onclick="hideAdd()">Cancel</button></div>
+</section>
+
+<section id="list"></section>
+</main>
+<div class="bottom"><button onclick="showAdd()">＋ Add Job Application</button></div>
+
+<script>
+const statuses=["Applied","Application Viewed","Shortlisted","Recruiter Contacted","Interview","Assessment","Offer","Rejected","Withdrawn"];
+let apps=JSON.parse(localStorage.getItem("jobTrackerApps")||"[]");
+const $=id=>document.getElementById(id);
+function fillStatuses(){
+  $("status").innerHTML=statuses.map(x=>`<option>${x}</option>`).join("");
+  $("filter").innerHTML='<option value="">All statuses</option>'+statuses.map(x=>`<option>${x}</option>`).join("");
+}
+function persist(){localStorage.setItem("jobTrackerApps",JSON.stringify(apps));render();}
+function render(){
+  $("total").textContent=apps.length;
+  $("interviews").textContent=apps.filter(a=>a.status==="Interview").length;
+  $("offers").textContent=apps.filter(a=>a.status==="Offer").length;
+  $("rejected").textContent=apps.filter(a=>a.status==="Rejected").length;
+  const q=$("search").value.toLowerCase(), f=$("filter").value;
+  const v=apps.filter(a=>(!q||(`${a.company} ${a.role}`).toLowerCase().includes(q))&&(!f||a.status===f));
+  $("list").innerHTML=v.length?v.map(a=>`
+  <article class="app">
+    <h3>${esc(a.company)}</h3><div>${esc(a.role||"Job application")}</div>
+    <div class="muted">${esc(a.source)} · Applied ${esc(a.date)}</div>
+    <span class="pill">${esc(a.status)}</span>
+    ${a.person?`<div class="muted" style="margin-top:8px">Recruiter: ${esc(a.person)}</div>`:""}
+    <details style="margin-top:10px"><summary>Details</summary>
+      <p>${esc(a.jd||"No job description")}</p>
+      ${a.email?`<p>📧 ${esc(a.email)}</p>`:""}
+      ${a.notes?`<p>📝 ${esc(a.notes)}</p>`:""}
+      ${a.url?`<p><a href="${escAttr(a.url)}" target="_blank" rel="noopener">Open job posting</a></p>`:""}
+      <select onchange="changeStatus('${a.id}',this.value)">${statuses.map(s=>`<option ${s===a.status?"selected":""}>${s}</option>`).join("")}</select>
+      <button class="secondary" onclick="removeApp('${a.id}')">Delete</button>
+    </details>
+  </article>`).join(""):'<div class="empty">No applications yet.<br>Tap + Add Job Application.</div>';
+}
+function esc(s){return String(s||"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+function escAttr(s){return esc(s)}
+function showAdd(){$("add").style.display="block";window.scrollTo(0,0)}
+function hideAdd(){$("add").style.display="none"}
+function saveApp(){
+  if(!$("company").value.trim())return alert("Company is required.");
+  apps.unshift({id:crypto.randomUUID(),company:$("company").value.trim(),role:$("role").value.trim(),source:$("source").value,status:$("status").value,person:$("person").value.trim(),email:$("email").value.trim(),url:$("url").value.trim(),jd:$("jd").value.trim(),notes:$("notes").value.trim(),date:new Date().toISOString().slice(0,10)});
+  ["company","role","person","email","url","jd","notes"].forEach(x=>$(x).value="");hideAdd();persist();
+}
+function changeStatus(id,status){let a=apps.find(x=>x.id===id);if(a){a.status=status;persist()}}
+function removeApp(id){if(confirm("Delete this application?")){apps=apps.filter(x=>x.id!==id);persist()}}
+$("search").oninput=render;$("filter").onchange=render;fillStatuses();render();
+if("serviceWorker" in navigator)navigator.serviceWorker.register("sw.js");
+</script>
+</body>
+</html>
