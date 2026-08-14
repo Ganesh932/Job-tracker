@@ -57,6 +57,34 @@ function changeStatus(id,status){const a=apps.find(x=>x.id===id);if(!a)return;if
 function removeApp(id){if(confirm("Delete this application?")){apps=apps.filter(a=>a.id!==id);save();render()}}
 function toggleAccount(){$("account").style.display=$("account").style.display==="block"?"none":"block"}
 function configured(){return window.JOB_TRACKER_SUPABASE&&window.JOB_TRACKER_SUPABASE.publishableKey&&!window.JOB_TRACKER_SUPABASE.publishableKey.includes("PASTE_YOUR")}
+
+/* ---- NEW: pulls the real applications table from Supabase into the local `apps` array ---- */
+async function loadCloudApplications(){
+  if(!sb || !currentSession) return;
+  const { data, error } = await sb
+    .from('applications')
+    .select('*')
+    .order('created_at', { ascending: false });
+  if(error){ console.error('Load applications error:', error); return; }
+  apps = (data || []).map(a => ({
+    id: a.id,
+    company: a.company,
+    role: a.role,
+    source: a.source,
+    status: a.status,
+    applied: a.applied_date,
+    location: a.location,
+    recruiter: a.recruiter_name,
+    contacted: a.contacted_date,
+    email: a.recruiter_email,
+    phone: a.recruiter_phone,
+    url: a.job_url,
+    notes: a.notes,
+    history: [{ status: a.status, date: a.applied_date }]
+  }));
+  save();
+}
+
 function showAuth(){
  if(!configured()){$("authArea").innerHTML='<div class="small">Supabase is not configured in this build yet. Add the Publishable Key to <b>supabase-config.js</b>.</div>';return}
  if(!sb)sb=window.supabase.createClient(window.JOB_TRACKER_SUPABASE.url,window.JOB_TRACKER_SUPABASE.publishableKey,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}});
@@ -108,6 +136,9 @@ function updateAuthUI() {
 
   $("notice").textContent =
     "☁️ Gmail connected. Ready to sync job applications.";
+
+  /* ---- NEW: pull existing cloud applications as soon as we know the user is signed in ---- */
+  loadCloudApplications().then(()=>{ fill(); render(); });
 }
 
 
@@ -211,8 +242,10 @@ async function syncGmail() {
     }
 
     /*
-     * Refresh the local application dashboard.
+     * ---- NEW: refresh from the cloud (not just localStorage) ----
+     * so newly-synced applications actually show up on the dashboard.
      */
+    await loadCloudApplications();
     fill();
     render();
 
