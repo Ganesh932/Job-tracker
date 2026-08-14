@@ -7,6 +7,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="Job Tracker">
+
 <link rel="manifest" href="manifest.webmanifest">
 
 <title>Job Tracker</title>
@@ -208,7 +209,8 @@ input,select,textarea{
   color:#3730a3;
   font-size:11px;
   font-weight:650;
-  white-space:nowrap
+  white-space:nowrap;
+  height:max-content
 }
 
 .contact{
@@ -254,7 +256,7 @@ input,select,textarea{
 }
 
 .event{
-  margin:0 0 11px;
+  margin:0 0 13px;
   position:relative
 }
 
@@ -277,6 +279,13 @@ input,select,textarea{
   display:block;
   color:#6b7280;
   margin-top:2px
+}
+
+.event-source{
+  display:inline-block;
+  margin-top:3px;
+  font-size:10px;
+  color:#6b7280
 }
 
 .empty{
@@ -342,13 +351,14 @@ input,select,textarea{
   color:#6b7280
 }
 
-.sync-status{
+.sync-loading{
   margin-top:8px;
   font-size:11px;
-  color:#6b7280
+  color:#374151
 }
 
 @media(max-width:430px){
+
   .stats{
     gap:6px
   }
@@ -368,6 +378,10 @@ input,select,textarea{
   header button{
     padding:9px 10px
   }
+
+  .app-head{
+    align-items:flex-start
+  }
 }
 </style>
 </head>
@@ -380,9 +394,7 @@ input,select,textarea{
     <div class="sub">Simple job application dashboard</div>
   </div>
 
-  <button class="secondary" onclick="toggleAccount()">
-    Account
-  </button>
+  <button class="secondary" onclick="toggleAccount()">Account</button>
 </header>
 
 <main>
@@ -431,9 +443,7 @@ input,select,textarea{
     autocomplete="off"
   >
 
-  <button onclick="openForm()">
-    ＋ Add
-  </button>
+  <button onclick="openForm()">＋ Add</button>
 
 </div>
 
@@ -455,9 +465,7 @@ input,select,textarea{
 
 <section class="form" id="form">
 
-  <h2 id="formTitle">
-    Add application
-  </h2>
+  <h2 id="formTitle">Add application</h2>
 
   <div class="grid2">
 
@@ -488,8 +496,11 @@ input,select,textarea{
     </div>
 
     <div class="field">
+
       <label>Status</label>
+
       <select id="status"></select>
+
     </div>
 
   </div>
@@ -562,11 +573,12 @@ input,select,textarea{
 
   <div class="actions">
 
-    <button onclick="saveApp()">
-      Save
-    </button>
+    <button onclick="saveApp()">Save</button>
 
-    <button class="secondary" onclick="closeForm()">
+    <button
+      class="secondary"
+      onclick="closeForm()"
+    >
       Cancel
     </button>
 
@@ -587,6 +599,7 @@ input,select,textarea{
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <script src="supabase-config.js"></script>
 
 <script>
@@ -605,55 +618,130 @@ const statuses = [
 
 const $ = id => document.getElementById(id);
 
-let apps = JSON.parse(
-  localStorage.getItem("jobTrackerApps") || "[]"
-);
+let apps =
+  JSON.parse(
+    localStorage.getItem("jobTrackerApps") || "[]"
+  );
 
 let sb = null;
+
 let currentSession = null;
+
 let gmailConnected = false;
+
 let editingId = null;
 
 
-/* ---------------------------------------------------------
+/* =========================
    BASIC HELPERS
---------------------------------------------------------- */
+========================= */
 
 function today(){
-  return new Date().toISOString().slice(0,10);
+
+  return new Date()
+    .toISOString()
+    .slice(0,10);
+
 }
 
 
-function fmt(d){
+function fmt(value){
 
-  if(!d) return "—";
+  if(!value) return "—";
 
-  const p = d.split("-");
+  const d = new Date(value);
 
-  return p.length === 3
-    ? `${p[2]} ${new Date(d).toLocaleString("en-IN",{month:"short"})} ${p[0]}`
-    : d;
+  if(Number.isNaN(d.getTime())){
+
+    const parts =
+      String(value).split("-");
+
+    if(parts.length === 3){
+
+      return `${parts[2]} ${parts[1]} ${parts[0]}`;
+
+    }
+
+    return value;
+
+  }
+
+  return d.toLocaleDateString(
+    "en-IN",
+    {
+      day:"2-digit",
+      month:"short",
+      year:"numeric"
+    }
+  );
+
+}
+
+
+function fmtDateTime(value){
+
+  if(!value) return "—";
+
+  const d = new Date(value);
+
+  if(Number.isNaN(d.getTime())){
+
+    return fmt(value);
+
+  }
+
+  return d.toLocaleString(
+    "en-IN",
+    {
+      day:"2-digit",
+      month:"short",
+      year:"numeric",
+      hour:"2-digit",
+      minute:"2-digit"
+    }
+  );
+
 }
 
 
 function esc(s){
 
-  return String(s ?? "").replace(
-    /[&<>"']/g,
-    c => ({
-      "&":"&amp;",
-      "<":"&lt;",
-      ">":"&gt;",
-      '"':"&quot;",
-      "'":"&#39;"
-    }[c])
-  );
+  return String(s ?? "")
+    .replace(
+      /[&<>"']/g,
+      c => ({
+        "&":"&amp;",
+        "<":"&lt;",
+        ">":"&gt;",
+        '"':"&quot;",
+        "'":"&#39;"
+      }[c])
+    );
+
 }
 
 
 function attr(s){
 
-  return esc(s).replace(/`/g,"&#96;");
+  return esc(s)
+    .replace(/`/g,"&#96;");
+
+}
+
+
+function fill(){
+
+  $("status").innerHTML =
+    statuses
+      .map(s => `<option>${s}</option>`)
+      .join("");
+
+  $("filter").innerHTML =
+    '<option value="">All statuses</option>' +
+    statuses
+      .map(s => `<option>${s}</option>`)
+      .join("");
+
 }
 
 
@@ -663,48 +751,40 @@ function save(){
     "jobTrackerApps",
     JSON.stringify(apps)
   );
+
 }
 
 
-/* ---------------------------------------------------------
-   FORM / FILTER SETUP
---------------------------------------------------------- */
-
-function fill(){
-
-  $("status").innerHTML =
-    statuses.map(
-      s => `<option>${s}</option>`
-    ).join("");
-
-  $("filter").innerHTML =
-    '<option value="">All statuses</option>' +
-    statuses.map(
-      s => `<option>${s}</option>`
-    ).join("");
-}
-
-
-/* ---------------------------------------------------------
-   RENDER
---------------------------------------------------------- */
+/* =========================
+   RENDER DASHBOARD
+========================= */
 
 function render(){
 
-  $("total").textContent = apps.length;
+  $("total").textContent =
+    apps.length;
 
   $("interviews").textContent =
-    apps.filter(a => a.status === "Interview").length;
+    apps.filter(
+      a => a.status === "Interview"
+    ).length;
 
   $("offers").textContent =
-    apps.filter(a => a.status === "Offer").length;
+    apps.filter(
+      a => a.status === "Offer"
+    ).length;
 
   $("rejected").textContent =
-    apps.filter(a => a.status === "Rejected").length;
+    apps.filter(
+      a => a.status === "Rejected"
+    ).length;
 
 
   const q =
-    $("search").value.toLowerCase().trim();
+    $("search")
+      .value
+      .toLowerCase()
+      .trim();
 
   const f =
     $("filter").value;
@@ -713,24 +793,27 @@ function render(){
     $("sourceFilter").value;
 
 
-  const list = apps.filter(a =>
+  const list =
+    apps.filter(a =>
 
-    (
-      !q ||
-      `${a.company} ${a.role} ${a.recruiter || ""}`
-        .toLowerCase()
-        .includes(q)
-    )
+      (
+        !q ||
+        `${a.company}
+         ${a.role}
+         ${a.recruiter || ""}`
+          .toLowerCase()
+          .includes(q)
+      )
 
-    &&
+      &&
 
-    (!f || a.status === f)
+      (!f || a.status === f)
 
-    &&
+      &&
 
-    (!sf || a.source === sf)
+      (!sf || a.source === sf)
 
-  );
+    );
 
 
   $("list").innerHTML =
@@ -738,31 +821,52 @@ function render(){
       ? list.map(card).join("")
       : `
         <div class="empty">
-          No applications found.<br>
+          No applications found.
+          <br>
           Add your first application above.
         </div>
       `;
+
 }
 
 
-/* ---------------------------------------------------------
+/* =========================
    APPLICATION CARD
---------------------------------------------------------- */
+========================= */
 
 function card(a){
 
   const events =
     (a.history || [])
       .slice()
-      .reverse()
-      .map(
-        e => `
-          <div class="event">
-            <strong>${esc(e.status)}</strong>
-            <small>${fmt(e.date)}</small>
-          </div>
-        `
+      .sort(
+        (x,y) =>
+          new Date(x.date || 0) -
+          new Date(y.date || 0)
       )
+      .map(e => `
+
+        <div class="event">
+
+          <strong>
+            ${esc(e.status || "Status update")}
+          </strong>
+
+          <small>
+            ${fmtDateTime(e.date)}
+          </small>
+
+          ${
+            e.source
+              ? `<span class="event-source">
+                   Source: ${esc(e.source)}
+                 </span>`
+              : ""
+          }
+
+        </div>
+
+      `)
       .join("");
 
 
@@ -773,6 +877,7 @@ function card(a){
 
 
   return `
+
     <article class="app">
 
       <div class="app-head">
@@ -784,11 +889,15 @@ function card(a){
           </div>
 
           <div class="role">
-            ${esc(a.role || "Job application")}
+            ${esc(
+              a.role ||
+              "Job application"
+            )}
           </div>
 
           <div class="muted">
-            ${esc(a.source)} · Applied ${fmt(a.applied)}
+            ${esc(a.source || "Other")}
+            · Applied ${fmt(a.applied)}
           </div>
 
         </div>
@@ -814,17 +923,23 @@ function card(a){
       ${
         hasContact
           ? `
+
             <div class="contact">
 
               <b>Recruiter</b>
 
               <div>
-                ${esc(a.recruiter || "—")}
+
+                ${esc(
+                  a.recruiter || "—"
+                )}
+
                 ${
                   a.contacted
                     ? ` · Contacted ${fmt(a.contacted)}`
                     : ""
                 }
+
               </div>
 
               <div class="contact-row">
@@ -852,6 +967,7 @@ function card(a){
               </div>
 
             </div>
+
           `
           : ""
       }
@@ -860,14 +976,19 @@ function card(a){
       <details class="details">
 
         <summary>
-          View details
+          View details & status history
         </summary>
+
 
         <div class="timeline">
 
           ${
             events ||
-            '<div class="small">No status history yet.</div>'
+            `
+              <div class="small">
+                No status history yet.
+              </div>
+            `
           }
 
         </div>
@@ -904,25 +1025,26 @@ function card(a){
         <div class="grid3">
 
           <select
-            onchange="changeStatus('${attr(a.id)}',this.value)"
+            onchange="changeStatus('${a.id}',this.value)"
           >
 
-            ${statuses.map(
-              s => `
-                <option
-                  ${s === a.status ? "selected" : ""}
-                >
-                  ${s}
-                </option>
-              `
-            ).join("")}
+            ${
+              statuses
+                .map(
+                  s =>
+                    `<option
+                      ${s === a.status ? "selected" : ""}
+                    >${s}</option>`
+                )
+                .join("")
+            }
 
           </select>
 
 
           <button
             class="secondary"
-            onclick="openForm('${attr(a.id)}')"
+            onclick="openForm('${a.id}')"
           >
             Edit
           </button>
@@ -930,7 +1052,7 @@ function card(a){
 
           <button
             class="danger"
-            onclick="removeApp('${attr(a.id)}')"
+            onclick="removeApp('${a.id}')"
           >
             Delete
           </button>
@@ -940,25 +1062,31 @@ function card(a){
       </details>
 
     </article>
+
   `;
+
 }
 
 
-/* ---------------------------------------------------------
+/* =========================
    FORM
---------------------------------------------------------- */
+========================= */
 
 function openForm(id){
 
-  editingId = id || null;
+  editingId =
+    id || null;
 
-  $("form").style.display = "block";
+  $("form").style.display =
+    "block";
 
 
   if(id){
 
     const a =
-      apps.find(x => x.id === id);
+      apps.find(
+        x => x.id === id
+      );
 
 
     $("formTitle").textContent =
@@ -1034,6 +1162,7 @@ function openForm(id){
 
     $("source").value =
       "LinkedIn";
+
   }
 
 
@@ -1041,6 +1170,7 @@ function openForm(id){
     top:0,
     behavior:"smooth"
   });
+
 }
 
 
@@ -1050,22 +1180,28 @@ function closeForm(){
     "none";
 
   editingId = null;
+
 }
 
 
-/* ---------------------------------------------------------
-   SAVE APPLICATION
---------------------------------------------------------- */
+/* =========================
+   ADD / EDIT APPLICATION
+========================= */
 
 async function saveApp(){
 
-  if(!$("company").value.trim()){
+  if(
+    !$("company")
+      .value
+      .trim()
+  ){
 
     alert(
       "Please enter the company name."
     );
 
     return;
+
   }
 
 
@@ -1076,10 +1212,14 @@ async function saveApp(){
   const payload = {
 
     company:
-      $("company").value.trim(),
+      $("company")
+        .value
+        .trim(),
 
     role:
-      $("role").value.trim(),
+      $("role")
+        .value
+        .trim(),
 
     source:
       $("source").value,
@@ -1087,35 +1227,48 @@ async function saveApp(){
     status,
 
     applied:
-      $("applied").value || today(),
+      $("applied").value ||
+      today(),
 
     location:
-      $("location").value.trim(),
+      $("location")
+        .value
+        .trim(),
 
     recruiter:
-      $("recruiter").value.trim(),
+      $("recruiter")
+        .value
+        .trim(),
 
     contacted:
       $("contacted").value,
 
     email:
-      $("email").value.trim(),
+      $("email")
+        .value
+        .trim(),
 
     phone:
-      $("phone").value.trim(),
+      $("phone")
+        .value
+        .trim(),
 
     url:
-      $("url").value.trim(),
+      $("url")
+        .value
+        .trim(),
 
     notes:
-      $("notes").value.trim()
+      $("notes")
+        .value
+        .trim()
 
   };
 
 
-  /* -------------------------------------------------------
-     EDIT EXISTING APPLICATION
-  ------------------------------------------------------- */
+  /* =====================
+     EDIT EXISTING
+  ===================== */
 
   if(editingId){
 
@@ -1125,66 +1278,148 @@ async function saveApp(){
       );
 
 
-    if(idx > -1){
+    if(idx === -1){
 
-      const prevHistory =
-        apps[idx].history || [];
+      alert(
+        "Application not found."
+      );
 
-      const statusChanged =
-        apps[idx].status !== status;
-
-
-      apps[idx] = {
-
-        ...apps[idx],
-
-        ...payload,
-
-        history:
-          statusChanged
-            ? [
-                ...prevHistory,
-                {
-                  status,
-                  date:today()
-                }
-              ]
-            : prevHistory
-
-      };
+      return;
 
     }
 
 
+    const old =
+      apps[idx];
+
+
+    const statusChanged =
+      old.status !== status;
+
+
+    apps[idx] = {
+
+      ...old,
+
+      ...payload,
+
+      history:
+        old.history || []
+
+    };
+
+
     save();
-    render();
 
 
-    /* Update cloud */
+    /*
+     * If status changed,
+     * create a permanent cloud event.
+     */
 
-    if(sb && currentSession){
+    if(
+      statusChanged &&
+      sb &&
+      currentSession
+    ){
 
-      const {error} =
+      const {
+        error
+      } =
+        await sb
+          .from("application_events")
+          .insert({
+
+            application_id:
+              editingId,
+
+            user_id:
+              currentSession.user.id,
+
+            event_type:
+              status,
+
+            event_date:
+              new Date()
+                .toISOString(),
+
+            details:{
+              source:"manual"
+            }
+
+          });
+
+
+      if(error){
+
+        console.error(
+          "Status event insert error:",
+          error
+        );
+
+      }
+
+    }
+
+
+    /*
+     * Update cloud application.
+     */
+
+    if(
+      sb &&
+      currentSession
+    ){
+
+      const {
+        error
+      } =
         await sb
           .from("applications")
           .update({
 
-            company:payload.company,
-            role:payload.role,
-            source:payload.source,
-            status:payload.status,
-            applied_date:payload.applied,
-            location:payload.location,
-            recruiter_name:payload.recruiter,
+            company:
+              payload.company,
+
+            role:
+              payload.role,
+
+            source:
+              payload.source,
+
+            status:
+              payload.status,
+
+            applied_date:
+              payload.applied,
+
+            location:
+              payload.location,
+
+            recruiter_name:
+              payload.recruiter,
+
             contacted_date:
-              payload.contacted || null,
-            recruiter_email:payload.email,
-            recruiter_phone:payload.phone,
-            job_url:payload.url,
-            notes:payload.notes
+              payload.contacted ||
+              null,
+
+            recruiter_email:
+              payload.email,
+
+            recruiter_phone:
+              payload.phone,
+
+            job_url:
+              payload.url,
+
+            notes:
+              payload.notes
 
           })
-          .eq("id",editingId)
+          .eq(
+            "id",
+            editingId
+          )
           .eq(
             "user_id",
             currentSession.user.id
@@ -1203,61 +1438,27 @@ async function saveApp(){
     }
 
 
-  }else{
+  }
 
-    /* -----------------------------------------------------
-       NEW APPLICATION
-    ----------------------------------------------------- */
 
-    /*
-     * Every new application gets its own UUID.
-     * This prevents one application from replacing another.
-     */
+  /* =====================
+     CREATE NEW
+  ===================== */
 
-    const localId =
+  else{
+
+    let newId =
       crypto.randomUUID();
 
 
-    const localApplication = {
-
-      id:localId,
-
-      ...payload,
-
-      history:[
-        {
-          status,
-          date:payload.applied
-        }
-      ]
-
-    };
-
-
     /*
-     * Add locally FIRST.
-     *
-     * Even if Supabase is unavailable or the
-     * insert fails, the application remains on
-     * this device.
+     * Cloud insert first.
      */
 
-    apps.unshift(
-      localApplication
-    );
-
-    save();
-    render();
-
-
-    let cloudApplication = null;
-
-
-    /* -----------------------------------------------------
-       SAVE TO SUPABASE
-    ----------------------------------------------------- */
-
-    if(sb && currentSession){
+    if(
+      sb &&
+      currentSession
+    ){
 
       const {
         data,
@@ -1292,7 +1493,8 @@ async function saveApp(){
               payload.recruiter,
 
             contacted_date:
-              payload.contacted || null,
+              payload.contacted ||
+              null,
 
             recruiter_email:
               payload.email,
@@ -1318,62 +1520,114 @@ async function saveApp(){
           error
         );
 
-        /*
-         * Keep local application.
-         *
-         * We deliberately DO NOT remove it.
-         */
+        alert(
+          "Could not save the application to the cloud. Please try again."
+        );
 
-      }else if(data){
+        return;
 
-        cloudApplication = data;
+      }
 
 
-        /*
-         * Replace the temporary local UUID
-         * with the real Supabase UUID.
-         */
+      if(data){
 
-        const localIndex =
-          apps.findIndex(
-            a => a.id === localId
-          );
+        newId =
+          data.id;
+
+      }
 
 
-        if(localIndex > -1){
+      /*
+       * Create initial status event.
+       */
 
-          apps[localIndex] = {
+      const {
+        error:eventError
+      } =
+        await sb
+          .from("application_events")
+          .insert({
 
-            ...apps[localIndex],
+            application_id:
+              newId,
 
-            id:data.id
+            user_id:
+              currentSession.user.id,
 
-          };
+            event_type:
+              payload.status,
 
-        }
+            event_date:
+              new Date(
+                payload.applied ||
+                today()
+              ).toISOString(),
 
-        save();
-        render();
+            details:{
+              source:"manual"
+            }
+
+          });
+
+
+      if(eventError){
+
+        console.error(
+          "Initial event insert error:",
+          eventError
+        );
+
       }
 
     }
 
+
+    /*
+     * Add to local state.
+     */
+
+    apps.unshift({
+
+      id:
+        newId,
+
+      ...payload,
+
+      history:[
+        {
+          status:
+            payload.status,
+
+          date:
+            payload.applied,
+
+          source:
+            "manual"
+        }
+      ]
+
+    });
+
   }
 
 
-  editingId = null;
+  save();
 
   closeForm();
 
   render();
+
 }
 
 
-/* ---------------------------------------------------------
+/* =========================
    CHANGE STATUS
---------------------------------------------------------- */
+========================= */
 
-async function changeStatus(id,status){
+async function changeStatus(
+  id,
+  status
+){
 
   const a =
     apps.find(
@@ -1384,94 +1638,168 @@ async function changeStatus(id,status){
   if(!a) return;
 
 
-  if(a.status !== status){
+  if(a.status === status){
 
-    a.status =
-      status;
+    return;
 
-
-    a.history =
-      a.history || [];
+  }
 
 
-    a.history.push({
-
-      status,
-
-      date:today()
-
-    });
+  const oldStatus =
+    a.status;
 
 
-    save();
-
-    render();
-
-
-    if(sb && currentSession){
-
-      const {
-        error
-      } =
-        await sb
-          .from("applications")
-          .update({
-            status
-          })
-          .eq("id",id)
-          .eq(
-            "user_id",
-            currentSession.user.id
-          );
+  a.status =
+    status;
 
 
-      if(error){
+  a.history =
+    a.history || [];
 
-        console.error(
-          "Update status error:",
-          error
+
+  a.history.push({
+
+    status,
+
+    date:
+      new Date()
+        .toISOString(),
+
+    source:
+      "manual"
+
+  });
+
+
+  save();
+
+  render();
+
+
+  if(
+    sb &&
+    currentSession
+  ){
+
+    const {
+      error:updateError
+    } =
+      await sb
+        .from("applications")
+        .update({
+          status
+        })
+        .eq(
+          "id",
+          id
+        )
+        .eq(
+          "user_id",
+          currentSession.user.id
         );
 
-      }else{
 
-        await sb
-          .from("application_events")
-          .insert({
+    if(updateError){
 
-            application_id:id,
+      console.error(
+        "Update status error:",
+        updateError
+      );
 
-            user_id:
-              currentSession.user.id,
+      /*
+       * Roll back local status if
+       * cloud update failed.
+       */
 
-            event_type:
-              status,
+      a.status =
+        oldStatus;
 
-            event_date:
-              new Date().toISOString(),
+      a.history =
+        a.history.filter(
+          e =>
+            !(
+              e.status === status &&
+              e.source === "manual"
+            )
+        );
 
-            details:{
-              source:"manual"
-            }
+      save();
 
-          });
+      render();
 
-      }
+      alert(
+        "Could not update the cloud status. Please try again."
+      );
+
+      return;
+
+    }
+
+
+    const {
+      error:eventError
+    } =
+      await sb
+        .from("application_events")
+        .insert({
+
+          application_id:
+            id,
+
+          user_id:
+            currentSession.user.id,
+
+          event_type:
+            status,
+
+          event_date:
+            new Date()
+              .toISOString(),
+
+          details:{
+            source:"manual",
+            previous_status:
+              oldStatus
+          }
+
+        });
+
+
+    if(eventError){
+
+      console.error(
+        "Status event error:",
+        eventError
+      );
 
     }
 
   }
+
 }
 
 
-/* ---------------------------------------------------------
+/* =========================
    DELETE
---------------------------------------------------------- */
+========================= */
 
 async function removeApp(id){
 
-  if(!confirm(
-    "Delete this application?"
-  )) return;
+  if(
+    !confirm(
+      "Delete this application?"
+    )
+  ){
+
+    return;
+
+  }
+
+
+  const previous =
+    apps.find(
+      a => a.id === id
+    );
 
 
   apps =
@@ -1485,7 +1813,10 @@ async function removeApp(id){
   render();
 
 
-  if(sb && currentSession){
+  if(
+    sb &&
+    currentSession
+  ){
 
     const {
       error
@@ -1493,7 +1824,10 @@ async function removeApp(id){
       await sb
         .from("applications")
         .delete()
-        .eq("id",id)
+        .eq(
+          "id",
+          id
+        )
         .eq(
           "user_id",
           currentSession.user.id
@@ -1507,22 +1841,43 @@ async function removeApp(id){
         error
       );
 
+
+      if(previous){
+
+        apps.unshift(
+          previous
+        );
+
+        save();
+
+        render();
+
+      }
+
+
+      alert(
+        "Could not delete the application from the cloud."
+      );
+
     }
 
   }
+
 }
 
 
-/* ---------------------------------------------------------
+/* =========================
    ACCOUNT
---------------------------------------------------------- */
+========================= */
 
 function toggleAccount(){
 
   $("account").style.display =
-    $("account").style.display === "block"
+    $("account").style.display ===
+    "block"
       ? "none"
       : "block";
+
 }
 
 
@@ -1531,190 +1886,32 @@ function configured(){
   return (
     window.JOB_TRACKER_SUPABASE &&
     window.JOB_TRACKER_SUPABASE.publishableKey &&
-    !window.JOB_TRACKER_SUPABASE.publishableKey.includes(
-      "PASTE_YOUR"
-    )
+    !window.JOB_TRACKER_SUPABASE.publishableKey
+      .includes("PASTE_YOUR")
   );
 
 }
 
 
-/* ---------------------------------------------------------
-   CONVERT CLOUD APPLICATION
---------------------------------------------------------- */
-
-function cloudToLocal(a){
-
-  return {
-
-    id:a.id,
-
-    company:a.company,
-
-    role:a.role,
-
-    source:a.source,
-
-    status:a.status,
-
-    applied:a.applied_date,
-
-    location:a.location,
-
-    recruiter:a.recruiter_name,
-
-    contacted:a.contacted_date,
-
-    email:a.recruiter_email,
-
-    phone:a.recruiter_phone,
-
-    url:a.job_url,
-
-    notes:a.notes,
-
-    history:[
-      {
-        status:a.status,
-        date:a.applied_date
-      }
-    ]
-
-  };
-
-}
-
-
-/* ---------------------------------------------------------
-   MERGE LOCAL + CLOUD
---------------------------------------------------------- */
-
-function mergeApplications(
-  localApps,
-  cloudApps
-){
-
-  const merged = [];
-
-  const byId =
-    new Map();
-
-
-  /*
-   * First add local applications.
-   */
-
-  for(const app of localApps){
-
-    if(!app.id){
-
-      app.id =
-        crypto.randomUUID();
-
-    }
-
-    byId.set(
-      app.id,
-      app
-    );
-
-    merged.push(app);
-
-  }
-
-
-  /*
-   * Then add cloud applications.
-   *
-   * Cloud records update existing records
-   * with the same ID.
-   */
-
-  for(const cloud of cloudApps){
-
-    const cloudApp =
-      cloudToLocal(cloud);
-
-
-    const existing =
-      byId.get(cloudApp.id);
-
-
-    if(existing){
-
-      /*
-       * Keep local history if available.
-       */
-
-      const history =
-        existing.history &&
-        existing.history.length
-          ? existing.history
-          : cloudApp.history;
-
-
-      const mergedApp = {
-
-        ...existing,
-
-        ...cloudApp,
-
-        history
-
-      };
-
-
-      const index =
-        merged.findIndex(
-          x => x.id === cloudApp.id
-        );
-
-
-      if(index > -1){
-
-        merged[index] =
-          mergedApp;
-
-      }
-
-      byId.set(
-        cloudApp.id,
-        mergedApp
-      );
-
-
-    }else{
-
-      merged.push(
-        cloudApp
-      );
-
-      byId.set(
-        cloudApp.id,
-        cloudApp
-      );
-
-    }
-
-  }
-
-
-  return merged;
-}
-
-
-/* ---------------------------------------------------------
+/* =========================
    LOAD CLOUD APPLICATIONS
---------------------------------------------------------- */
+========================= */
 
 async function loadCloudApplications(){
 
-  if(!sb || !currentSession){
+  if(
+    !sb ||
+    !currentSession
+  ){
 
     return;
 
   }
 
+
+  /*
+   * Load applications.
+   */
 
   const {
     data,
@@ -1742,41 +1939,174 @@ async function loadCloudApplications(){
       error
     );
 
-    /*
-     * IMPORTANT:
-     * Do not destroy local applications
-     * if cloud loading fails.
-     */
-
-    save();
-
     return;
 
   }
 
 
-  const cloudApps =
-    data || [];
+  /*
+   * Load ALL status events.
+   */
+
+  const {
+    data:eventData,
+    error:eventError
+  } =
+    await sb
+      .from("application_events")
+      .select("*")
+      .eq(
+        "user_id",
+        currentSession.user.id
+      )
+      .order(
+        "event_date",
+        {
+          ascending:true
+        }
+      );
+
+
+  if(eventError){
+
+    console.error(
+      "Load application events error:",
+      eventError
+    );
+
+  }
+
+
+  const eventsByApplication =
+    {};
+
+
+  (eventData || [])
+    .forEach(event => {
+
+      if(
+        !eventsByApplication[
+          event.application_id
+        ]
+      ){
+
+        eventsByApplication[
+          event.application_id
+        ] = [];
+
+      }
+
+
+      eventsByApplication[
+        event.application_id
+      ].push({
+
+        status:
+          event.event_type ||
+          "Status update",
+
+        date:
+          event.event_date,
+
+        source:
+          event.details?.source ||
+          "system"
+
+      });
+
+    });
 
 
   /*
-   * IMPORTANT FIX:
-   *
-   * Previously:
-   *
-   * apps = cloudApps
-   *
-   * That caused locally stored applications
-   * to disappear.
-   *
-   * Now we MERGE them.
+   * Rebuild application objects.
    */
 
   apps =
-    mergeApplications(
-      apps,
-      cloudApps
-    );
+    (data || [])
+      .map(a => {
+
+        let history =
+          eventsByApplication[
+            a.id
+          ] || [];
+
+
+        /*
+         * Backward compatibility:
+         * if an old application has
+         * no events, create a basic
+         * Applied event locally.
+         */
+
+        if(
+          history.length === 0 &&
+          a.applied_date
+        ){
+
+          history = [
+
+            {
+              status:
+                "Applied",
+
+              date:
+                a.applied_date,
+
+              source:
+                "legacy"
+            }
+
+          ];
+
+        }
+
+
+        return {
+
+          id:
+            a.id,
+
+          company:
+            a.company,
+
+          role:
+            a.role,
+
+          source:
+            a.source,
+
+          status:
+            a.status,
+
+          applied:
+            a.applied_date,
+
+          location:
+            a.location,
+
+          recruiter:
+            a.recruiter_name,
+
+          contacted:
+            a.contacted_date,
+
+          email:
+            a.recruiter_email,
+
+          phone:
+            a.recruiter_phone,
+
+          url:
+            a.job_url,
+
+          notes:
+            a.notes,
+
+          history
+
+        };
+
+      });
 
 
   save();
@@ -1784,20 +2114,25 @@ async function loadCloudApplications(){
 }
 
 
-/* ---------------------------------------------------------
-   SUPABASE AUTH
---------------------------------------------------------- */
+/* =========================
+   AUTH
+========================= */
 
 function showAuth(){
 
   if(!configured()){
 
     $("authArea").innerHTML = `
+
       <div class="small">
+
         Supabase is not configured in this build yet.
+
         Add the Publishable Key to
         <b>supabase-config.js</b>.
+
       </div>
+
     `;
 
     return;
@@ -1827,19 +2162,27 @@ function showAuth(){
   }
 
 
-  sb.auth.getSession()
-    .then(({data}) => {
+  sb.auth
+    .getSession()
+    .then(
+      async ({
+        data
+      }) => {
 
-      currentSession =
-        data.session;
+        currentSession =
+          data.session;
 
-      updateAuthUI();
+        updateAuthUI();
 
-    });
+      }
+    );
 
 
   sb.auth.onAuthStateChange(
-    (event,session) => {
+    async (
+      event,
+      session
+    ) => {
 
       currentSession =
         session;
@@ -1849,9 +2192,6 @@ function showAuth(){
           session &&
           session.provider_token
         );
-
-
-      updateAuthUI();
 
 
       if(
@@ -1880,7 +2220,9 @@ function showAuth(){
       }
 
 
-      if(event === "SIGNED_OUT"){
+      if(
+        event === "SIGNED_OUT"
+      ){
 
         sessionStorage.removeItem(
           "jobTrackerGoogleToken"
@@ -1892,15 +2234,18 @@ function showAuth(){
 
       }
 
+
+      updateAuthUI();
+
     }
   );
 
 }
 
 
-/* ---------------------------------------------------------
+/* =========================
    AUTH UI
---------------------------------------------------------- */
+========================= */
 
 function updateAuthUI(){
 
@@ -1915,12 +2260,15 @@ function updateAuthUI(){
           <b>Gmail</b>
 
           <div class="small">
-            Connect Google to enable Gmail job-email detection.
+            Connect Google to enable
+            Gmail job-email detection.
           </div>
 
         </div>
 
-        <button onclick="connectGoogle()">
+        <button
+          onclick="connectGoogle()"
+        >
           Connect Gmail
         </button>
 
@@ -1948,14 +2296,15 @@ function updateAuthUI(){
 
       <div>
 
-        <b>${esc(email)}</b>
+        <b>
+          ${esc(email)}
+        </b>
 
         <div class="status-dot">
           ● Gmail connected
         </div>
 
       </div>
-
 
       <div
         style="
@@ -1965,7 +2314,9 @@ function updateAuthUI(){
         "
       >
 
-        <button onclick="syncGmail()">
+        <button
+          onclick="syncGmail()"
+        >
           Sync Gmail
         </button>
 
@@ -1985,26 +2336,28 @@ function updateAuthUI(){
       style="margin-top:12px"
       class="small"
     >
-      Gmail permission: read-only.
-      Press <b>Sync Gmail</b> to scan recent job emails.
+
+      Gmail permission:
+      read-only.
+
+      Press <b>Sync Gmail</b>
+      to scan recent job emails.
+
     </div>
 
 
     <div
       id="syncResult"
-      class="sync-status"
+      class="small"
+      style="margin-top:8px"
     ></div>
 
   `;
 
 
   $("notice").textContent =
-    "☁️ Gmail connected. Ready to sync job applications.";
+    "☁️ Gmail connected. Your applications and status history are synced with the cloud.";
 
-
-  /*
-   * Load cloud data WITHOUT replacing local data.
-   */
 
   loadCloudApplications()
     .then(() => {
@@ -2018,9 +2371,9 @@ function updateAuthUI(){
 }
 
 
-/* ---------------------------------------------------------
+/* =========================
    GOOGLE CONNECT
---------------------------------------------------------- */
+========================= */
 
 async function connectGoogle(){
 
@@ -2048,8 +2401,13 @@ async function connectGoogle(){
           "openid email profile https://www.googleapis.com/auth/gmail.readonly",
 
         queryParams:{
-          access_type:"offline",
-          prompt:"consent"
+
+          access_type:
+            "offline",
+
+          prompt:
+            "consent"
+
         },
 
         redirectTo:
@@ -2071,9 +2429,9 @@ async function connectGoogle(){
 }
 
 
-/* ---------------------------------------------------------
+/* =========================
    SIGN OUT
---------------------------------------------------------- */
+========================= */
 
 async function signOut(){
 
@@ -2087,9 +2445,9 @@ async function signOut(){
 }
 
 
-/* ---------------------------------------------------------
+/* =========================
    GMAIL SYNC
---------------------------------------------------------- */
+========================= */
 
 async function syncGmail(){
 
@@ -2099,7 +2457,7 @@ async function syncGmail(){
 
   if(result){
 
-    result.textContent =
+    result.innerHTML =
       "⏳ Scanning Gmail...";
 
   }
@@ -2162,12 +2520,13 @@ async function syncGmail(){
 
           },
 
-          body:JSON.stringify({
+          body:
+            JSON.stringify({
 
-            gmailAccessToken:
-              gmailAccessToken
+              gmailAccessToken:
+                gmailAccessToken
 
-          })
+            })
 
         }
 
@@ -2195,13 +2554,19 @@ async function syncGmail(){
 
       result.innerHTML = `
 
-        ✅ Gmail Sync Complete<br>
+        ✅ Gmail Sync Complete
+
+        <br>
 
         Emails scanned:
-        <b>${json.scanned || 0}</b><br>
+        <b>${json.scanned || 0}</b>
+
+        <br>
 
         New applications:
-        <b>${json.newApplications || 0}</b><br>
+        <b>${json.newApplications || 0}</b>
+
+        <br>
 
         Updated applications:
         <b>${json.updatedApplications || 0}</b>
@@ -2212,10 +2577,8 @@ async function syncGmail(){
 
 
     /*
-     * IMPORTANT:
-     *
-     * Reload cloud applications and MERGE them
-     * with local applications.
+     * Reload both applications
+     * and their complete history.
      */
 
     await loadCloudApplications();
@@ -2248,9 +2611,9 @@ async function syncGmail(){
 }
 
 
-/* ---------------------------------------------------------
-   INITIALIZE
---------------------------------------------------------- */
+/* =========================
+   SEARCH / FILTER EVENTS
+========================= */
 
 $("search").oninput =
   render;
@@ -2262,6 +2625,10 @@ $("sourceFilter").onchange =
   render;
 
 
+/* =========================
+   INITIALIZE
+========================= */
+
 fill();
 
 render();
@@ -2269,11 +2636,15 @@ render();
 showAuth();
 
 
-if("serviceWorker" in navigator){
+if(
+  "serviceWorker" in navigator
+){
 
   navigator.serviceWorker
     .register("sw.js")
-    .catch(() => {});
+    .catch(
+      () => {}
+    );
 
 }
 
