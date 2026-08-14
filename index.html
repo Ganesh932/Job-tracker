@@ -15,50 +15,49 @@
 <style>
 *{box-sizing:border-box}
 
+:root{
+  --bg:#f6f7f9;
+  --card:#fff;
+  --text:#111827;
+  --muted:#6b7280;
+  --border:#e5e7eb;
+  --soft:#f3f4f6;
+  --primary:#111827;
+  --blue:#2563eb;
+  --green:#16a34a;
+  --red:#dc2626;
+  --orange:#d97706;
+  --purple:#7c3aed;
+}
+
 body{
   margin:0;
   font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-  background:#f6f7f9;
-  color:#111827;
+  background:var(--bg);
+  color:var(--text);
 }
 
-button,input,select,textarea{
-  font:inherit;
-}
+button,input,select,textarea{font:inherit}
 
 button{
   border:0;
   border-radius:12px;
   padding:11px 14px;
-  background:#111827;
+  background:var(--primary);
   color:#fff;
   font-weight:650;
   cursor:pointer;
+  transition:.15s;
 }
 
-button:active{
-  transform:scale(.98);
-}
+button:hover{opacity:.9}
+button:active{transform:scale(.98)}
 
-.secondary{
-  background:#eef0f3;
-  color:#111827;
-}
-
-.danger{
-  background:#fee2e2;
-  color:#991b1b;
-}
-
-.success{
-  background:#dcfce7;
-  color:#166534;
-}
-
-.warning{
-  background:#fef3c7;
-  color:#92400e;
-}
+.secondary{background:#eef0f3;color:var(--text)}
+.danger{background:#fee2e2;color:#991b1b}
+.success{background:#dcfce7;color:#166534}
+.warning{background:#fef3c7;color:#92400e}
+.blue{background:#dbeafe;color:#1d4ed8}
 
 header{
   position:sticky;
@@ -67,26 +66,18 @@ header{
   background:rgba(255,255,255,.96);
   backdrop-filter:blur(14px);
   padding:13px 16px;
-  border-bottom:1px solid #e5e7eb;
+  border-bottom:1px solid var(--border);
   display:flex;
   justify-content:space-between;
   align-items:center;
   gap:10px;
 }
 
-h1{
-  margin:0;
-  font-size:22px;
-}
-
-.sub{
-  margin-top:3px;
-  color:#6b7280;
-  font-size:12px;
-}
+h1{margin:0;font-size:22px}
+.sub{margin-top:3px;color:var(--muted);font-size:12px}
 
 main{
-  max-width:900px;
+  max-width:1050px;
   margin:auto;
   padding:14px 14px 110px;
 }
@@ -109,48 +100,32 @@ main{
 }
 
 .stat{
-  background:#fff;
+  background:var(--card);
   border-radius:15px;
   padding:12px 5px;
   text-align:center;
   border:1px solid #eceef1;
 }
 
-.num{
-  font-size:20px;
-  font-weight:750;
-}
-
-.label{
-  font-size:11px;
-  color:#6b7280;
-  margin-top:2px;
-}
+.num{font-size:20px;font-weight:750}
+.label{font-size:11px;color:var(--muted);margin-top:2px}
 
 .insights{
   display:grid;
-  grid-template-columns:repeat(3,1fr);
+  grid-template-columns:repeat(4,1fr);
   gap:8px;
   margin-bottom:14px;
 }
 
 .insight{
-  background:#fff;
+  background:var(--card);
   border:1px solid #e7e9ec;
   border-radius:15px;
   padding:13px;
 }
 
-.insight-title{
-  font-size:11px;
-  color:#6b7280;
-}
-
-.insight-value{
-  font-size:16px;
-  font-weight:750;
-  margin-top:4px;
-}
+.insight-title{font-size:11px;color:var(--muted)}
+.insight-value{font-size:16px;font-weight:750;margin-top:4px}
 
 .toolbar{
   display:flex;
@@ -158,9 +133,7 @@ main{
   margin-bottom:9px;
 }
 
-.toolbar>*:first-child{
-  flex:1;
-}
+.toolbar>*:first-child{flex:1}
 
 input,select,textarea{
   width:100%;
@@ -168,32 +141,28 @@ input,select,textarea{
   border:1px solid #d7dbe0;
   border-radius:11px;
   background:#fff;
-  color:#111827;
+  color:var(--text);
   outline:none;
 }
 
 input:focus,select:focus,textarea:focus{
-  border-color:#9ca3af;
+  border-color:#2563eb;
+  box-shadow:0 0 0 3px rgba(37,99,235,.08);
 }
 
 .form{
   display:none;
-  background:#fff;
-  border:1px solid #e5e7eb;
+  background:var(--card);
+  border:1px solid var(--border);
   border-radius:17px;
   padding:16px;
   margin:12px 0;
   box-shadow:0 4px 18px rgba(0,0,0,.04);
 }
 
-.form h2{
-  margin:0 0 14px;
-  font-size:20px;
-}
+.form h2{margin:0 0 14px;font-size:20px}
 
-.field{
-  margin-bottom:10px;
-}
+.field{margin-bottom:10px}
 
 .field label{
   display:block;
@@ -215,32 +184,26 @@ input:focus,select:focus,textarea:focus{
   gap:8px;
 }
 
-.actions{
-  display:flex;
-  gap:8px;
-  margin-top:6px;
-}
-
-.actions>*{
-  flex:1;
-}
+.actions{display:flex;gap:8px;margin-top:6px}
+.actions>*{flex:1}
 
 .app{
-  background:#fff;
+  background:var(--card);
   border:1px solid #e7e9ec;
   border-radius:17px;
   padding:15px;
   margin:10px 0;
   box-shadow:0 2px 10px rgba(0,0,0,.025);
+  transition:.15s;
 }
 
-.app.overdue{
-  border-left:4px solid #dc2626;
+.app:hover{
+  box-shadow:0 5px 20px rgba(0,0,0,.06);
 }
 
-.app.today{
-  border-left:4px solid #d97706;
-}
+.app.overdue{border-left:4px solid var(--red)}
+.app.today{border-left:4px solid var(--orange)}
+.app.interview-soon{border-left:4px solid var(--blue)}
 
 .app-head{
   display:flex;
@@ -248,21 +211,9 @@ input:focus,select:focus,textarea:focus{
   gap:12px;
 }
 
-.company{
-  font-size:17px;
-  font-weight:750;
-}
-
-.role{
-  font-size:14px;
-  margin-top:2px;
-}
-
-.muted{
-  color:#6b7280;
-  font-size:12px;
-  margin-top:4px;
-}
+.company{font-size:17px;font-weight:750}
+.role{font-size:14px;margin-top:2px}
+.muted{color:var(--muted);font-size:12px;margin-top:4px}
 
 .pill{
   display:inline-block;
@@ -285,20 +236,9 @@ input:focus,select:focus,textarea:focus{
   margin-top:6px;
 }
 
-.priority-high{
-  background:#fee2e2;
-  color:#991b1b;
-}
-
-.priority-medium{
-  background:#fef3c7;
-  color:#92400e;
-}
-
-.priority-low{
-  background:#dcfce7;
-  color:#166534;
-}
+.priority-high{background:#fee2e2;color:#991b1b}
+.priority-medium{background:#fef3c7;color:#92400e}
+.priority-low{background:#dcfce7;color:#166534}
 
 .followup{
   margin-top:11px;
@@ -308,15 +248,8 @@ input:focus,select:focus,textarea:focus{
   font-size:12px;
 }
 
-.followup.overdue{
-  background:#fef2f2;
-  color:#991b1b;
-}
-
-.followup.today{
-  background:#fffbeb;
-  color:#92400e;
-}
+.followup.overdue{background:#fef2f2;color:#991b1b}
+.followup.today{background:#fffbeb;color:#92400e}
 
 .contact{
   margin-top:12px;
@@ -326,7 +259,7 @@ input:focus,select:focus,textarea:focus{
 }
 
 .contact a{
-  color:#111827;
+  color:var(--text);
   text-decoration:none;
 }
 
@@ -344,19 +277,12 @@ input:focus,select:focus,textarea:focus{
   padding:7px 9px;
 }
 
-.details{
-  margin-top:10px;
-}
-
-.details summary{
-  font-size:13px;
-  font-weight:650;
-  cursor:pointer;
-}
+.details{margin-top:10px}
+.details summary{font-size:13px;font-weight:650;cursor:pointer}
 
 .timeline{
   margin:10px 0 0 4px;
-  border-left:2px solid #e5e7eb;
+  border-left:2px solid var(--border);
   padding-left:12px;
 }
 
@@ -373,25 +299,12 @@ input:focus,select:focus,textarea:focus{
   width:7px;
   height:7px;
   border-radius:50%;
-  background:#111827;
+  background:var(--primary);
 }
 
-.event strong{
-  font-size:12px;
-}
-
-.event small{
-  display:block;
-  color:#6b7280;
-  margin-top:2px;
-}
-
-.event-source{
-  display:inline-block;
-  margin-top:3px;
-  font-size:10px;
-  color:#6b7280;
-}
+.event strong{font-size:12px}
+.event small{display:block;color:var(--muted);margin-top:2px}
+.event-source{display:inline-block;margin-top:3px;font-size:10px;color:var(--muted)}
 
 .quick-status{
   display:flex;
@@ -408,7 +321,7 @@ input:focus,select:focus,textarea:focus{
 
 .empty{
   text-align:center;
-  color:#6b7280;
+  color:var(--muted);
   padding:42px 15px;
 }
 
@@ -419,28 +332,23 @@ input:focus,select:focus,textarea:focus{
   bottom:0;
   background:rgba(255,255,255,.97);
   backdrop-filter:blur(12px);
-  border-top:1px solid #e5e7eb;
+  border-top:1px solid var(--border);
   padding:10px 14px calc(10px + env(safe-area-inset-bottom));
   z-index:60;
 }
 
-.bottom button{
-  width:100%;
-}
+.bottom button{width:100%}
 
 .account{
   display:none;
-  background:#fff;
-  border:1px solid #e5e7eb;
+  background:var(--card);
+  border:1px solid var(--border);
   border-radius:17px;
   padding:15px;
   margin-bottom:12px;
 }
 
-.account h2{
-  margin:0 0 10px;
-  font-size:18px;
-}
+.account h2{margin:0 0 10px;font-size:18px}
 
 .account-row{
   display:flex;
@@ -449,15 +357,8 @@ input:focus,select:focus,textarea:focus{
   align-items:center;
 }
 
-.status-dot{
-  font-size:12px;
-  color:#166534;
-}
-
-.small{
-  font-size:11px;
-  color:#6b7280;
-}
+.status-dot{font-size:12px;color:#166534}
+.small{font-size:11px;color:var(--muted)}
 
 .sync-loading{
   margin-top:8px;
@@ -472,10 +373,7 @@ input:focus,select:focus,textarea:focus{
   margin:10px 0;
 }
 
-.tools button{
-  font-size:11px;
-  padding:8px 10px;
-}
+.tools button{font-size:11px;padding:8px 10px}
 
 .section-title{
   font-size:14px;
@@ -504,39 +402,128 @@ input:focus,select:focus,textarea:focus{
   color:#374151;
 }
 
+.dashboard-bar{
+  height:8px;
+  background:#eef0f3;
+  border-radius:999px;
+  overflow:hidden;
+  margin-top:7px;
+}
+
+.dashboard-bar span{
+  display:block;
+  height:100%;
+  border-radius:999px;
+  background:#111827;
+  transition:.3s;
+}
+
+.progress-text{
+  display:flex;
+  justify-content:space-between;
+  font-size:10px;
+  color:var(--muted);
+  margin-top:4px;
+}
+
+.modal{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(17,24,39,.45);
+  z-index:100;
+  padding:20px;
+  overflow:auto;
+}
+
+.modal-card{
+  max-width:650px;
+  margin:50px auto;
+  background:#fff;
+  border-radius:20px;
+  padding:18px;
+  box-shadow:0 20px 60px rgba(0,0,0,.2);
+}
+
+.modal-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+}
+
+.modal-head h2{margin:0}
+
+.close-btn{
+  background:#f3f4f6;
+  color:#111827;
+  padding:7px 10px;
+}
+
+.kpi-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:9px;
+  margin-top:12px;
+}
+
+.kpi{
+  padding:12px;
+  border-radius:13px;
+  background:#f8fafc;
+  border:1px solid #eef0f2;
+}
+
+.kpi b{
+  display:block;
+  font-size:18px;
+}
+
+.kpi span{
+  display:block;
+  font-size:10px;
+  color:var(--muted);
+  margin-top:2px;
+}
+
+.toast{
+  position:fixed;
+  left:50%;
+  bottom:80px;
+  transform:translateX(-50%) translateY(20px);
+  background:#111827;
+  color:#fff;
+  padding:11px 15px;
+  border-radius:12px;
+  font-size:12px;
+  opacity:0;
+  pointer-events:none;
+  transition:.25s;
+  z-index:200;
+  max-width:90%;
+  text-align:center;
+}
+
+.toast.show{
+  opacity:1;
+  transform:translateX(-50%) translateY(0);
+}
+
+@media(max-width:700px){
+  .stats{grid-template-columns:repeat(2,1fr)}
+  .insights{grid-template-columns:1fr 1fr}
+}
+
 @media(max-width:600px){
+  .grid2,.grid3,.salary-row{grid-template-columns:1fr}
+  .app-head{align-items:flex-start}
+  header button{padding:9px 10px}
+  .toolbar{flex-direction:column}
+  .toolbar>*:first-child{flex:none}
+}
 
-  .stats{
-    gap:6px;
-  }
-
-  .stat{
-    padding:10px 2px;
-  }
-
-  .insights{
-    grid-template-columns:1fr;
-  }
-
-  .grid2{
-    grid-template-columns:1fr;
-  }
-
-  .grid3{
-    grid-template-columns:1fr;
-  }
-
-  .salary-row{
-    grid-template-columns:1fr;
-  }
-
-  .app-head{
-    align-items:flex-start;
-  }
-
-  header button{
-    padding:9px 10px;
-  }
+@media(max-width:400px){
+  .insights{grid-template-columns:1fr}
 }
 </style>
 </head>
@@ -544,274 +531,148 @@ input:focus,select:focus,textarea:focus{
 <body>
 
 <header>
-
   <div>
-    <h1>💼 Job Tracker</h1>
-    <div class="sub">
-      Job search command center
-    </div>
+    <h1>💼 Job Tracker Pro</h1>
+    <div class="sub">Your complete job-search command center</div>
   </div>
 
-  <button
-    class="secondary"
-    onclick="toggleAccount()"
-  >
-    Account
-  </button>
-
+  <div style="display:flex;gap:6px">
+    <button class="secondary" onclick="openDashboard()">📊</button>
+    <button class="secondary" onclick="toggleAccount()">Account</button>
+  </div>
 </header>
 
 <main>
 
-<div
-  class="notice"
-  id="notice"
->
+<div class="notice" id="notice">
   🔒 Applications stay on this device until cloud sync is enabled.
 </div>
 
-<section
-  class="account"
-  id="account"
->
-
+<section class="account" id="account">
   <h2>Account & Gmail</h2>
-
   <div id="authArea"></div>
-
 </section>
-
 
 <section class="stats">
 
   <div class="stat">
-    <div
-      class="num"
-      id="total"
-    >
-      0
-    </div>
-
-    <div class="label">
-      Applications
-    </div>
+    <div class="num" id="total">0</div>
+    <div class="label">Applications</div>
   </div>
 
   <div class="stat">
-    <div
-      class="num"
-      id="interviews"
-    >
-      0
-    </div>
-
-    <div class="label">
-      Interviews
-    </div>
+    <div class="num" id="interviews">0</div>
+    <div class="label">Interviews</div>
   </div>
 
   <div class="stat">
-    <div
-      class="num"
-      id="offers"
-    >
-      0
-    </div>
-
-    <div class="label">
-      Offers
-    </div>
+    <div class="num" id="offers">0</div>
+    <div class="label">Offers</div>
   </div>
 
   <div class="stat">
-    <div
-      class="num"
-      id="rejected"
-    >
-      0
-    </div>
-
-    <div class="label">
-      Rejected
-    </div>
+    <div class="num" id="rejected">0</div>
+    <div class="label">Rejected</div>
   </div>
 
 </section>
-
 
 <section class="insights">
 
   <div class="insight">
-
-    <div class="insight-title">
-      🔔 Follow-ups due
-    </div>
-
-    <div
-      class="insight-value"
-      id="followupsDue"
-    >
-      0
-    </div>
-
+    <div class="insight-title">🔔 Follow-ups due</div>
+    <div class="insight-value" id="followupsDue">0</div>
   </div>
 
   <div class="insight">
-
-    <div class="insight-title">
-      ⭐ High priority
-    </div>
-
-    <div
-      class="insight-value"
-      id="highPriority"
-    >
-      0
-    </div>
-
+    <div class="insight-title">⭐ High priority</div>
+    <div class="insight-value" id="highPriority">0</div>
   </div>
 
   <div class="insight">
+    <div class="insight-title">📅 Upcoming interviews</div>
+    <div class="insight-value" id="upcomingInterviews">0</div>
+  </div>
 
-    <div class="insight-title">
-      📅 Interviews upcoming
-    </div>
-
-    <div
-      class="insight-value"
-      id="upcomingInterviews"
-    >
-      0
-    </div>
-
+  <div class="insight">
+    <div class="insight-title">📈 Success rate</div>
+    <div class="insight-value" id="successRate">0%</div>
   </div>
 
 </section>
-
 
 <div class="toolbar">
 
   <input
     id="search"
-    placeholder="Search company, role or recruiter"
+    placeholder="🔎 Search company, role or recruiter"
     autocomplete="off"
   >
 
-  <button onclick="openForm()">
-    ＋ Add
-  </button>
+  <button onclick="openForm()">＋ Add</button>
 
 </div>
-
 
 <div class="toolbar">
 
   <select id="filter">
-
-    <option value="">
-      All statuses
-    </option>
-
+    <option value="">All statuses</option>
   </select>
 
   <select id="sourceFilter">
+    <option value="">All sources</option>
+    <option>LinkedIn</option>
+    <option>Naukri</option>
+    <option>Other</option>
+    <option>Email</option>
+    <option>Referral</option>
+    <option>Company Website</option>
+  </select>
 
-    <option value="">
-      All sources
-    </option>
-
-    <option>
-      LinkedIn
-    </option>
-
-    <option>
-      Naukri
-    </option>
-
-    <option>
-      Other
-    </option>
-
-    <option>
-      Email
-    </option>
-
+  <select id="priorityFilter">
+    <option value="">All priorities</option>
+    <option value="High">High</option>
+    <option value="Medium">Medium</option>
+    <option value="Low">Low</option>
   </select>
 
 </div>
-
 
 <div class="toolbar">
 
-  <select id="priorityFilter">
-
-    <option value="">
-      All priorities
-    </option>
-
-    <option value="High">
-      High
-    </option>
-
-    <option value="Medium">
-      Medium
-    </option>
-
-    <option value="Low">
-      Low
-    </option>
-
-  </select>
-
-
   <select id="sortBy">
 
-    <option value="newest">
-      Newest first
-    </option>
-
-    <option value="oldest">
-      Oldest first
-    </option>
-
-    <option value="company">
-      Company A-Z
-    </option>
-
-    <option value="followup">
-      Follow-up first
-    </option>
-
-    <option value="interview">
-      Interview date
-    </option>
+    <option value="newest">Newest first</option>
+    <option value="oldest">Oldest first</option>
+    <option value="company">Company A-Z</option>
+    <option value="followup">Follow-up first</option>
+    <option value="interview">Interview date</option>
+    <option value="priority">Priority first</option>
 
   </select>
+
+  <button class="secondary" onclick="clearFilters()">
+    Clear Filters
+  </button>
 
 </div>
 
-
 <div class="tools">
 
-  <button
-    class="secondary"
-    onclick="exportCSV()"
-  >
+  <button class="secondary" onclick="exportCSV()">
     📊 Export CSV
   </button>
 
-  <button
-    class="secondary"
-    onclick="backupJSON()"
-  >
+  <button class="secondary" onclick="backupJSON()">
     💾 Backup
   </button>
 
-  <button
-    class="secondary"
-    onclick="document.getElementById('importFile').click()"
-  >
+  <button class="secondary" onclick="document.getElementById('importFile').click()">
     📥 Import
+  </button>
+
+  <button class="secondary" onclick="addDemoData()">
+    🧪 Demo Data
   </button>
 
   <input
@@ -824,391 +685,226 @@ input:focus,select:focus,textarea:focus{
 
 </div>
 
+<section class="form" id="form">
 
-<section
-  class="form"
-  id="form"
->
-
-  <h2 id="formTitle">
-    Add application
-  </h2>
-
+  <h2 id="formTitle">Add application</h2>
 
   <div class="grid2">
 
     <div class="field">
-
-      <label>
-        Company *
-      </label>
-
-      <input
-        id="company"
-        placeholder="e.g. Cisco"
-      >
-
+      <label>Company *</label>
+      <input id="company" placeholder="e.g. Cisco">
     </div>
 
-
     <div class="field">
-
-      <label>
-        Job title
-      </label>
-
-      <input
-        id="role"
-        placeholder="e.g. Network Engineer"
-      >
-
+      <label>Job title</label>
+      <input id="role" placeholder="e.g. Network Engineer">
     </div>
 
   </div>
 
-
   <div class="grid2">
 
     <div class="field">
-
-      <label>
-        Source
-      </label>
-
+      <label>Source</label>
       <select id="source">
-
-        <option>
-          LinkedIn
-        </option>
-
-        <option>
-          Naukri
-        </option>
-
-        <option>
-          Other
-        </option>
-
-        <option>
-          Email
-        </option>
-
+        <option>LinkedIn</option>
+        <option>Naukri</option>
+        <option>Other</option>
+        <option>Email</option>
+        <option>Referral</option>
+        <option>Company Website</option>
       </select>
-
     </div>
 
-
     <div class="field">
-
-      <label>
-        Status
-      </label>
-
+      <label>Status</label>
       <select id="status"></select>
-
     </div>
 
   </div>
 
-
   <div class="grid2">
 
     <div class="field">
-
-      <label>
-        Applied date
-      </label>
-
-      <input
-        id="applied"
-        type="date"
-      >
-
+      <label>Applied date</label>
+      <input id="applied" type="date">
     </div>
 
-
     <div class="field">
-
-      <label>
-        Location
-      </label>
-
-      <input
-        id="location"
-        placeholder="Hyderabad / Remote"
-      >
-
+      <label>Location</label>
+      <input id="location" placeholder="Hyderabad / Remote">
     </div>
 
   </div>
 
-
   <div class="grid2">
 
     <div class="field">
-
-      <label>
-        Priority
-      </label>
-
+      <label>Priority</label>
       <select id="priority">
-
-        <option value="High">
-          High
-        </option>
-
-        <option
-          value="Medium"
-          selected
-        >
-          Medium
-        </option>
-
-        <option value="Low">
-          Low
-        </option>
-
+        <option value="High">High</option>
+        <option value="Medium" selected>Medium</option>
+        <option value="Low">Low</option>
       </select>
-
     </div>
 
-
     <div class="field">
-
-      <label>
-        Follow-up date
-      </label>
-
-      <input
-        id="followup"
-        type="date"
-      >
-
+      <label>Follow-up date</label>
+      <input id="followup" type="date">
     </div>
 
   </div>
-
 
   <div class="grid2">
 
     <div class="field">
-
-      <label>
-        Interview date
-      </label>
-
-      <input
-        id="interviewDate"
-        type="datetime-local"
-      >
-
+      <label>Interview date & time</label>
+      <input id="interviewDate" type="datetime-local">
     </div>
-
 
     <div class="field">
-
-      <label>
-        Notice period
-      </label>
-
-      <input
-        id="noticePeriod"
-        placeholder="20 days"
-      >
-
+      <label>Notice period</label>
+      <input id="noticePeriod" placeholder="20 days">
     </div>
 
   </div>
 
-
-  <div class="section-title">
-    💰 Compensation
-  </div>
-
+  <div class="section-title">💰 Compensation</div>
 
   <div class="salary-row">
 
     <div class="field">
-
-      <label>
-        Current CTC
-      </label>
-
-      <input
-        id="currentCtc"
-        placeholder="3.8 LPA"
-      >
-
+      <label>Current CTC</label>
+      <input id="currentCtc" placeholder="3.8 LPA">
     </div>
 
-
     <div class="field">
-
-      <label>
-        Expected CTC
-      </label>
-
-      <input
-        id="expectedCtc"
-        placeholder="9 LPA"
-      >
-
+      <label>Expected CTC</label>
+      <input id="expectedCtc" placeholder="9 LPA">
     </div>
 
-
     <div class="field">
-
-      <label>
-        Offered CTC
-      </label>
-
-      <input
-        id="offeredCtc"
-        placeholder="10 LPA"
-      >
-
+      <label>Offered CTC</label>
+      <input id="offeredCtc" placeholder="10 LPA">
     </div>
 
   </div>
 
-
-  <div class="section-title">
-    👤 Recruiter
-  </div>
-
+  <div class="section-title">👤 Recruiter</div>
 
   <div class="grid2">
 
     <div class="field">
-
-      <label>
-        Recruiter name
-      </label>
-
-      <input
-        id="recruiter"
-        placeholder="Recruiter / HR name"
-      >
-
+      <label>Recruiter name</label>
+      <input id="recruiter" placeholder="Recruiter / HR name">
     </div>
 
-
     <div class="field">
-
-      <label>
-        Contacted date
-      </label>
-
-      <input
-        id="contacted"
-        type="date"
-      >
-
+      <label>Contacted date</label>
+      <input id="contacted" type="date">
     </div>
 
   </div>
-
 
   <div class="grid2">
 
     <div class="field">
-
-      <label>
-        Recruiter email
-      </label>
-
-      <input
-        id="email"
-        type="email"
-        placeholder="name@company.com"
-      >
-
+      <label>Recruiter email</label>
+      <input id="email" type="email" placeholder="name@company.com">
     </div>
-
 
     <div class="field">
-
-      <label>
-        Recruiter phone
-      </label>
-
-      <input
-        id="phone"
-        type="tel"
-        placeholder="+91..."
-      >
-
+      <label>Recruiter phone</label>
+      <input id="phone" type="tel" placeholder="+91...">
     </div>
 
   </div>
 
-
   <div class="field">
-
-    <label>
-      Job URL
-    </label>
-
-    <input
-      id="url"
-      type="url"
-      placeholder="https://..."
-    >
-
+    <label>Job URL</label>
+    <input id="url" type="url" placeholder="https://...">
   </div>
 
-
   <div class="field">
-
-    <label>
-      Notes
-    </label>
-
-    <textarea
-      id="notes"
-      rows="3"
-      placeholder="Interview details, follow-up notes, salary, etc."
-    ></textarea>
-
+    <label>Notes</label>
+    <textarea id="notes" rows="3" placeholder="Interview details, follow-up notes, salary, etc."></textarea>
   </div>
-
 
   <div class="actions">
 
-    <button onclick="saveApp()">
-      Save
-    </button>
+    <button onclick="saveApp()">Save Application</button>
 
-    <button
-      class="secondary"
-      onclick="closeForm()"
-    >
-      Cancel
-    </button>
+    <button class="secondary" onclick="closeForm()">Cancel</button>
 
   </div>
 
 </section>
 
-
 <section id="list"></section>
 
 </main>
 
-
 <div class="bottom">
+  <button onclick="openForm()">＋ Add Job Application</button>
+</div>
 
-  <button onclick="openForm()">
-    ＋ Add Job Application
-  </button>
+<div class="modal" id="dashboardModal">
+
+  <div class="modal-card">
+
+    <div class="modal-head">
+
+      <h2>📊 Job Search Dashboard</h2>
+
+      <button class="close-btn" onclick="closeDashboard()">✕</button>
+
+    </div>
+
+    <div class="kpi-grid">
+
+      <div class="kpi">
+        <b id="dashTotal">0</b>
+        <span>Total Applications</span>
+      </div>
+
+      <div class="kpi">
+        <b id="dashResponse">0%</b>
+        <span>Response Rate</span>
+      </div>
+
+      <div class="kpi">
+        <b id="dashInterviewRate">0%</b>
+        <span>Interview Rate</span>
+      </div>
+
+      <div class="kpi">
+        <b id="dashOfferRate">0%</b>
+        <span>Offer Rate</span>
+      </div>
+
+    </div>
+
+    <div class="section-title">Application Funnel</div>
+
+    <div id="funnel"></div>
+
+    <div class="section-title">Priority Breakdown</div>
+
+    <div id="priorityDashboard"></div>
+
+    <div class="section-title">Top Job Sources</div>
+
+    <div id="sourceDashboard"></div>
+
+  </div>
 
 </div>
 
+<div class="toast" id="toast"></div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
 <script src="supabase-config.js"></script>
-
 
 <script>
 
@@ -1226,25 +922,16 @@ const statuses = [
 
 ];
 
-
-const $ =
-  id => document.getElementById(id);
-
+const $ = id => document.getElementById(id);
 
 let apps =
   JSON.parse(
-    localStorage.getItem(
-      "jobTrackerApps"
-    ) || "[]"
+    localStorage.getItem("jobTrackerApps") || "[]"
   );
 
-
 let sb = null;
-
 let currentSession = null;
-
 let gmailConnected = false;
-
 let editingId = null;
 
 
@@ -1260,38 +947,21 @@ function today(){
 
 }
 
-
-function nowDate(){
-
-  return new Date();
-
-}
-
-
 function fmt(value){
 
   if(!value) return "—";
 
-  const d =
-    new Date(value);
+  const d = new Date(value);
 
-  if(
-    Number.isNaN(
-      d.getTime()
-    )
-  ){
+  if(Number.isNaN(d.getTime())){
 
-    const parts =
-      String(value).split("-");
+    const parts = String(value).split("-");
 
     if(parts.length === 3){
-
       return `${parts[2]} ${parts[1]} ${parts[0]}`;
-
     }
 
     return value;
-
   }
 
   return d.toLocaleDateString(
@@ -1305,22 +975,14 @@ function fmt(value){
 
 }
 
-
 function fmtDateTime(value){
 
   if(!value) return "—";
 
-  const d =
-    new Date(value);
+  const d = new Date(value);
 
-  if(
-    Number.isNaN(
-      d.getTime()
-    )
-  ){
-
+  if(Number.isNaN(d.getTime())){
     return fmt(value);
-
   }
 
   return d.toLocaleString(
@@ -1336,35 +998,27 @@ function fmtDateTime(value){
 
 }
 
-
 function esc(s){
 
-  return String(
-    s ?? ""
-  ).replace(
-    /[&<>"']/g,
-    c => ({
-      "&":"&amp;",
-      "<":"&lt;",
-      ">":"&gt;",
-      '"':"&quot;",
-      "'":"&#39;"
-    }[c])
-  );
-
-}
-
-
-function attr(s){
-
-  return esc(s)
+  return String(s ?? "")
     .replace(
-      /`/g,
-      "&#96;"
+      /[&<>"']/g,
+      c => ({
+        "&":"&amp;",
+        "<":"&lt;",
+        ">":"&gt;",
+        '"':"&quot;",
+        "'":"&#39;"
+      }[c])
     );
 
 }
 
+function attr(s){
+
+  return esc(s).replace(/`/g,"&#96;");
+
+}
 
 function save(){
 
@@ -1375,24 +1029,37 @@ function save(){
 
 }
 
+function toast(message){
+
+  const t = $("toast");
+
+  t.textContent = message;
+  t.classList.add("show");
+
+  clearTimeout(window.toastTimer);
+
+  window.toastTimer =
+    setTimeout(
+      () => t.classList.remove("show"),
+      2500
+    );
+
+}
 
 function fill(){
 
   $("status").innerHTML =
     statuses
       .map(
-        s =>
-          `<option>${s}</option>`
+        s => `<option>${s}</option>`
       )
       .join("");
-
 
   $("filter").innerHTML =
     '<option value="">All statuses</option>' +
     statuses
       .map(
-        s =>
-          `<option>${s}</option>`
+        s => `<option>${s}</option>`
       )
       .join("");
 
@@ -1400,72 +1067,64 @@ function fill(){
 
 
 /* =========================
-   FOLLOW-UP HELPERS
+   FOLLOW-UP
 ========================= */
 
 function followupState(date){
 
-  if(!date){
-
-    return "";
-
-  }
+  if(!date) return "";
 
   const d =
-    new Date(
-      date + "T00:00:00"
-    );
+    new Date(date + "T00:00:00");
 
-  const t =
-    new Date();
+  const t = new Date();
 
-  t.setHours(
-    0,0,0,0
-  );
+  t.setHours(0,0,0,0);
 
+  if(d < t) return "overdue";
 
-  if(d < t){
-
-    return "overdue";
-
-  }
-
-
-  if(
-    d.getTime() ===
-    t.getTime()
-  ){
-
-    return "today";
-
-  }
-
+  if(d.getTime() === t.getTime()) return "today";
 
   return "future";
 
 }
 
-
 function followupText(date){
 
-  const state =
-    followupState(date);
+  const state = followupState(date);
 
   if(!state) return "";
 
   if(state === "overdue"){
-
     return `🔴 Follow-up overdue · ${fmt(date)}`;
-
   }
 
   if(state === "today"){
-
     return `🟠 Follow-up today · ${fmt(date)}`;
-
   }
 
   return `🔔 Follow-up · ${fmt(date)}`;
+
+}
+
+function interviewState(value){
+
+  if(!value) return "";
+
+  const d = new Date(value);
+
+  if(Number.isNaN(d.getTime())) return "";
+
+  const diff =
+    d.getTime() - Date.now();
+
+  if(diff < 0) return "";
+
+  if(diff <= 24 * 60 * 60 * 1000){
+    return "interview-soon";
+  }
+
+  return "";
 
 }
 
@@ -1476,37 +1135,24 @@ function followupText(date){
 
 function render(){
 
-  $("total").textContent =
-    apps.length;
-
+  $("total").textContent = apps.length;
 
   $("interviews").textContent =
     apps.filter(
-      a =>
-        a.status ===
-        "Interview"
+      a => a.status === "Interview"
     ).length;
-
 
   $("offers").textContent =
     apps.filter(
-      a =>
-        a.status ===
-        "Offer"
+      a => a.status === "Offer"
     ).length;
-
 
   $("rejected").textContent =
     apps.filter(
-      a =>
-        a.status ===
-        "Rejected"
+      a => a.status === "Rejected"
     ).length;
 
-
-  const todayValue =
-    today();
-
+  const todayValue = today();
 
   $("followupsDue").textContent =
     apps.filter(
@@ -1520,42 +1166,48 @@ function render(){
         ].includes(a.status)
     ).length;
 
-
   $("highPriority").textContent =
     apps.filter(
-      a =>
-        a.priority === "High"
+      a => a.priority === "High"
     ).length;
-
 
   $("upcomingInterviews").textContent =
     apps.filter(
       a =>
         a.interviewDate &&
-        new Date(
-          a.interviewDate
-        ) >= new Date()
+        new Date(a.interviewDate) >= new Date()
     ).length;
 
+  const completed =
+    apps.filter(
+      a =>
+        [
+          "Rejected",
+          "Withdrawn",
+          "Offer"
+        ].includes(a.status)
+    ).length;
+
+  const successful =
+    apps.filter(
+      a => a.status === "Offer"
+    ).length;
+
+  $("successRate").textContent =
+    completed
+      ? Math.round(
+          successful / completed * 100
+        ) + "%"
+      : "0%";
 
   const q =
-    $("search")
-      .value
+    $("search").value
       .toLowerCase()
       .trim();
 
-
-  const f =
-    $("filter").value;
-
-
-  const sf =
-    $("sourceFilter").value;
-
-
-  const pf =
-    $("priorityFilter").value;
-
+  const f = $("filter").value;
+  const sf = $("sourceFilter").value;
+  const pf = $("priorityFilter").value;
 
   let list =
     apps.filter(a => {
@@ -1569,120 +1221,93 @@ function render(){
          ${a.notes || ""}`
           .toLowerCase();
 
-
       return (
 
-        (!q ||
-          searchable.includes(q))
+        (!q || searchable.includes(q))
 
         &&
 
-        (!f ||
-          a.status === f)
+        (!f || a.status === f)
 
         &&
 
-        (!sf ||
-          a.source === sf)
+        (!sf || a.source === sf)
 
         &&
 
-        (!pf ||
-          a.priority === pf)
+        (!pf || a.priority === pf)
 
       );
 
     });
 
+  const sort = $("sortBy").value;
 
-  const sort =
-    $("sortBy").value;
+  list.sort((a,b) => {
 
+    if(sort === "company"){
+      return (a.company || "")
+        .localeCompare(b.company || "");
+    }
 
-  list.sort(
-    (a,b) => {
+    if(sort === "oldest"){
+      return new Date(a.applied || 0) -
+             new Date(b.applied || 0);
+    }
 
-      if(sort === "company"){
+    if(sort === "followup"){
+      return new Date(
+        a.followup || "9999-12-31"
+      ) -
+      new Date(
+        b.followup || "9999-12-31"
+      );
+    }
 
-        return (
-          a.company || ""
-        ).localeCompare(
-          b.company || ""
-        );
+    if(sort === "interview"){
+      return new Date(
+        a.interviewDate || "9999-12-31"
+      ) -
+      new Date(
+        b.interviewDate || "9999-12-31"
+      );
+    }
 
-      }
+    if(sort === "priority"){
 
-
-      if(sort === "oldest"){
-
-        return (
-          new Date(
-            a.applied || 0
-          ) -
-          new Date(
-            b.applied || 0
-          )
-        );
-
-      }
-
-
-      if(sort === "followup"){
-
-        return (
-          new Date(
-            a.followup || "9999-12-31"
-          ) -
-          new Date(
-            b.followup || "9999-12-31"
-          )
-        );
-
-      }
-
-
-      if(sort === "interview"){
-
-        return (
-          new Date(
-            a.interviewDate ||
-            "9999-12-31"
-          ) -
-          new Date(
-            b.interviewDate ||
-            "9999-12-31"
-          )
-        );
-
-      }
-
+      const weight = {
+        High:1,
+        Medium:2,
+        Low:3
+      };
 
       return (
-        new Date(
-          b.applied || 0
-        ) -
-        new Date(
-          a.applied || 0
-        )
+        (weight[a.priority] || 9) -
+        (weight[b.priority] || 9)
       );
 
     }
-  );
 
+    return new Date(b.applied || 0) -
+           new Date(a.applied || 0);
+
+  });
 
   $("list").innerHTML =
     list.length
-      ? list
-          .map(card)
-          .join("")
+      ? list.map(card).join("")
       : `
         <div class="empty">
 
-          No applications found.
+          <div style="font-size:32px">📭</div>
+
+          <b>No applications found</b>
 
           <br>
 
-          Add your first application above.
+          <span class="small">
+            Add an application or change your filters.
+          </span>
 
         </div>
       `;
@@ -1701,12 +1326,8 @@ function card(a){
       .slice()
       .sort(
         (x,y) =>
-          new Date(
-            x.date || 0
-          ) -
-          new Date(
-            y.date || 0
-          )
+          new Date(x.date || 0) -
+          new Date(y.date || 0)
       )
       .map(
         e => `
@@ -1714,10 +1335,7 @@ function card(a){
           <div class="event">
 
             <strong>
-              ${esc(
-                e.status ||
-                "Status update"
-              )}
+              ${esc(e.status || "Status update")}
             </strong>
 
             <small>
@@ -1728,8 +1346,7 @@ function card(a){
               e.source
                 ? `
                   <span class="event-source">
-                    Source:
-                    ${esc(e.source)}
+                    Source: ${esc(e.source)}
                   </span>
                 `
                 : ""
@@ -1741,26 +1358,26 @@ function card(a){
       )
       .join("");
 
-
   const hasContact =
     a.recruiter ||
     a.email ||
     a.phone;
 
-
   const followState =
-    followupState(
-      a.followup
-    );
+    followupState(a.followup);
 
+  const interviewClass =
+    interviewState(a.interviewDate);
 
-  const appClass =
-    followState === "overdue"
-      ? "app overdue"
-      : followState === "today"
-        ? "app today"
-        : "app";
+  let appClass = "app";
 
+  if(followState === "overdue"){
+    appClass += " overdue";
+  }else if(followState === "today"){
+    appClass += " today";
+  }else if(interviewClass){
+    appClass += " interview-soon";
+  }
 
   return `
 
@@ -1775,39 +1392,33 @@ function card(a){
           </div>
 
           <div class="role">
-            ${esc(
-              a.role ||
-              "Job application"
-            )}
+            ${esc(a.role || "Job application")}
           </div>
 
           <div class="muted">
 
-            ${esc(
-              a.source ||
-              "Other"
-            )}
+            ${esc(a.source || "Other")}
 
-            · Applied
-            ${fmt(a.applied)}
+            · Applied ${fmt(a.applied)}
+
+            ${
+              a.location
+                ? ` · ${esc(a.location)}`
+                : ""
+            }
 
           </div>
-
 
           ${
             a.priority
               ? `
-                <span
-                  class="
-                    priority
-                    priority-${(
-                      a.priority ||
-                      "Medium"
-                    ).toLowerCase()}
-                  "
-                >
-                  ${esc(a.priority)}
+                <span class="
                   priority
+                  priority-${(
+                    a.priority || "Medium"
+                  ).toLowerCase()}
+                ">
+                  ${esc(a.priority)} priority
                 </span>
               `
               : ""
@@ -1815,59 +1426,50 @@ function card(a){
 
         </div>
 
-
         <span class="pill">
           ${esc(a.status)}
         </span>
 
       </div>
 
-
       ${
-        a.location
+        a.interviewDate
           ? `
             <div class="muted">
-              📍 ${esc(a.location)}
+              🎯 Interview:
+              <b>${fmtDateTime(a.interviewDate)}</b>
             </div>
           `
           : ""
       }
 
-
       <div class="badge-row">
-
-        ${
-          a.interviewDate
-            ? `
-              <span class="badge">
-                🎯 Interview:
-                ${fmtDateTime(
-                  a.interviewDate
-                )}
-              </span>
-            `
-            : ""
-        }
-
 
         ${
           a.expectedCtc
             ? `
               <span class="badge">
-                💰 Expected:
-                ${esc(a.expectedCtc)}
+                💰 Expected: ${esc(a.expectedCtc)}
               </span>
             `
             : ""
         }
 
-
         ${
           a.noticePeriod
             ? `
               <span class="badge">
-                ⏱ Notice:
-                ${esc(a.noticePeriod)}
+                ⏱ Notice: ${esc(a.noticePeriod)}
+              </span>
+            `
+            : ""
+        }
+
+        ${
+          a.recruiter
+            ? `
+              <span class="badge">
+                👤 ${esc(a.recruiter)}
               </span>
             `
             : ""
@@ -1875,24 +1477,18 @@ function card(a){
 
       </div>
 
-
       ${
         a.followup
           ? `
-            <div
-              class="
-                followup
-                ${followState}
-              "
-            >
-              ${followupText(
-                a.followup
-              )}
+            <div class="
+              followup
+              ${followState}
+            ">
+              ${followupText(a.followup)}
             </div>
           `
           : ""
       }
-
 
       ${
         hasContact
@@ -1904,48 +1500,35 @@ function card(a){
 
               <div>
 
-                ${esc(
-                  a.recruiter ||
-                  "—"
-                )}
+                ${esc(a.recruiter || "—")}
 
                 ${
                   a.contacted
                     ? `
-                      · Contacted
-                      ${fmt(
-                        a.contacted
-                      )}
+                      · Contacted ${fmt(a.contacted)}
                     `
                     : ""
                 }
 
               </div>
 
-
               <div class="contact-row">
 
                 ${
                   a.email
                     ? `
-                      <a
-                        href="mailto:${attr(a.email)}"
-                      >
+                      <a href="mailto:${attr(a.email)}">
                         ✉ Email
                       </a>
                     `
                     : ""
                 }
 
-
                 ${
                   a.phone
                     ? `
-                      <a
-                        href="tel:${attr(a.phone)}"
-                      >
-                        📞
-                        ${esc(a.phone)}
+                      <a href="tel:${attr(a.phone)}">
+                        📞 ${esc(a.phone)}
                       </a>
                     `
                     : ""
@@ -1958,7 +1541,6 @@ function card(a){
           `
           : ""
       }
-
 
       <div class="quick-status">
 
@@ -1992,13 +1574,11 @@ function card(a){
 
       </div>
 
-
       <details class="details">
 
         <summary>
           View details & status history
         </summary>
-
 
         <div class="timeline">
 
@@ -2013,11 +1593,9 @@ function card(a){
 
         </div>
 
-
         <div class="section-title">
           Job details
         </div>
-
 
         <div class="badge-row">
 
@@ -2025,39 +1603,33 @@ function card(a){
             a.currentCtc
               ? `
                 <span class="badge">
-                  Current CTC:
-                  ${esc(a.currentCtc)}
+                  Current CTC: ${esc(a.currentCtc)}
                 </span>
               `
               : ""
           }
-
 
           ${
             a.expectedCtc
               ? `
                 <span class="badge">
-                  Expected CTC:
-                  ${esc(a.expectedCtc)}
+                  Expected CTC: ${esc(a.expectedCtc)}
                 </span>
               `
               : ""
           }
 
-
           ${
             a.offeredCtc
               ? `
                 <span class="badge">
-                  Offered CTC:
-                  ${esc(a.offeredCtc)}
+                  Offered CTC: ${esc(a.offeredCtc)}
                 </span>
               `
               : ""
           }
 
         </div>
-
 
         ${
           a.notes
@@ -2069,7 +1641,6 @@ function card(a){
             : ""
         }
 
-
         ${
           a.url
             ? `
@@ -2079,13 +1650,12 @@ function card(a){
                   target="_blank"
                   rel="noopener"
                 >
-                  Open job posting ↗
+                  🔗 Open job posting ↗
                 </a>
               </p>
             `
             : ""
         }
-
 
         <div class="grid3">
 
@@ -2117,28 +1687,18 @@ function card(a){
 
           </select>
 
-
           <button
             class="secondary"
-            onclick="
-              openForm(
-                '${attr(a.id)}'
-              )
-            "
+            onclick="openForm('${attr(a.id)}')"
           >
-            Edit
+            ✏️ Edit
           </button>
-
 
           <button
             class="danger"
-            onclick="
-              removeApp(
-                '${attr(a.id)}'
-              )
-            "
+            onclick="removeApp('${attr(a.id)}')"
           >
-            Delete
+            🗑 Delete
           </button>
 
         </div>
@@ -2158,89 +1718,41 @@ function card(a){
 
 function openForm(id){
 
-  editingId =
-    id || null;
+  editingId = id || null;
 
-
-  $("form").style.display =
-    "block";
-
+  $("form").style.display = "block";
 
   if(id){
 
     const a =
       apps.find(
-        x =>
-          x.id === id
+        x => x.id === id
       );
-
 
     $("formTitle").textContent =
       "Edit application";
 
-
     if(a){
 
-      $("company").value =
-        a.company || "";
-
-      $("role").value =
-        a.role || "";
-
-      $("source").value =
-        a.source ||
-        "LinkedIn";
-
-      $("status").value =
-        a.status ||
-        "Applied";
-
-      $("applied").value =
-        a.applied ||
-        today();
-
-      $("location").value =
-        a.location || "";
-
-      $("priority").value =
-        a.priority ||
-        "Medium";
-
-      $("followup").value =
-        a.followup || "";
-
-      $("interviewDate").value =
-        a.interviewDate || "";
-
-      $("noticePeriod").value =
-        a.noticePeriod || "";
-
-      $("currentCtc").value =
-        a.currentCtc || "";
-
-      $("expectedCtc").value =
-        a.expectedCtc || "";
-
-      $("offeredCtc").value =
-        a.offeredCtc || "";
-
-      $("recruiter").value =
-        a.recruiter || "";
-
-      $("contacted").value =
-        a.contacted || "";
-
-      $("email").value =
-        a.email || "";
-
-      $("phone").value =
-        a.phone || "";
-
-      $("url").value =
-        a.url || "";
-
-      $("notes").value =
-        a.notes || "";
+      $("company").value = a.company || "";
+      $("role").value = a.role || "";
+      $("source").value = a.source || "LinkedIn";
+      $("status").value = a.status || "Applied";
+      $("applied").value = a.applied || today();
+      $("location").value = a.location || "";
+      $("priority").value = a.priority || "Medium";
+      $("followup").value = a.followup || "";
+      $("interviewDate").value = a.interviewDate || "";
+      $("noticePeriod").value = a.noticePeriod || "";
+      $("currentCtc").value = a.currentCtc || "";
+      $("expectedCtc").value = a.expectedCtc || "";
+      $("offeredCtc").value = a.offeredCtc || "";
+      $("recruiter").value = a.recruiter || "";
+      $("contacted").value = a.contacted || "";
+      $("email").value = a.email || "";
+      $("phone").value = a.phone || "";
+      $("url").value = a.url || "";
+      $("notes").value = a.notes || "";
 
     }
 
@@ -2249,9 +1761,7 @@ function openForm(id){
     $("formTitle").textContent =
       "Add application";
 
-
     [
-
       "company",
       "role",
       "location",
@@ -2267,139 +1777,59 @@ function openForm(id){
       "phone",
       "url",
       "notes"
-
     ].forEach(
-      x =>
-        $(x).value = ""
+      x => $(x).value = ""
     );
 
-
-    $("applied").value =
-      today();
-
-
-    $("status").value =
-      "Applied";
-
-
-    $("source").value =
-      "LinkedIn";
-
-
-    $("priority").value =
-      "Medium";
+    $("applied").value = today();
+    $("status").value = "Applied";
+    $("source").value = "LinkedIn";
+    $("priority").value = "Medium";
 
   }
 
-
-  window.scrollTo({
-    top:0,
-    behavior:"smooth"
+  $("form").scrollIntoView({
+    behavior:"smooth",
+    block:"start"
   });
 
 }
 
-
 function closeForm(){
 
-  $("form").style.display =
-    "none";
-
-  editingId =
-    null;
+  $("form").style.display = "none";
+  editingId = null;
 
 }
 
 
 /* =========================
-   BUILD PAYLOAD
+   PAYLOAD
 ========================= */
 
 function getPayload(){
 
   return {
 
-    company:
-      $("company")
-        .value
-        .trim(),
-
-    role:
-      $("role")
-        .value
-        .trim(),
-
-    source:
-      $("source").value,
-
-    status:
-      $("status").value,
-
-    applied:
-      $("applied").value ||
-      today(),
-
-    location:
-      $("location")
-        .value
-        .trim(),
-
-    priority:
-      $("priority").value,
-
-    followup:
-      $("followup").value,
-
-    interviewDate:
-      $("interviewDate").value,
-
-    noticePeriod:
-      $("noticePeriod")
-        .value
-        .trim(),
-
-    currentCtc:
-      $("currentCtc")
-        .value
-        .trim(),
-
-    expectedCtc:
-      $("expectedCtc")
-        .value
-        .trim(),
-
-    offeredCtc:
-      $("offeredCtc")
-        .value
-        .trim(),
-
-    recruiter:
-      $("recruiter")
-        .value
-        .trim(),
-
-    contacted:
-      $("contacted").value,
-
-    email:
-      $("email")
-        .value
-        .trim(),
-
-    phone:
-      $("phone")
-        .value
-        .trim(),
-
-    url:
-      $("url")
-        .value
-        .trim(),
-
-    notes:
-      $("notes")
-        .value
-        .trim()
+    company:$("company").value.trim(),
+    role:$("role").value.trim(),
+    source:$("source").value,
+    status:$("status").value,
+    applied:$("applied").value || today(),
+    location:$("location").value.trim(),
+    priority:$("priority").value,
+    followup:$("followup").value,
+    interviewDate:$("interviewDate").value,
+    noticePeriod:$("noticePeriod").value.trim(),
+    currentCtc:$("currentCtc").value.trim(),
+    expectedCtc:$("expectedCtc").value.trim(),
+    offeredCtc:$("offeredCtc").value.trim(),
+    recruiter:$("recruiter").value.trim(),
+    contacted:$("contacted").value,
+    email:$("email").value.trim(),
+    phone:$("phone").value.trim(),
+    url:$("url").value.trim(),
+    notes:$("notes").value.trim()
 
   };
 
@@ -2407,299 +1837,145 @@ function getPayload(){
 
 
 /* =========================
-   SAVE APPLICATION
+   SAVE
 ========================= */
 
 async function saveApp(){
 
-  if(
-    !$("company")
-      .value
-      .trim()
-  ){
+  if(!$("company").value.trim()){
 
-    alert(
-      "Please enter the company name."
-    );
-
+    alert("Please enter the company name.");
     return;
 
   }
 
-
-  const payload =
-    getPayload();
-
+  const payload = getPayload();
 
   if(editingId){
 
     const idx =
       apps.findIndex(
-        a =>
-          a.id ===
-          editingId
+        a => a.id === editingId
       );
-
 
     if(idx === -1){
-
-      alert(
-        "Application not found."
-      );
-
+      alert("Application not found.");
       return;
-
     }
 
-
-    const old =
-      apps[idx];
-
+    const old = apps[idx];
 
     const statusChanged =
-      old.status !==
-      payload.status;
-
+      old.status !== payload.status;
 
     apps[idx] = {
-
       ...old,
-
       ...payload,
-
-      history:
-        old.history || []
-
+      history:old.history || []
     };
-
 
     if(statusChanged){
 
       apps[idx].history.push({
 
-        status:
-          payload.status,
-
-        date:
-          new Date()
-            .toISOString(),
-
-        source:
-          "manual"
+        status:payload.status,
+        date:new Date().toISOString(),
+        source:"manual"
 
       });
 
     }
 
-
     save();
 
+    if(sb && currentSession){
 
-    if(
-      sb &&
-      currentSession
-    ){
-
-      const {
-        error
-      } =
+      const {error} =
         await sb
-          .from(
-            "applications"
-          )
+          .from("applications")
           .update({
 
-            company:
-              payload.company,
-
-            role:
-              payload.role,
-
-            source:
-              payload.source,
-
-            status:
-              payload.status,
-
-            applied_date:
-              payload.applied,
-
-            location:
-              payload.location,
-
-            recruiter_name:
-              payload.recruiter,
-
-            contacted_date:
-              payload.contacted ||
-              null,
-
-            recruiter_email:
-              payload.email,
-
-            recruiter_phone:
-              payload.phone,
-
-            job_url:
-              payload.url,
-
-            notes:
-              payload.notes,
-
-            priority:
-              payload.priority,
-
-            followup_date:
-              payload.followup ||
-              null,
-
-            interview_date:
-              payload.interviewDate ||
-              null,
-
-            notice_period:
-              payload.noticePeriod,
-
-            current_ctc:
-              payload.currentCtc,
-
-            expected_ctc:
-              payload.expectedCtc,
-
-            offered_ctc:
-              payload.offeredCtc
+            company:payload.company,
+            role:payload.role,
+            source:payload.source,
+            status:payload.status,
+            applied_date:payload.applied,
+            location:payload.location,
+            recruiter_name:payload.recruiter,
+            contacted_date:payload.contacted || null,
+            recruiter_email:payload.email,
+            recruiter_phone:payload.phone,
+            job_url:payload.url,
+            notes:payload.notes,
+            priority:payload.priority,
+            followup_date:payload.followup || null,
+            interview_date:payload.interviewDate || null,
+            notice_period:payload.noticePeriod,
+            current_ctc:payload.currentCtc,
+            expected_ctc:payload.expectedCtc,
+            offered_ctc:payload.offeredCtc
 
           })
-          .eq(
-            "id",
-            editingId
-          )
-          .eq(
-            "user_id",
-            currentSession.user.id
-          );
-
+          .eq("id",editingId)
+          .eq("user_id",currentSession.user.id);
 
       if(error){
-
-        console.error(
-          "Cloud update error:",
-          error
-        );
-
+        console.error("Cloud update error:",error);
       }
-
 
       if(statusChanged){
 
         await insertCloudEvent(
           editingId,
           payload.status,
-          {
-            source:
-              "manual"
-          }
+          {source:"manual"}
         );
 
       }
 
     }
 
+    toast("Application updated successfully.");
+
   }else{
 
-    let newId =
-      crypto.randomUUID();
+    let newId = crypto.randomUUID();
 
+    if(sb && currentSession){
 
-    if(
-      sb &&
-      currentSession
-    ){
-
-      const {
-        data,
-        error
-      } =
+      const {data,error} =
         await sb
-          .from(
-            "applications"
-          )
+          .from("applications")
           .insert({
 
-            user_id:
-              currentSession.user.id,
-
-            company:
-              payload.company,
-
-            role:
-              payload.role,
-
-            source:
-              payload.source,
-
-            status:
-              payload.status,
-
-            applied_date:
-              payload.applied,
-
-            location:
-              payload.location,
-
-            recruiter_name:
-              payload.recruiter,
-
-            contacted_date:
-              payload.contacted ||
-              null,
-
-            recruiter_email:
-              payload.email,
-
-            recruiter_phone:
-              payload.phone,
-
-            job_url:
-              payload.url,
-
-            notes:
-              payload.notes,
-
-            priority:
-              payload.priority,
-
-            followup_date:
-              payload.followup ||
-              null,
-
-            interview_date:
-              payload.interviewDate ||
-              null,
-
-            notice_period:
-              payload.noticePeriod,
-
-            current_ctc:
-              payload.currentCtc,
-
-            expected_ctc:
-              payload.expectedCtc,
-
-            offered_ctc:
-              payload.offeredCtc
+            user_id:currentSession.user.id,
+            company:payload.company,
+            role:payload.role,
+            source:payload.source,
+            status:payload.status,
+            applied_date:payload.applied,
+            location:payload.location,
+            recruiter_name:payload.recruiter,
+            contacted_date:payload.contacted || null,
+            recruiter_email:payload.email,
+            recruiter_phone:payload.phone,
+            job_url:payload.url,
+            notes:payload.notes,
+            priority:payload.priority,
+            followup_date:payload.followup || null,
+            interview_date:payload.interviewDate || null,
+            notice_period:payload.noticePeriod,
+            current_ctc:payload.currentCtc,
+            expected_ctc:payload.expectedCtc,
+            offered_ctc:payload.offeredCtc
 
           })
           .select()
           .single();
 
-
       if(error){
 
-        console.error(
-          "Cloud insert error:",
-          error
-        );
+        console.error("Cloud insert error:",error);
 
         alert(
           "Could not save the application to the cloud. Please try again."
@@ -2709,61 +1985,39 @@ async function saveApp(){
 
       }
 
-
       if(data){
-
-        newId =
-          data.id;
-
+        newId = data.id;
       }
-
 
       await insertCloudEvent(
         newId,
         payload.status,
-        {
-          source:
-            "manual"
-        }
+        {source:"manual"}
       );
 
     }
 
-
     apps.unshift({
 
-      id:
-        newId,
-
+      id:newId,
       ...payload,
 
-      history:[
+      history:[{
 
-        {
+        status:payload.status,
+        date:new Date().toISOString(),
+        source:"manual"
 
-          status:
-            payload.status,
-
-          date:
-            new Date()
-              .toISOString(),
-
-          source:
-            "manual"
-
-        }
-
-      ]
+      }]
 
     });
 
+    toast("Application added successfully.");
+
   }
 
-
   save();
-
   closeForm();
-
   render();
 
 }
@@ -2779,139 +2033,70 @@ async function insertCloudEvent(
   details={}
 ){
 
-  if(
-    !sb ||
-    !currentSession
-  ){
+  if(!sb || !currentSession) return;
 
-    return;
-
-  }
-
-
-  const {
-    error
-  } =
+  const {error} =
     await sb
-      .from(
-        "application_events"
-      )
+      .from("application_events")
       .insert({
 
-        application_id:
-          applicationId,
-
-        user_id:
-          currentSession.user.id,
-
-        event_type:
-          status,
-
-        event_date:
-          new Date()
-            .toISOString(),
-
+        application_id:applicationId,
+        user_id:currentSession.user.id,
+        event_type:status,
+        event_date:new Date().toISOString(),
         details
 
       });
 
-
   if(error){
-
-    console.error(
-      "Cloud event error:",
-      error
-    );
-
+    console.error("Cloud event error:",error);
   }
 
 }
 
 
 /* =========================
-   CHANGE STATUS
+   STATUS
 ========================= */
 
-async function changeStatus(
-  id,
-  status
-){
+async function changeStatus(id,status){
 
   const a =
     apps.find(
-      x =>
-        x.id === id
+      x => x.id === id
     );
-
 
   if(!a) return;
 
+  if(a.status === status) return;
 
-  if(
-    a.status ===
-    status
-  ){
+  const oldStatus = a.status;
 
-    return;
+  a.status = status;
 
-  }
-
-
-  const oldStatus =
-    a.status;
-
-
-  a.status =
-    status;
-
-
-  a.history =
-    a.history || [];
-
+  a.history = a.history || [];
 
   a.history.push({
 
     status,
-
-    date:
-      new Date()
-        .toISOString(),
-
-    source:
-      "manual"
+    date:new Date().toISOString(),
+    source:"manual"
 
   });
 
-
   save();
-
   render();
 
+  toast(`Status changed to ${status}`);
 
-  if(
-    sb &&
-    currentSession
-  ){
+  if(sb && currentSession){
 
-    const {
-      error
-    } =
+    const {error} =
       await sb
-        .from(
-          "applications"
-        )
-        .update({
-          status
-        })
-        .eq(
-          "id",
-          id
-        )
-        .eq(
-          "user_id",
-          currentSession.user.id
-        );
-
+        .from("applications")
+        .update({status})
+        .eq("id",id)
+        .eq("user_id",currentSession.user.id);
 
     if(error){
 
@@ -2920,15 +2105,10 @@ async function changeStatus(
         error
       );
 
-
-      a.status =
-        oldStatus;
-
-
+      a.status = oldStatus;
       a.history.pop();
 
       save();
-
       render();
 
       alert(
@@ -2939,16 +2119,12 @@ async function changeStatus(
 
     }
 
-
     await insertCloudEvent(
       id,
       status,
       {
-        source:
-          "manual",
-
-        previous_status:
-          oldStatus
+        source:"manual",
+        previous_status:oldStatus
       }
     );
 
@@ -2963,58 +2139,33 @@ async function changeStatus(
 
 async function removeApp(id){
 
-  if(
-    !confirm(
-      "Delete this application?"
-    )
-  ){
-
+  if(!confirm("Delete this application?")){
     return;
-
   }
-
 
   const previous =
     apps.find(
-      a =>
-        a.id === id
+      a => a.id === id
     );
-
 
   apps =
     apps.filter(
-      a =>
-        a.id !== id
+      a => a.id !== id
     );
 
-
   save();
-
   render();
 
+  toast("Application deleted.");
 
-  if(
-    sb &&
-    currentSession
-  ){
+  if(sb && currentSession){
 
-    const {
-      error
-    } =
+    const {error} =
       await sb
-        .from(
-          "applications"
-        )
+        .from("applications")
         .delete()
-        .eq(
-          "id",
-          id
-        )
-        .eq(
-          "user_id",
-          currentSession.user.id
-        );
-
+        .eq("id",id)
+        .eq("user_id",currentSession.user.id);
 
     if(error){
 
@@ -3023,19 +2174,11 @@ async function removeApp(id){
         error
       );
 
-
       if(previous){
-
-        apps.unshift(
-          previous
-        );
-
+        apps.unshift(previous);
         save();
-
         render();
-
       }
-
 
       alert(
         "Could not delete the cloud application."
@@ -3055,21 +2198,18 @@ async function removeApp(id){
 function toggleAccount(){
 
   $("account").style.display =
-    $("account").style.display ===
-    "block"
+    $("account").style.display === "block"
       ? "none"
       : "block";
 
 }
-
 
 function configured(){
 
   return (
     window.JOB_TRACKER_SUPABASE &&
     window.JOB_TRACKER_SUPABASE.publishableKey &&
-    !window.JOB_TRACKER_SUPABASE.publishableKey
-      .includes("PASTE_YOUR")
+    !window.JOB_TRACKER_SUPABASE.publishableKey.includes("PASTE_YOUR")
   );
 
 }
@@ -3081,36 +2221,17 @@ function configured(){
 
 async function loadCloudApplications(){
 
-  if(
-    !sb ||
-    !currentSession
-  ){
+  if(!sb || !currentSession) return;
 
-    return;
-
-  }
-
-
-  const {
-    data,
-    error
-  } =
+  const {data,error} =
     await sb
-      .from(
-        "applications"
-      )
+      .from("applications")
       .select("*")
-      .eq(
-        "user_id",
-        currentSession.user.id
-      )
+      .eq("user_id",currentSession.user.id)
       .order(
         "created_at",
-        {
-          ascending:false
-        }
+        {ascending:false}
       );
-
 
   if(error){
 
@@ -3123,27 +2244,18 @@ async function loadCloudApplications(){
 
   }
 
-
   const {
     data:eventData,
     error:eventError
   } =
     await sb
-      .from(
-        "application_events"
-      )
+      .from("application_events")
       .select("*")
-      .eq(
-        "user_id",
-        currentSession.user.id
-      )
+      .eq("user_id",currentSession.user.id)
       .order(
         "event_date",
-        {
-          ascending:true
-        }
+        {ascending:true}
       );
-
 
   if(eventError){
 
@@ -3154,161 +2266,89 @@ async function loadCloudApplications(){
 
   }
 
-
-  const eventsByApplication =
-    {};
-
+  const eventsByApplication = {};
 
   (eventData || [])
-    .forEach(
-      event => {
+    .forEach(event => {
 
-        if(
-          !eventsByApplication[
-            event.application_id
-          ]
-        ){
-
-          eventsByApplication[
-            event.application_id
-          ] = [];
-
-        }
-
+      if(
+        !eventsByApplication[
+          event.application_id
+        ]
+      ){
 
         eventsByApplication[
           event.application_id
-        ].push({
-
-          status:
-            event.event_type ||
-            "Status update",
-
-          date:
-            event.event_date,
-
-          source:
-            event.details?.source ||
-            "system"
-
-        });
+        ] = [];
 
       }
-    );
 
+      eventsByApplication[
+        event.application_id
+      ].push({
+
+        status:
+          event.event_type ||
+          "Status update",
+
+        date:event.event_date,
+
+        source:
+          event.details?.source ||
+          "system"
+
+      });
+
+    });
 
   apps =
-    (data || [])
-      .map(
-        a => {
+    (data || []).map(a => {
 
-          let history =
-            eventsByApplication[
-              a.id
-            ] || [];
+      let history =
+        eventsByApplication[a.id] || [];
 
+      if(
+        history.length === 0 &&
+        a.applied_date
+      ){
 
-          if(
-            history.length === 0 &&
-            a.applied_date
-          ){
+        history = [{
 
-            history = [
+          status:"Applied",
+          date:a.applied_date,
+          source:"legacy"
 
-              {
+        }];
 
-                status:
-                  "Applied",
+      }
 
-                date:
-                  a.applied_date,
+      return {
 
-                source:
-                  "legacy"
+        id:a.id,
+        company:a.company,
+        role:a.role,
+        source:a.source,
+        status:a.status,
+        applied:a.applied_date,
+        location:a.location,
+        recruiter:a.recruiter_name,
+        contacted:a.contacted_date,
+        email:a.recruiter_email,
+        phone:a.recruiter_phone,
+        url:a.job_url,
+        notes:a.notes,
+        priority:a.priority || "Medium",
+        followup:a.followup_date || "",
+        interviewDate:a.interview_date || "",
+        noticePeriod:a.notice_period || "",
+        currentCtc:a.current_ctc || "",
+        expectedCtc:a.expected_ctc || "",
+        offeredCtc:a.offered_ctc || "",
+        history
 
-              }
+      };
 
-            ];
-
-          }
-
-
-          return {
-
-            id:
-              a.id,
-
-            company:
-              a.company,
-
-            role:
-              a.role,
-
-            source:
-              a.source,
-
-            status:
-              a.status,
-
-            applied:
-              a.applied_date,
-
-            location:
-              a.location,
-
-            recruiter:
-              a.recruiter_name,
-
-            contacted:
-              a.contacted_date,
-
-            email:
-              a.recruiter_email,
-
-            phone:
-              a.recruiter_phone,
-
-            url:
-              a.job_url,
-
-            notes:
-              a.notes,
-
-            priority:
-              a.priority ||
-              "Medium",
-
-            followup:
-              a.followup_date ||
-              "",
-
-            interviewDate:
-              a.interview_date ||
-              "",
-
-            noticePeriod:
-              a.notice_period ||
-              "",
-
-            currentCtc:
-              a.current_ctc ||
-              "",
-
-            expectedCtc:
-              a.expected_ctc ||
-              "",
-
-            offeredCtc:
-              a.offered_ctc ||
-              "",
-
-            history
-
-          };
-
-        }
-      );
-
+    });
 
   save();
 
@@ -3330,10 +2370,7 @@ function showAuth(){
         Supabase is not configured.
 
         Add the Publishable Key to
-
-        <b>
-          supabase-config.js
-        </b>
+        <b>supabase-config.js</b>
 
       </div>
 
@@ -3342,7 +2379,6 @@ function showAuth(){
     return;
 
   }
-
 
   if(!sb){
 
@@ -3357,14 +2393,9 @@ function showAuth(){
 
           auth:{
 
-            persistSession:
-              true,
-
-            autoRefreshToken:
-              true,
-
-            detectSessionInUrl:
-              true
+            persistSession:true,
+            autoRefreshToken:true,
+            detectSessionInUrl:true
 
           }
 
@@ -3374,22 +2405,17 @@ function showAuth(){
 
   }
 
-
   sb.auth
     .getSession()
     .then(
-      async ({
-        data
-      }) => {
+      async ({data}) => {
 
-        currentSession =
-          data.session;
+        currentSession = data.session;
 
         updateAuthUI();
 
       }
     );
-
 
   sb.auth.onAuthStateChange(
     async (
@@ -3397,16 +2423,13 @@ function showAuth(){
       session
     ) => {
 
-      currentSession =
-        session;
-
+      currentSession = session;
 
       gmailConnected =
         !!(
           session &&
           session.provider_token
         );
-
 
       if(
         session &&
@@ -3420,7 +2443,6 @@ function showAuth(){
 
       }
 
-
       if(
         session &&
         session.provider_refresh_token
@@ -3433,11 +2455,7 @@ function showAuth(){
 
       }
 
-
-      if(
-        event ===
-        "SIGNED_OUT"
-      ){
+      if(event === "SIGNED_OUT"){
 
         sessionStorage.removeItem(
           "jobTrackerGoogleToken"
@@ -3448,7 +2466,6 @@ function showAuth(){
         );
 
       }
-
 
       updateAuthUI();
 
@@ -3472,30 +2489,22 @@ function updateAuthUI(){
 
         <div>
 
-          <b>
-            Gmail
-          </b>
+          <b>Gmail</b>
 
           <div class="small">
-
             Connect Google to enable
             Gmail job-email detection.
-
           </div>
 
         </div>
 
-
-        <button
-          onclick="connectGoogle()"
-        >
+        <button onclick="connectGoogle()">
           Connect Gmail
         </button>
 
       </div>
 
     `;
-
 
     $("notice").textContent =
       "🔒 Local mode. Connect Gmail when you are ready to automate application tracking.";
@@ -3504,11 +2513,9 @@ function updateAuthUI(){
 
   }
 
-
   const email =
     currentSession.user.email ||
     "Google account";
-
 
   $("authArea").innerHTML = `
 
@@ -3516,9 +2523,7 @@ function updateAuthUI(){
 
       <div>
 
-        <b>
-          ${esc(email)}
-        </b>
+        <b>${esc(email)}</b>
 
         <div class="status-dot">
           ● Gmail connected
@@ -3526,21 +2531,15 @@ function updateAuthUI(){
 
       </div>
 
+      <div style="
+        display:flex;
+        gap:8px;
+        flex-wrap:wrap
+      ">
 
-      <div
-        style="
-          display:flex;
-          gap:8px;
-          flex-wrap:wrap
-        "
-      >
-
-        <button
-          onclick="syncGmail()"
-        >
+        <button onclick="syncGmail()">
           Sync Gmail
         </button>
-
 
         <button
           class="secondary"
@@ -3553,7 +2552,6 @@ function updateAuthUI(){
 
     </div>
 
-
     <div
       style="margin-top:12px"
       class="small"
@@ -3562,12 +2560,10 @@ function updateAuthUI(){
       Gmail permission:
       read-only.
 
-      Press
-      <b>Sync Gmail</b>
+      Press <b>Sync Gmail</b>
       to scan recent job emails.
 
     </div>
-
 
     <div
       id="syncResult"
@@ -3577,27 +2573,22 @@ function updateAuthUI(){
 
   `;
 
-
   $("notice").textContent =
     "☁️ Gmail connected. Applications and status history are synced with the cloud.";
 
-
   loadCloudApplications()
-    .then(
-      () => {
+    .then(() => {
 
-        fill();
+      fill();
+      render();
 
-        render();
-
-      }
-    );
+    });
 
 }
 
 
 /* =========================
-   GOOGLE CONNECT
+   GOOGLE
 ========================= */
 
 async function connectGoogle(){
@@ -3612,14 +2603,10 @@ async function connectGoogle(){
 
   }
 
-
-  const {
-    error
-  } =
+  const {error} =
     await sb.auth.signInWithOAuth({
 
-      provider:
-        "google",
+      provider:"google",
 
       options:{
 
@@ -3628,11 +2615,8 @@ async function connectGoogle(){
 
         queryParams:{
 
-          access_type:
-            "offline",
-
-          prompt:
-            "consent"
+          access_type:"offline",
+          prompt:"consent"
 
         },
 
@@ -3643,51 +2627,36 @@ async function connectGoogle(){
 
     });
 
-
   if(error){
-
-    alert(
-      error.message
-    );
-
+    alert(error.message);
   }
 
 }
-
-
-/* =========================
-   SIGN OUT
-========================= */
 
 async function signOut(){
 
   await sb.auth.signOut();
 
-  currentSession =
-    null;
+  currentSession = null;
 
   updateAuthUI();
+
+  toast("Signed out.");
 
 }
 
 
 /* =========================
-   GMAIL SYNC
+   GMAIL
 ========================= */
 
 async function syncGmail(){
 
-  const result =
-    $("syncResult");
-
+  const result = $("syncResult");
 
   if(result){
-
-    result.innerHTML =
-      "⏳ Scanning Gmail...";
-
+    result.innerHTML = "⏳ Scanning Gmail...";
   }
-
 
   try{
 
@@ -3697,45 +2666,33 @@ async function syncGmail(){
     } =
       await sb.auth.getSession();
 
-
     if(sessionError){
-
       throw sessionError;
-
     }
 
-
     if(!data.session){
-
       throw new Error(
         "Please connect Gmail again."
       );
-
     }
-
 
     const gmailAccessToken =
       data.session.provider_token;
 
-
     if(!gmailAccessToken){
 
       throw new Error(
-        "Gmail access token is unavailable. Please disconnect and reconnect Gmail."
+        "Gmail access token is unavailable. Please reconnect Gmail."
       );
 
     }
 
-
     const response =
       await fetch(
-
         "https://kmupwiaesqrmzdgfzedr.supabase.co/functions/v1/sync-gmail",
-
         {
 
-          method:
-            "POST",
+          method:"POST",
 
           headers:{
 
@@ -3747,34 +2704,25 @@ async function syncGmail(){
 
           },
 
-          body:
-            JSON.stringify({
-
-              gmailAccessToken
-
-            })
+          body:JSON.stringify({
+            gmailAccessToken
+          })
 
         }
-
       );
-
 
     const json =
       await response.json();
 
-
     if(!response.ok){
 
       throw new Error(
-
         json.error ||
         json.details ||
         "Gmail sync failed."
-
       );
 
     }
-
 
     if(result){
 
@@ -3785,35 +2733,28 @@ async function syncGmail(){
         <br>
 
         Emails scanned:
-        <b>
-          ${json.scanned || 0}
-        </b>
+        <b>${json.scanned || 0}</b>
 
         <br>
 
         New applications:
-        <b>
-          ${json.newApplications || 0}
-        </b>
+        <b>${json.newApplications || 0}</b>
 
         <br>
 
         Updated applications:
-        <b>
-          ${json.updatedApplications || 0}
-        </b>
+        <b>${json.updatedApplications || 0}</b>
 
       `;
 
     }
 
-
     await loadCloudApplications();
 
     fill();
-
     render();
 
+    toast("Gmail sync completed.");
 
   }catch(error){
 
@@ -3821,7 +2762,6 @@ async function syncGmail(){
       "Gmail Sync Error:",
       error
     );
-
 
     if(result){
 
@@ -3839,16 +2779,241 @@ async function syncGmail(){
 
 
 /* =========================
-   CSV EXPORT
+   DASHBOARD
+========================= */
+
+function openDashboard(){
+
+  updateDashboard();
+
+  $("dashboardModal").style.display =
+    "block";
+
+}
+
+function closeDashboard(){
+
+  $("dashboardModal").style.display =
+    "none";
+
+}
+
+function updateDashboard(){
+
+  const total = apps.length;
+
+  const responded =
+    apps.filter(
+      a =>
+        ![
+          "Applied"
+        ].includes(a.status)
+    ).length;
+
+  const interviews =
+    apps.filter(
+      a =>
+        [
+          "Interview",
+          "Offer"
+        ].includes(a.status)
+    ).length;
+
+  const offers =
+    apps.filter(
+      a =>
+        a.status === "Offer"
+    ).length;
+
+  $("dashTotal").textContent = total;
+
+  $("dashResponse").textContent =
+    total
+      ? Math.round(responded / total * 100) + "%"
+      : "0%";
+
+  $("dashInterviewRate").textContent =
+    total
+      ? Math.round(interviews / total * 100) + "%"
+      : "0%";
+
+  $("dashOfferRate").textContent =
+    total
+      ? Math.round(offers / total * 100) + "%"
+      : "0%";
+
+  $("funnel").innerHTML =
+    statuses
+      .map(status => {
+
+        const count =
+          apps.filter(
+            a => a.status === status
+          ).length;
+
+        const percentage =
+          total
+            ? Math.round(
+                count / total * 100
+              )
+            : 0;
+
+        return `
+
+          <div style="margin-bottom:10px">
+
+            <div class="progress-text">
+
+              <span>${esc(status)}</span>
+
+              <span>
+                ${count} · ${percentage}%
+              </span>
+
+            </div>
+
+            <div class="dashboard-bar">
+
+              <span
+                style="width:${percentage}%"
+              ></span>
+
+            </div>
+
+          </div>
+
+        `;
+
+      })
+      .join("");
+
+  const priorities = [
+    "High",
+    "Medium",
+    "Low"
+  ];
+
+  $("priorityDashboard").innerHTML =
+    priorities
+      .map(p => {
+
+        const count =
+          apps.filter(
+            a => a.priority === p
+          ).length;
+
+        const percentage =
+          total
+            ? Math.round(count / total * 100)
+            : 0;
+
+        return `
+
+          <div style="margin-bottom:9px">
+
+            <div class="progress-text">
+
+              <span>${p}</span>
+
+              <span>${count}</span>
+
+            </div>
+
+            <div class="dashboard-bar">
+
+              <span
+                style="width:${percentage}%"
+              ></span>
+
+            </div>
+
+          </div>
+
+        `;
+
+      })
+      .join("");
+
+  const sourceMap = {};
+
+  apps.forEach(a => {
+
+    const source =
+      a.source || "Other";
+
+    sourceMap[source] =
+      (sourceMap[source] || 0) + 1;
+
+  });
+
+  const sources =
+    Object.entries(sourceMap)
+      .sort(
+        (a,b) => b[1] - a[1]
+      );
+
+  $("sourceDashboard").innerHTML =
+    sources.length
+      ? sources
+          .map(
+            ([source,count]) => `
+
+              <div style="
+                display:flex;
+                justify-content:space-between;
+                padding:8px 0;
+                border-bottom:1px solid #eef0f2
+              ">
+
+                <span>
+                  ${esc(source)}
+                </span>
+
+                <b>
+                  ${count}
+                </b>
+
+              </div>
+
+            `
+          )
+          .join("")
+      : `
+        <div class="small">
+          No source data yet.
+        </div>
+      `;
+
+}
+
+
+/* =========================
+   FILTERS
+========================= */
+
+function clearFilters(){
+
+  $("search").value = "";
+  $("filter").value = "";
+  $("sourceFilter").value = "";
+  $("priorityFilter").value = "";
+  $("sortBy").value = "newest";
+
+  render();
+
+  toast("Filters cleared.");
+
+}
+
+
+/* =========================
+   CSV
 ========================= */
 
 function csvEscape(value){
 
   const text =
-    String(
-      value ?? ""
-    );
-
+    String(value ?? "");
 
   if(
     text.includes(",") ||
@@ -3863,11 +3028,9 @@ function csvEscape(value){
 
   }
 
-
   return text;
 
 }
-
 
 function exportCSV(){
 
@@ -3894,7 +3057,6 @@ function exportCSV(){
     "Notes"
 
   ];
-
 
   const rows =
     apps.map(
@@ -3925,17 +3087,11 @@ function exportCSV(){
         .join(",")
     );
 
-
   const csv =
     [
-      headers
-        .map(csvEscape)
-        .join(","),
-
+      headers.map(csvEscape).join(","),
       ...rows
-
     ].join("\n");
-
 
   downloadFile(
     csv,
@@ -3943,11 +3099,13 @@ function exportCSV(){
     "text/csv"
   );
 
+  toast("CSV exported.");
+
 }
 
 
 /* =========================
-   JSON BACKUP
+   BACKUP
 ========================= */
 
 function backupJSON(){
@@ -3959,15 +3117,15 @@ function backupJSON(){
       2
     );
 
-
   downloadFile(
     data,
     `job-tracker-backup-${today()}.json`,
     "application/json"
   );
 
-}
+  toast("Backup created.");
 
+}
 
 function downloadFile(
   content,
@@ -3981,24 +3139,14 @@ function downloadFile(
       {type}
     );
 
-
   const url =
-    URL.createObjectURL(
-      blob
-    );
-
+    URL.createObjectURL(blob);
 
   const a =
-    document.createElement(
-      "a"
-    );
+    document.createElement("a");
 
-
-  a.href =
-    url;
-
-  a.download =
-    filename;
+  a.href = url;
+  a.download = filename;
 
   document.body.appendChild(a);
 
@@ -4006,15 +3154,13 @@ function downloadFile(
 
   a.remove();
 
-  URL.revokeObjectURL(
-    url
-  );
+  URL.revokeObjectURL(url);
 
 }
 
 
 /* =========================
-   JSON IMPORT
+   IMPORT
 ========================= */
 
 function importJSON(event){
@@ -4022,13 +3168,10 @@ function importJSON(event){
   const file =
     event.target.files[0];
 
-
   if(!file) return;
-
 
   const reader =
     new FileReader();
-
 
   reader.onload =
     function(){
@@ -4040,12 +3183,7 @@ function importJSON(event){
             reader.result
           );
 
-
-        if(
-          !Array.isArray(
-            imported
-          )
-        ){
+        if(!Array.isArray(imported)){
 
           throw new Error(
             "Invalid backup file."
@@ -4053,36 +3191,26 @@ function importJSON(event){
 
         }
 
-
         const ok =
           confirm(
             `Import ${imported.length} applications? This will replace your current local list.`
           );
 
-
         if(!ok){
 
-          event.target.value =
-            "";
-
+          event.target.value = "";
           return;
 
         }
 
-
-        apps =
-          imported;
-
+        apps = imported;
 
         save();
-
         render();
-
 
         alert(
           "Backup imported successfully."
         );
-
 
       }catch(error){
 
@@ -4093,42 +3221,191 @@ function importJSON(event){
 
       }
 
-
-      event.target.value =
-        "";
+      event.target.value = "";
 
     };
 
-
-  reader.readAsText(
-    file
-  );
+  reader.readAsText(file);
 
 }
 
 
 /* =========================
-   SEARCH / FILTER
+   DEMO DATA
 ========================= */
 
-$("search").oninput =
-  render;
+function addDemoData(){
+
+  if(
+    apps.length &&
+    !confirm(
+      "Add demo applications to your existing list?"
+    )
+  ){
+    return;
+  }
+
+  const demo = [
+
+    {
+      company:"Cisco",
+      role:"Network Engineer",
+      source:"LinkedIn",
+      status:"Interview",
+      location:"Bangalore",
+      priority:"High",
+      applied:today(),
+      followup:today(),
+      interviewDate:
+        new Date(
+          Date.now() +
+          2 * 24 * 60 * 60 * 1000
+        )
+        .toISOString()
+        .slice(0,16),
+      noticePeriod:"20 days",
+      currentCtc:"3.8 LPA",
+      expectedCtc:"9 LPA",
+      recruiter:"HR Team",
+      email:"recruiter@example.com",
+      notes:"Technical round scheduled."
+
+    },
+
+    {
+      company:"Infosys",
+      role:"Network Administrator",
+      source:"Naukri",
+      status:"Shortlisted",
+      location:"Hyderabad",
+      priority:"Medium",
+      applied:today(),
+      followup:
+        new Date(
+          Date.now() +
+          2 * 24 * 60 * 60 * 1000
+        )
+        .toISOString()
+        .slice(0,10),
+      expectedCtc:"9 LPA",
+      noticePeriod:"20 days",
+      notes:"Waiting for recruiter update."
+
+    },
+
+    {
+      company:"Accenture",
+      role:"Network Support Engineer",
+      source:"Referral",
+      status:"Applied",
+      location:"Hyderabad",
+      priority:"Low",
+      applied:today(),
+      followup:
+        new Date(
+          Date.now() +
+          5 * 24 * 60 * 60 * 1000
+        )
+        .toISOString()
+        .slice(0,10),
+      expectedCtc:"8.5 LPA"
+
+    }
+
+  ];
+
+  demo.forEach(d => {
+
+    apps.unshift({
+
+      id:crypto.randomUUID(),
+      ...d,
+
+      history:[{
+
+        status:d.status,
+        date:new Date().toISOString(),
+        source:"demo"
+
+      }]
+
+    });
+
+  });
+
+  save();
+  render();
+
+  toast("Demo applications added.");
+
+}
 
 
-$("filter").onchange =
-  render;
+/* =========================
+   SEARCH
+========================= */
+
+$("search").oninput = render;
+$("filter").onchange = render;
+$("sourceFilter").onchange = render;
+$("priorityFilter").onchange = render;
+$("sortBy").onchange = render;
 
 
-$("sourceFilter").onchange =
-  render;
+/* =========================
+   MODAL CLOSE
+========================= */
+
+$("dashboardModal").addEventListener(
+  "click",
+  function(e){
+
+    if(e.target === this){
+      closeDashboard();
+    }
+
+  }
+);
 
 
-$("priorityFilter").onchange =
-  render;
+/* =========================
+   KEYBOARD SHORTCUTS
+========================= */
 
+document.addEventListener(
+  "keydown",
+  function(e){
 
-$("sortBy").onchange =
-  render;
+    if(
+      (e.ctrlKey || e.metaKey) &&
+      e.key.toLowerCase() === "k"
+    ){
+
+      e.preventDefault();
+
+      $("search").focus();
+
+    }
+
+    if(
+      (e.ctrlKey || e.metaKey) &&
+      e.key.toLowerCase() === "n"
+    ){
+
+      e.preventDefault();
+
+      openForm();
+
+    }
+
+    if(e.key === "Escape"){
+
+      closeDashboard();
+
+    }
+
+  }
+);
 
 
 /* =========================
@@ -4136,21 +3413,14 @@ $("sortBy").onchange =
 ========================= */
 
 fill();
-
 render();
-
 showAuth();
 
-
-if(
-  "serviceWorker" in navigator
-){
+if("serviceWorker" in navigator){
 
   navigator.serviceWorker
     .register("sw.js")
-    .catch(
-      () => {}
-    );
+    .catch(() => {});
 
 }
 
