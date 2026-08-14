@@ -1,68 +1,28 @@
 <!doctype html>
 <html lang="en">
-
 <head>
-
 <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#111827">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Job Tracker">
 
-<meta
-  name="viewport"
-  content="width=device-width,initial-scale=1,viewport-fit=cover"
->
+<link rel="manifest" href="manifest.webmanifest">
 
-<meta
-  name="theme-color"
-  content="#111827"
->
-
-<meta
-  name="apple-mobile-web-app-capable"
-  content="yes"
->
-
-<meta
-  name="apple-mobile-web-app-status-bar-style"
-  content="default"
->
-
-<meta
-  name="apple-mobile-web-app-title"
-  content="Job Tracker"
->
-
-<link
-  rel="manifest"
-  href="manifest.webmanifest"
->
-
-<title>Job Tracker</title>
-
+<title>Job Tracker Pro</title>
 
 <style>
-
-/* =====================================================
-   BASE
-===================================================== */
-
-*{
-  box-sizing:border-box;
-}
+*{box-sizing:border-box}
 
 body{
   margin:0;
-  font-family:
-    -apple-system,
-    BlinkMacSystemFont,
-    "Segoe UI",
-    sans-serif;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
   background:#f6f7f9;
   color:#111827;
 }
 
-button,
-input,
-select,
-textarea{
+button,input,select,textarea{
   font:inherit;
 }
 
@@ -95,25 +55,19 @@ button:active{
   color:#166534;
 }
 
-.blue{
-  background:#dbeafe;
-  color:#1d4ed8;
+.warning{
+  background:#fef3c7;
+  color:#92400e;
 }
-
-
-/* =====================================================
-   HEADER
-===================================================== */
 
 header{
   position:sticky;
   top:0;
-  z-index:20;
+  z-index:50;
   background:rgba(255,255,255,.96);
-  backdrop-filter:blur(12px);
-  padding:14px 16px;
+  backdrop-filter:blur(14px);
+  padding:13px 16px;
   border-bottom:1px solid #e5e7eb;
-
   display:flex;
   justify-content:space-between;
   align-items:center;
@@ -122,7 +76,7 @@ header{
 
 h1{
   margin:0;
-  font-size:23px;
+  font-size:22px;
 }
 
 .sub{
@@ -131,21 +85,11 @@ h1{
   font-size:12px;
 }
 
-
-/* =====================================================
-   MAIN
-===================================================== */
-
 main{
-  max-width:820px;
+  max-width:900px;
   margin:auto;
   padding:14px 14px 110px;
 }
-
-
-/* =====================================================
-   NOTICE
-===================================================== */
 
 .notice{
   background:#eef6ff;
@@ -157,57 +101,9 @@ main{
   margin-bottom:12px;
 }
 
-
-/* =====================================================
-   ACCOUNT
-===================================================== */
-
-.account{
-  display:none;
-  background:#fff;
-  border:1px solid #e5e7eb;
-  border-radius:17px;
-  padding:15px;
-  margin-bottom:12px;
-}
-
-.account h2{
-  margin:0 0 10px;
-  font-size:18px;
-}
-
-.account-row{
-  display:flex;
-  justify-content:space-between;
-  gap:10px;
-  align-items:center;
-}
-
-.status-dot{
-  font-size:12px;
-  color:#166534;
-}
-
-.small{
-  font-size:11px;
-  color:#6b7280;
-}
-
-.sync-loading{
-  margin-top:8px;
-  font-size:11px;
-  color:#374151;
-}
-
-
-/* =====================================================
-   STATS
-===================================================== */
-
 .stats{
   display:grid;
-  grid-template-columns:
-    repeat(4,1fr);
+  grid-template-columns:repeat(4,1fr);
   gap:8px;
   margin:2px 0 14px;
 }
@@ -231,89 +127,30 @@ main{
   margin-top:2px;
 }
 
+.insights{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:8px;
+  margin-bottom:14px;
+}
 
-/* =====================================================
-   ACTION SUMMARY
-===================================================== */
-
-.action-box{
+.insight{
   background:#fff;
-  border:1px solid #e5e7eb;
-  border-radius:17px;
-  padding:14px;
-  margin-bottom:12px;
+  border:1px solid #e7e9ec;
+  border-radius:15px;
+  padding:13px;
 }
 
-.action-head{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:10px;
-}
-
-.action-title{
-  font-size:16px;
-  font-weight:750;
-}
-
-.action-count{
-  background:#111827;
-  color:#fff;
-  border-radius:999px;
-  padding:4px 8px;
-  font-size:11px;
-  font-weight:700;
-}
-
-.action-list{
-  margin-top:10px;
-}
-
-.action-item{
-  display:flex;
-  justify-content:space-between;
-  gap:10px;
-  align-items:center;
-  padding:10px 0;
-  border-top:1px solid #eef0f2;
-}
-
-.action-item:first-child{
-  border-top:0;
-}
-
-.action-company{
-  font-weight:700;
-  font-size:13px;
-}
-
-.action-role{
-  font-size:12px;
-  color:#4b5563;
-  margin-top:2px;
-}
-
-.action-reason{
+.insight-title{
   font-size:11px;
   color:#6b7280;
-  margin-top:3px;
 }
 
-.action-buttons{
-  display:flex;
-  gap:5px;
-  flex-shrink:0;
+.insight-value{
+  font-size:16px;
+  font-weight:750;
+  margin-top:4px;
 }
-
-.action-buttons button{
-  padding:7px 9px;
-  font-size:11px;
-}
-
-
-/* =====================================================
-   TOOLBAR
-===================================================== */
 
 .toolbar{
   display:flex;
@@ -325,9 +162,7 @@ main{
   flex:1;
 }
 
-input,
-select,
-textarea{
+input,select,textarea{
   width:100%;
   padding:11px 12px;
   border:1px solid #d7dbe0;
@@ -337,16 +172,9 @@ textarea{
   outline:none;
 }
 
-input:focus,
-select:focus,
-textarea:focus{
+input:focus,select:focus,textarea:focus{
   border-color:#9ca3af;
 }
-
-
-/* =====================================================
-   FORM
-===================================================== */
 
 .form{
   display:none;
@@ -355,6 +183,7 @@ textarea:focus{
   border-radius:17px;
   padding:16px;
   margin:12px 0;
+  box-shadow:0 4px 18px rgba(0,0,0,.04);
 }
 
 .form h2{
@@ -382,25 +211,19 @@ textarea:focus{
 
 .grid3{
   display:grid;
-  grid-template-columns:
-    1fr 1fr 1fr;
-  gap:9px;
+  grid-template-columns:1fr 1fr 1fr;
+  gap:8px;
 }
 
 .actions{
   display:flex;
   gap:8px;
-  margin-top:5px;
+  margin-top:6px;
 }
 
 .actions>*{
   flex:1;
 }
-
-
-/* =====================================================
-   APPLICATION CARD
-===================================================== */
 
 .app{
   background:#fff;
@@ -408,6 +231,15 @@ textarea:focus{
   border-radius:17px;
   padding:15px;
   margin:10px 0;
+  box-shadow:0 2px 10px rgba(0,0,0,.025);
+}
+
+.app.overdue{
+  border-left:4px solid #dc2626;
+}
+
+.app.today{
+  border-left:4px solid #d97706;
 }
 
 .app-head{
@@ -444,45 +276,47 @@ textarea:focus{
   height:max-content;
 }
 
-
-/* =====================================================
-   STATUS COLORS
-===================================================== */
-
-.pill.applied{
-  background:#eef2ff;
-  color:#3730a3;
+.priority{
+  display:inline-block;
+  border-radius:999px;
+  padding:4px 8px;
+  font-size:10px;
+  font-weight:700;
+  margin-top:6px;
 }
 
-.pill.interview{
-  background:#dcfce7;
-  color:#166534;
-}
-
-.pill.offer{
-  background:#fef3c7;
-  color:#92400e;
-}
-
-.pill.rejected{
+.priority-high{
   background:#fee2e2;
   color:#991b1b;
 }
 
-.pill.shortlisted{
-  background:#dbeafe;
-  color:#1d4ed8;
+.priority-medium{
+  background:#fef3c7;
+  color:#92400e;
 }
 
-.pill.assessment{
-  background:#f3e8ff;
-  color:#7e22ce;
+.priority-low{
+  background:#dcfce7;
+  color:#166534;
 }
 
+.followup{
+  margin-top:11px;
+  background:#f8fafc;
+  border-radius:11px;
+  padding:9px 10px;
+  font-size:12px;
+}
 
-/* =====================================================
-   CONTACT
-===================================================== */
+.followup.overdue{
+  background:#fef2f2;
+  color:#991b1b;
+}
+
+.followup.today{
+  background:#fffbeb;
+  color:#92400e;
+}
 
 .contact{
   margin-top:12px;
@@ -510,11 +344,6 @@ textarea:focus{
   padding:7px 9px;
 }
 
-
-/* =====================================================
-   DETAILS
-===================================================== */
-
 .details{
   margin-top:10px;
 }
@@ -524,11 +353,6 @@ textarea:focus{
   font-weight:650;
   cursor:pointer;
 }
-
-
-/* =====================================================
-   TIMELINE
-===================================================== */
 
 .timeline{
   margin:10px 0 0 4px;
@@ -569,21 +393,24 @@ textarea:focus{
   color:#6b7280;
 }
 
+.quick-status{
+  display:flex;
+  gap:6px;
+  overflow-x:auto;
+  padding:8px 0 2px;
+}
 
-/* =====================================================
-   EMPTY
-===================================================== */
+.quick-status button{
+  flex:0 0 auto;
+  padding:7px 9px;
+  font-size:10px;
+}
 
 .empty{
   text-align:center;
   color:#6b7280;
   padding:42px 15px;
 }
-
-
-/* =====================================================
-   BOTTOM BUTTON
-===================================================== */
 
 .bottom{
   position:fixed;
@@ -593,44 +420,102 @@ textarea:focus{
   background:rgba(255,255,255,.97);
   backdrop-filter:blur(12px);
   border-top:1px solid #e5e7eb;
-  padding:
-    10px
-    14px
-    calc(10px + env(safe-area-inset-bottom));
-  z-index:30;
+  padding:10px 14px calc(10px + env(safe-area-inset-bottom));
+  z-index:60;
 }
 
 .bottom button{
   width:100%;
 }
 
-
-/* =====================================================
-   RESULTS BAR
-===================================================== */
-
-.results-bar{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin:8px 2px;
+.account{
+  display:none;
+  background:#fff;
+  border:1px solid #e5e7eb;
+  border-radius:17px;
+  padding:15px;
+  margin-bottom:12px;
 }
 
-.results-count{
+.account h2{
+  margin:0 0 10px;
+  font-size:18px;
+}
+
+.account-row{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  align-items:center;
+}
+
+.status-dot{
+  font-size:12px;
+  color:#166534;
+}
+
+.small{
   font-size:11px;
   color:#6b7280;
 }
 
+.sync-loading{
+  margin-top:8px;
+  font-size:11px;
+  color:#374151;
+}
 
-/* =====================================================
-   MOBILE
-===================================================== */
+.tools{
+  display:flex;
+  gap:7px;
+  flex-wrap:wrap;
+  margin:10px 0;
+}
+
+.tools button{
+  font-size:11px;
+  padding:8px 10px;
+}
+
+.section-title{
+  font-size:14px;
+  font-weight:750;
+  margin:16px 0 7px;
+}
+
+.salary-row{
+  display:grid;
+  grid-template-columns:1fr 1fr 1fr;
+  gap:8px;
+}
+
+.badge-row{
+  display:flex;
+  gap:6px;
+  flex-wrap:wrap;
+  margin-top:7px;
+}
+
+.badge{
+  background:#f3f4f6;
+  border-radius:8px;
+  padding:5px 7px;
+  font-size:10px;
+  color:#374151;
+}
 
 @media(max-width:600px){
 
   .stats{
-    grid-template-columns:
-      repeat(2,1fr);
+    gap:6px;
+  }
+
+  .stat{
+    padding:10px 2px;
+  }
+
+  .insights{
+    grid-template-columns:1fr;
   }
 
   .grid2{
@@ -641,72 +526,30 @@ textarea:focus{
     grid-template-columns:1fr;
   }
 
-  .account-row{
-    align-items:flex-start;
-    flex-direction:column;
-  }
-
-  .action-item{
-    align-items:flex-start;
-    flex-direction:column;
-  }
-
-  .action-buttons{
-    width:100%;
-  }
-
-  .action-buttons button{
-    flex:1;
-  }
-
-}
-
-@media(max-width:430px){
-
-  .stats{
-    gap:6px;
-  }
-
-  .stat{
-    padding:11px 2px;
-  }
-
-  header button{
-    padding:9px 10px;
+  .salary-row{
+    grid-template-columns:1fr;
   }
 
   .app-head{
     align-items:flex-start;
   }
 
-  .toolbar{
-    flex-direction:column;
+  header button{
+    padding:9px 10px;
   }
-
 }
-
 </style>
-
 </head>
 
-
 <body>
-
-
-<!-- =====================================================
-     HEADER
-===================================================== -->
 
 <header>
 
   <div>
-
     <h1>💼 Job Tracker</h1>
-
     <div class="sub">
-      Your personal job application dashboard
+      Job search command center
     </div>
-
   </div>
 
   <button
@@ -718,15 +561,7 @@ textarea:focus{
 
 </header>
 
-
-<!-- =====================================================
-     MAIN
-===================================================== -->
-
 <main>
-
-
-<!-- NOTICE -->
 
 <div
   class="notice"
@@ -735,31 +570,21 @@ textarea:focus{
   🔒 Applications stay on this device until cloud sync is enabled.
 </div>
 
-
-<!-- ACCOUNT -->
-
 <section
   class="account"
   id="account"
 >
 
-  <h2>
-    Account & Gmail
-  </h2>
+  <h2>Account & Gmail</h2>
 
   <div id="authArea"></div>
 
 </section>
 
 
-<!-- =====================================================
-     STATS
-===================================================== -->
-
 <section class="stats">
 
   <div class="stat">
-
     <div
       class="num"
       id="total"
@@ -770,12 +595,9 @@ textarea:focus{
     <div class="label">
       Applications
     </div>
-
   </div>
 
-
   <div class="stat">
-
     <div
       class="num"
       id="interviews"
@@ -786,12 +608,9 @@ textarea:focus{
     <div class="label">
       Interviews
     </div>
-
   </div>
 
-
   <div class="stat">
-
     <div
       class="num"
       id="offers"
@@ -802,12 +621,9 @@ textarea:focus{
     <div class="label">
       Offers
     </div>
-
   </div>
 
-
   <div class="stat">
-
     <div
       class="num"
       id="rejected"
@@ -818,68 +634,75 @@ textarea:focus{
     <div class="label">
       Rejected
     </div>
-
   </div>
 
 </section>
 
 
-<!-- =====================================================
-     ACTION NEEDED
-===================================================== -->
+<section class="insights">
 
-<section
-  class="action-box"
-  id="actionBox"
->
+  <div class="insight">
 
-  <div class="action-head">
-
-    <div class="action-title">
-      ⚡ Action Needed
+    <div class="insight-title">
+      🔔 Follow-ups due
     </div>
 
     <div
-      class="action-count"
-      id="actionCount"
+      class="insight-value"
+      id="followupsDue"
     >
       0
     </div>
 
   </div>
 
-  <div
-    class="action-list"
-    id="actionList"
-  ></div>
+  <div class="insight">
+
+    <div class="insight-title">
+      ⭐ High priority
+    </div>
+
+    <div
+      class="insight-value"
+      id="highPriority"
+    >
+      0
+    </div>
+
+  </div>
+
+  <div class="insight">
+
+    <div class="insight-title">
+      📅 Interviews upcoming
+    </div>
+
+    <div
+      class="insight-value"
+      id="upcomingInterviews"
+    >
+      0
+    </div>
+
+  </div>
 
 </section>
 
-
-<!-- =====================================================
-     SEARCH
-===================================================== -->
 
 <div class="toolbar">
 
   <input
     id="search"
-    placeholder="🔎 Search company, role or recruiter"
+    placeholder="Search company, role or recruiter"
     autocomplete="off"
   >
 
-  <button
-    onclick="openForm()"
-  >
+  <button onclick="openForm()">
     ＋ Add
   </button>
 
 </div>
 
-
-<!-- =====================================================
-     FILTERS
-===================================================== -->
 
 <div class="toolbar">
 
@@ -890,7 +713,6 @@ textarea:focus{
     </option>
 
   </select>
-
 
   <select id="sourceFilter">
 
@@ -916,8 +738,33 @@ textarea:focus{
 
   </select>
 
+</div>
 
-  <select id="sortFilter">
+
+<div class="toolbar">
+
+  <select id="priorityFilter">
+
+    <option value="">
+      All priorities
+    </option>
+
+    <option value="High">
+      High
+    </option>
+
+    <option value="Medium">
+      Medium
+    </option>
+
+    <option value="Low">
+      Low
+    </option>
+
+  </select>
+
+
+  <select id="sortBy">
 
     <option value="newest">
       Newest first
@@ -931,26 +778,52 @@ textarea:focus{
       Company A-Z
     </option>
 
+    <option value="followup">
+      Follow-up first
+    </option>
+
+    <option value="interview">
+      Interview date
+    </option>
+
   </select>
 
 </div>
 
 
-<div class="results-bar">
+<div class="tools">
 
-  <div
-    class="results-count"
-    id="resultsCount"
+  <button
+    class="secondary"
+    onclick="exportCSV()"
   >
-    0 applications
-  </div>
+    📊 Export CSV
+  </button>
+
+  <button
+    class="secondary"
+    onclick="backupJSON()"
+  >
+    💾 Backup
+  </button>
+
+  <button
+    class="secondary"
+    onclick="document.getElementById('importFile').click()"
+  >
+    📥 Import
+  </button>
+
+  <input
+    id="importFile"
+    type="file"
+    accept=".json"
+    style="display:none"
+    onchange="importJSON(event)"
+  >
 
 </div>
 
-
-<!-- =====================================================
-     FORM
-===================================================== -->
 
 <section
   class="form"
@@ -1075,6 +948,140 @@ textarea:focus{
     <div class="field">
 
       <label>
+        Priority
+      </label>
+
+      <select id="priority">
+
+        <option value="High">
+          High
+        </option>
+
+        <option
+          value="Medium"
+          selected
+        >
+          Medium
+        </option>
+
+        <option value="Low">
+          Low
+        </option>
+
+      </select>
+
+    </div>
+
+
+    <div class="field">
+
+      <label>
+        Follow-up date
+      </label>
+
+      <input
+        id="followup"
+        type="date"
+      >
+
+    </div>
+
+  </div>
+
+
+  <div class="grid2">
+
+    <div class="field">
+
+      <label>
+        Interview date
+      </label>
+
+      <input
+        id="interviewDate"
+        type="datetime-local"
+      >
+
+    </div>
+
+
+    <div class="field">
+
+      <label>
+        Notice period
+      </label>
+
+      <input
+        id="noticePeriod"
+        placeholder="20 days"
+      >
+
+    </div>
+
+  </div>
+
+
+  <div class="section-title">
+    💰 Compensation
+  </div>
+
+
+  <div class="salary-row">
+
+    <div class="field">
+
+      <label>
+        Current CTC
+      </label>
+
+      <input
+        id="currentCtc"
+        placeholder="3.8 LPA"
+      >
+
+    </div>
+
+
+    <div class="field">
+
+      <label>
+        Expected CTC
+      </label>
+
+      <input
+        id="expectedCtc"
+        placeholder="9 LPA"
+      >
+
+    </div>
+
+
+    <div class="field">
+
+      <label>
+        Offered CTC
+      </label>
+
+      <input
+        id="offeredCtc"
+        placeholder="10 LPA"
+      >
+
+    </div>
+
+  </div>
+
+
+  <div class="section-title">
+    👤 Recruiter
+  </div>
+
+
+  <div class="grid2">
+
+    <div class="field">
+
+      <label>
         Recruiter name
       </label>
 
@@ -1168,12 +1175,9 @@ textarea:focus{
 
   <div class="actions">
 
-    <button
-      onclick="saveApp()"
-    >
+    <button onclick="saveApp()">
       Save
     </button>
-
 
     <button
       class="secondary"
@@ -1187,34 +1191,19 @@ textarea:focus{
 </section>
 
 
-<!-- =====================================================
-     APPLICATION LIST
-===================================================== -->
-
 <section id="list"></section>
-
 
 </main>
 
 
-<!-- =====================================================
-     BOTTOM BUTTON
-===================================================== -->
-
 <div class="bottom">
 
-  <button
-    onclick="openForm()"
-  >
+  <button onclick="openForm()">
     ＋ Add Job Application
   </button>
 
 </div>
 
-
-<!-- =====================================================
-     SUPABASE
-===================================================== -->
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
@@ -1223,40 +1212,23 @@ textarea:focus{
 
 <script>
 
-/* =====================================================
-   STATUS LIST
-===================================================== */
-
 const statuses = [
 
   "Applied",
-
   "Application Viewed",
-
   "Shortlisted",
-
   "Recruiter Contacted",
-
   "Interview",
-
   "Assessment",
-
   "Offer",
-
   "Rejected",
-
   "Withdrawn"
 
 ];
 
 
-/* =====================================================
-   HELPERS
-===================================================== */
-
 const $ =
-  id =>
-    document.getElementById(id);
+  id => document.getElementById(id);
 
 
 let apps =
@@ -1276,9 +1248,9 @@ let gmailConnected = false;
 let editingId = null;
 
 
-/* =====================================================
-   TODAY
-===================================================== */
+/* =========================
+   BASIC HELPERS
+========================= */
 
 function today(){
 
@@ -1289,17 +1261,16 @@ function today(){
 }
 
 
-/* =====================================================
-   DATE FORMAT
-===================================================== */
+function nowDate(){
+
+  return new Date();
+
+}
+
 
 function fmt(value){
 
-  if(!value){
-
-    return "—";
-
-  }
+  if(!value) return "—";
 
   const d =
     new Date(value);
@@ -1311,18 +1282,11 @@ function fmt(value){
   ){
 
     const parts =
-      String(value)
-        .split("-");
+      String(value).split("-");
 
-    if(
-      parts.length === 3
-    ){
+    if(parts.length === 3){
 
-      return `
-        ${parts[2]}
-        ${parts[1]}
-        ${parts[0]}
-      `;
+      return `${parts[2]} ${parts[1]} ${parts[0]}`;
 
     }
 
@@ -1342,17 +1306,9 @@ function fmt(value){
 }
 
 
-/* =====================================================
-   DATE TIME
-===================================================== */
-
 function fmtDateTime(value){
 
-  if(!value){
-
-    return "—";
-
-  }
+  if(!value) return "—";
 
   const d =
     new Date(value);
@@ -1381,16 +1337,11 @@ function fmtDateTime(value){
 }
 
 
-/* =====================================================
-   ESCAPE
-===================================================== */
-
 function esc(s){
 
   return String(
     s ?? ""
-  )
-  .replace(
+  ).replace(
     /[&<>"']/g,
     c => ({
       "&":"&amp;",
@@ -1415,99 +1366,6 @@ function attr(s){
 }
 
 
-/* =====================================================
-   STATUS CLASS
-===================================================== */
-
-function statusClass(status){
-
-  const value =
-    String(
-      status || ""
-    )
-    .toLowerCase();
-
-  if(
-    value === "interview"
-  ){
-
-    return "interview";
-
-  }
-
-  if(
-    value === "offer"
-  ){
-
-    return "offer";
-
-  }
-
-  if(
-    value === "rejected"
-  ){
-
-    return "rejected";
-
-  }
-
-  if(
-    value === "shortlisted"
-  ){
-
-    return "shortlisted";
-
-  }
-
-  if(
-    value === "assessment"
-  ){
-
-    return "assessment";
-
-  }
-
-  return "applied";
-
-}
-
-
-/* =====================================================
-   FILL SELECTS
-===================================================== */
-
-function fill(){
-
-  $("status").innerHTML =
-    statuses
-      .map(
-        s =>
-          `<option>${esc(s)}</option>`
-      )
-      .join("");
-
-
-  $("filter").innerHTML =
-    `<option value="">
-      All statuses
-    </option>` +
-
-    statuses
-      .map(
-        s =>
-          `<option value="${attr(s)}">
-            ${esc(s)}
-          </option>`
-      )
-      .join("");
-
-}
-
-
-/* =====================================================
-   LOCAL SAVE
-===================================================== */
-
 function save(){
 
   localStorage.setItem(
@@ -1518,243 +1376,166 @@ function save(){
 }
 
 
-/* =====================================================
-   ACTION NEEDED
-===================================================== */
+function fill(){
 
-function getActionApps(){
-
-  const now =
-    new Date();
-
-  return apps
-    .filter(a => {
-
-      if(
-        a.status === "Rejected" ||
-        a.status === "Offer" ||
-        a.status === "Withdrawn"
-      ){
-
-        return false;
-
-      }
-
-      const reference =
-        a.contacted ||
-        a.applied;
-
-      if(!reference){
-
-        return false;
-
-      }
-
-      const d =
-        new Date(reference);
-
-      if(
-        Number.isNaN(
-          d.getTime()
-        )
-      ){
-
-        return false;
-
-      }
-
-      const days =
-        (
-          now.getTime() -
-          d.getTime()
-        ) /
-        86400000;
-
-      /*
-       * Show applications
-       * older than 3 days
-       * without an interview.
-       */
-
-      return (
-        days >= 3 &&
-        a.status !== "Interview"
-      );
-
-    })
-    .sort(
-      (a,b) =>
-        new Date(
-          a.contacted ||
-          a.applied ||
-          0
-        ) -
-        new Date(
-          b.contacted ||
-          b.applied ||
-          0
-        )
-    )
-    .slice(0,5);
-
-}
+  $("status").innerHTML =
+    statuses
+      .map(
+        s =>
+          `<option>${s}</option>`
+      )
+      .join("");
 
 
-/* =====================================================
-   RENDER ACTION BOX
-===================================================== */
-
-function renderActions(){
-
-  const actionApps =
-    getActionApps();
-
-
-  $("actionCount")
-    .textContent =
-      actionApps.length;
-
-
-  if(
-    actionApps.length === 0
-  ){
-
-    $("actionList").innerHTML = `
-
-      <div
-        class="small"
-        style="padding-top:8px"
-      >
-        ✅ No urgent follow-ups right now.
-      </div>
-
-    `;
-
-    return;
-
-  }
-
-
-  $("actionList").innerHTML =
-    actionApps
-      .map(a => {
-
-        const reference =
-          a.contacted ||
-          a.applied;
-
-        const days =
-          Math.floor(
-            (
-              new Date()
-                .getTime() -
-              new Date(reference)
-                .getTime()
-            ) /
-            86400000
-          );
-
-
-        return `
-
-          <div class="action-item">
-
-            <div>
-
-              <div class="action-company">
-                ${esc(a.company)}
-              </div>
-
-              <div class="action-role">
-                ${esc(
-                  a.role ||
-                  "Job application"
-                )}
-              </div>
-
-              <div class="action-reason">
-                ⏰ ${days} days since
-                ${a.contacted
-                  ? "recruiter contact"
-                  : "application"}
-              </div>
-
-            </div>
-
-
-            <div class="action-buttons">
-
-              ${
-                a.email
-                  ? `
-                    <button
-                      class="secondary"
-                      onclick="emailRecruiter('${attr(a.email)}')"
-                    >
-                      ✉
-                    </button>
-                  `
-                  : ""
-              }
-
-
-              <button
-                onclick="openForm('${attr(a.id)}')"
-              >
-                Edit
-              </button>
-
-            </div>
-
-          </div>
-
-        `;
-
-      })
+  $("filter").innerHTML =
+    '<option value="">All statuses</option>' +
+    statuses
+      .map(
+        s =>
+          `<option>${s}</option>`
+      )
       .join("");
 
 }
 
 
-/* =====================================================
-   RENDER DASHBOARD
-===================================================== */
+/* =========================
+   FOLLOW-UP HELPERS
+========================= */
+
+function followupState(date){
+
+  if(!date){
+
+    return "";
+
+  }
+
+  const d =
+    new Date(
+      date + "T00:00:00"
+    );
+
+  const t =
+    new Date();
+
+  t.setHours(
+    0,0,0,0
+  );
+
+
+  if(d < t){
+
+    return "overdue";
+
+  }
+
+
+  if(
+    d.getTime() ===
+    t.getTime()
+  ){
+
+    return "today";
+
+  }
+
+
+  return "future";
+
+}
+
+
+function followupText(date){
+
+  const state =
+    followupState(date);
+
+  if(!state) return "";
+
+  if(state === "overdue"){
+
+    return `🔴 Follow-up overdue · ${fmt(date)}`;
+
+  }
+
+  if(state === "today"){
+
+    return `🟠 Follow-up today · ${fmt(date)}`;
+
+  }
+
+  return `🔔 Follow-up · ${fmt(date)}`;
+
+}
+
+
+/* =========================
+   RENDER
+========================= */
 
 function render(){
 
-  $("total")
-    .textContent =
-      apps.length;
+  $("total").textContent =
+    apps.length;
 
 
-  $("interviews")
-    .textContent =
-      apps.filter(
-        a =>
-          a.status ===
-          "Interview"
-      ).length;
+  $("interviews").textContent =
+    apps.filter(
+      a =>
+        a.status ===
+        "Interview"
+    ).length;
 
 
-  $("offers")
-    .textContent =
-      apps.filter(
-        a =>
-          a.status ===
+  $("offers").textContent =
+    apps.filter(
+      a =>
+        a.status ===
+        "Offer"
+    ).length;
+
+
+  $("rejected").textContent =
+    apps.filter(
+      a =>
+        a.status ===
+        "Rejected"
+    ).length;
+
+
+  const todayValue =
+    today();
+
+
+  $("followupsDue").textContent =
+    apps.filter(
+      a =>
+        a.followup &&
+        a.followup <= todayValue &&
+        ![
+          "Rejected",
+          "Withdrawn",
           "Offer"
-      ).length;
+        ].includes(a.status)
+    ).length;
 
 
-  $("rejected")
-    .textContent =
-      apps.filter(
-        a =>
-          a.status ===
-          "Rejected"
-      ).length;
+  $("highPriority").textContent =
+    apps.filter(
+      a =>
+        a.priority === "High"
+    ).length;
 
 
-  renderActions();
+  $("upcomingInterviews").textContent =
+    apps.filter(
+      a =>
+        a.interviewDate &&
+        new Date(
+          a.interviewDate
+        ) >= new Date()
+    ).length;
 
 
   const q =
@@ -1765,18 +1546,15 @@ function render(){
 
 
   const f =
-    $("filter")
-      .value;
+    $("filter").value;
 
 
   const sf =
-    $("sourceFilter")
-      .value;
+    $("sourceFilter").value;
 
 
-  const sort =
-    $("sortFilter")
-      .value;
+  const pf =
+    $("priorityFilter").value;
 
 
   let list =
@@ -1784,87 +1562,112 @@ function render(){
 
       const searchable =
         `${a.company}
-         ${a.role || ""}
+         ${a.role}
          ${a.recruiter || ""}
+         ${a.location || ""}
          ${a.email || ""}
-         ${a.location || ""}`
+         ${a.notes || ""}`
           .toLowerCase();
 
 
       return (
 
-        (
-          !q ||
-          searchable.includes(q)
-        )
+        (!q ||
+          searchable.includes(q))
 
         &&
 
-        (
-          !f ||
-          a.status === f
-        )
+        (!f ||
+          a.status === f)
 
         &&
 
-        (
-          !sf ||
-          a.source === sf
-        )
+        (!sf ||
+          a.source === sf)
+
+        &&
+
+        (!pf ||
+          a.priority === pf)
 
       );
 
     });
 
 
-  if(
-    sort === "company"
-  ){
+  const sort =
+    $("sortBy").value;
 
-    list.sort(
-      (a,b) =>
-        String(
+
+  list.sort(
+    (a,b) => {
+
+      if(sort === "company"){
+
+        return (
           a.company || ""
         ).localeCompare(
-          String(
-            b.company || ""
-          )
-        )
-    );
-
-  }else{
-
-    list.sort(
-      (a,b) => {
-
-        const da =
-          new Date(
-            a.applied ||
-            a.contacted ||
-            0
-          ).getTime();
-
-        const db =
-          new Date(
-            b.applied ||
-            b.contacted ||
-            0
-          ).getTime();
-
-
-        return sort === "oldest"
-          ? da - db
-          : db - da;
+          b.company || ""
+        );
 
       }
-    );
-
-  }
 
 
-  $("resultsCount")
-    .textContent =
-      `${list.length} application${list.length === 1 ? "" : "s"}`;
+      if(sort === "oldest"){
+
+        return (
+          new Date(
+            a.applied || 0
+          ) -
+          new Date(
+            b.applied || 0
+          )
+        );
+
+      }
+
+
+      if(sort === "followup"){
+
+        return (
+          new Date(
+            a.followup || "9999-12-31"
+          ) -
+          new Date(
+            b.followup || "9999-12-31"
+          )
+        );
+
+      }
+
+
+      if(sort === "interview"){
+
+        return (
+          new Date(
+            a.interviewDate ||
+            "9999-12-31"
+          ) -
+          new Date(
+            b.interviewDate ||
+            "9999-12-31"
+          )
+        );
+
+      }
+
+
+      return (
+        new Date(
+          b.applied || 0
+        ) -
+        new Date(
+          a.applied || 0
+        )
+      );
+
+    }
+  );
 
 
   $("list").innerHTML =
@@ -1873,29 +1676,23 @@ function render(){
           .map(card)
           .join("")
       : `
-
         <div class="empty">
 
           No applications found.
 
-          <br><br>
+          <br>
 
-          <button
-            onclick="openForm()"
-          >
-            ＋ Add Application
-          </button>
+          Add your first application above.
 
         </div>
-
       `;
 
 }
 
 
-/* =====================================================
+/* =========================
    APPLICATION CARD
-===================================================== */
+========================= */
 
 function card(a){
 
@@ -1911,37 +1708,37 @@ function card(a){
             y.date || 0
           )
       )
-      .map(e => `
+      .map(
+        e => `
 
-        <div class="event">
+          <div class="event">
 
-          <strong>
-            ${esc(
-              e.status ||
-              "Status update"
-            )}
-          </strong>
+            <strong>
+              ${esc(
+                e.status ||
+                "Status update"
+              )}
+            </strong>
 
-          <small>
-            ${fmtDateTime(e.date)}
-          </small>
+            <small>
+              ${fmtDateTime(e.date)}
+            </small>
 
-          ${
-            e.source
-              ? `
-                <span
-                  class="event-source"
-                >
-                  Source:
-                  ${esc(e.source)}
-                </span>
-              `
-              : ""
-          }
+            ${
+              e.source
+                ? `
+                  <span class="event-source">
+                    Source:
+                    ${esc(e.source)}
+                  </span>
+                `
+                : ""
+            }
 
-        </div>
+          </div>
 
-      `)
+        `
+      )
       .join("");
 
 
@@ -1951,15 +1748,23 @@ function card(a){
     a.phone;
 
 
-  const cls =
-    statusClass(
-      a.status
+  const followState =
+    followupState(
+      a.followup
     );
+
+
+  const appClass =
+    followState === "overdue"
+      ? "app overdue"
+      : followState === "today"
+        ? "app today"
+        : "app";
 
 
   return `
 
-    <article class="app">
+    <article class="${appClass}">
 
       <div class="app-head">
 
@@ -1988,16 +1793,31 @@ function card(a){
 
           </div>
 
+
+          ${
+            a.priority
+              ? `
+                <span
+                  class="
+                    priority
+                    priority-${(
+                      a.priority ||
+                      "Medium"
+                    ).toLowerCase()}
+                  "
+                >
+                  ${esc(a.priority)}
+                  priority
+                </span>
+              `
+              : ""
+          }
+
         </div>
 
 
-        <span
-          class="pill ${cls}"
-        >
-          ${esc(
-            a.status ||
-            "Applied"
-          )}
+        <span class="pill">
+          ${esc(a.status)}
         </span>
 
       </div>
@@ -2014,15 +1834,73 @@ function card(a){
       }
 
 
+      <div class="badge-row">
+
+        ${
+          a.interviewDate
+            ? `
+              <span class="badge">
+                🎯 Interview:
+                ${fmtDateTime(
+                  a.interviewDate
+                )}
+              </span>
+            `
+            : ""
+        }
+
+
+        ${
+          a.expectedCtc
+            ? `
+              <span class="badge">
+                💰 Expected:
+                ${esc(a.expectedCtc)}
+              </span>
+            `
+            : ""
+        }
+
+
+        ${
+          a.noticePeriod
+            ? `
+              <span class="badge">
+                ⏱ Notice:
+                ${esc(a.noticePeriod)}
+              </span>
+            `
+            : ""
+        }
+
+      </div>
+
+
+      ${
+        a.followup
+          ? `
+            <div
+              class="
+                followup
+                ${followState}
+              "
+            >
+              ${followupText(
+                a.followup
+              )}
+            </div>
+          `
+          : ""
+      }
+
+
       ${
         hasContact
           ? `
 
             <div class="contact">
 
-              <b>
-                Recruiter
-              </b>
+              <b>Recruiter</b>
 
               <div>
 
@@ -2082,9 +1960,40 @@ function card(a){
       }
 
 
-      <details
-        class="details"
-      >
+      <div class="quick-status">
+
+        <button
+          class="secondary"
+          onclick="changeStatus('${attr(a.id)}','Recruiter Contacted')"
+        >
+          Contacted
+        </button>
+
+        <button
+          class="secondary"
+          onclick="changeStatus('${attr(a.id)}','Interview')"
+        >
+          Interview
+        </button>
+
+        <button
+          class="success"
+          onclick="changeStatus('${attr(a.id)}','Offer')"
+        >
+          Offer
+        </button>
+
+        <button
+          class="danger"
+          onclick="changeStatus('${attr(a.id)}','Rejected')"
+        >
+          Rejected
+        </button>
+
+      </div>
+
+
+      <details class="details">
 
         <summary>
           View details & status history
@@ -2105,6 +2014,51 @@ function card(a){
         </div>
 
 
+        <div class="section-title">
+          Job details
+        </div>
+
+
+        <div class="badge-row">
+
+          ${
+            a.currentCtc
+              ? `
+                <span class="badge">
+                  Current CTC:
+                  ${esc(a.currentCtc)}
+                </span>
+              `
+              : ""
+          }
+
+
+          ${
+            a.expectedCtc
+              ? `
+                <span class="badge">
+                  Expected CTC:
+                  ${esc(a.expectedCtc)}
+                </span>
+              `
+              : ""
+          }
+
+
+          ${
+            a.offeredCtc
+              ? `
+                <span class="badge">
+                  Offered CTC:
+                  ${esc(a.offeredCtc)}
+                </span>
+              `
+              : ""
+          }
+
+        </div>
+
+
         ${
           a.notes
             ? `
@@ -2120,7 +2074,6 @@ function card(a){
           a.url
             ? `
               <p>
-
                 <a
                   href="${attr(a.url)}"
                   target="_blank"
@@ -2128,7 +2081,6 @@ function card(a){
                 >
                   Open job posting ↗
                 </a>
-
               </p>
             `
             : ""
@@ -2157,7 +2109,7 @@ function card(a){
                           : ""
                       }
                     >
-                      ${esc(s)}
+                      ${s}
                     </option>`
                 )
                 .join("")
@@ -2200,23 +2152,9 @@ function card(a){
 }
 
 
-/* =====================================================
-   EMAIL RECRUITER
-===================================================== */
-
-function emailRecruiter(
-  email
-){
-
-  window.location.href =
-    `mailto:${email}`;
-
-}
-
-
-/* =====================================================
-   OPEN FORM
-===================================================== */
+/* =========================
+   FORM
+========================= */
 
 function openForm(id){
 
@@ -2237,121 +2175,119 @@ function openForm(id){
       );
 
 
-    $("formTitle")
-      .textContent =
+    $("formTitle").textContent =
       "Edit application";
 
 
     if(a){
 
-      $("company")
-        .value =
+      $("company").value =
         a.company || "";
 
-
-      $("role")
-        .value =
+      $("role").value =
         a.role || "";
 
-
-      $("source")
-        .value =
+      $("source").value =
         a.source ||
         "LinkedIn";
 
-
-      $("status")
-        .value =
+      $("status").value =
         a.status ||
         "Applied";
 
-
-      $("applied")
-        .value =
+      $("applied").value =
         a.applied ||
         today();
 
+      $("location").value =
+        a.location || "";
 
-      $("location")
-        .value =
-        a.location ||
-        "";
+      $("priority").value =
+        a.priority ||
+        "Medium";
 
+      $("followup").value =
+        a.followup || "";
 
-      $("recruiter")
-        .value =
-        a.recruiter ||
-        "";
+      $("interviewDate").value =
+        a.interviewDate || "";
 
+      $("noticePeriod").value =
+        a.noticePeriod || "";
 
-      $("contacted")
-        .value =
-        a.contacted ||
-        "";
+      $("currentCtc").value =
+        a.currentCtc || "";
 
+      $("expectedCtc").value =
+        a.expectedCtc || "";
 
-      $("email")
-        .value =
-        a.email ||
-        "";
+      $("offeredCtc").value =
+        a.offeredCtc || "";
 
+      $("recruiter").value =
+        a.recruiter || "";
 
-      $("phone")
-        .value =
-        a.phone ||
-        "";
+      $("contacted").value =
+        a.contacted || "";
 
+      $("email").value =
+        a.email || "";
 
-      $("url")
-        .value =
-        a.url ||
-        "";
+      $("phone").value =
+        a.phone || "";
 
+      $("url").value =
+        a.url || "";
 
-      $("notes")
-        .value =
-        a.notes ||
-        "";
+      $("notes").value =
+        a.notes || "";
 
     }
 
   }else{
 
-    $("formTitle")
-      .textContent =
+    $("formTitle").textContent =
       "Add application";
 
 
     [
+
       "company",
       "role",
       "location",
+      "followup",
+      "interviewDate",
+      "noticePeriod",
+      "currentCtc",
+      "expectedCtc",
+      "offeredCtc",
       "recruiter",
       "contacted",
       "email",
       "phone",
       "url",
       "notes"
-    ]
-    .forEach(
+
+    ].forEach(
       x =>
         $(x).value = ""
     );
 
 
-    $("applied")
-      .value =
+    $("applied").value =
       today();
 
 
-    $("status")
-      .value =
+    $("status").value =
       "Applied";
 
 
-    $("source")
-      .value =
+    $("source").value =
       "LinkedIn";
+
+
+    $("priority").value =
+      "Medium";
 
   }
 
@@ -2364,10 +2300,6 @@ function openForm(id){
 }
 
 
-/* =====================================================
-   CLOSE FORM
-===================================================== */
-
 function closeForm(){
 
   $("form").style.display =
@@ -2379,32 +2311,13 @@ function closeForm(){
 }
 
 
-/* =====================================================
-   SAVE APPLICATION
-===================================================== */
+/* =========================
+   BUILD PAYLOAD
+========================= */
 
-async function saveApp(){
+function getPayload(){
 
-  if(
-    !$("company")
-      .value
-      .trim()
-  ){
-
-    alert(
-      "Please enter the company name."
-    );
-
-    return;
-
-  }
-
-
-  const status =
-    $("status").value;
-
-
-  const payload = {
+  return {
 
     company:
       $("company")
@@ -2417,18 +2330,46 @@ async function saveApp(){
         .trim(),
 
     source:
-      $("source")
-        .value,
+      $("source").value,
 
-    status,
+    status:
+      $("status").value,
 
     applied:
-      $("applied")
-        .value ||
+      $("applied").value ||
       today(),
 
     location:
       $("location")
+        .value
+        .trim(),
+
+    priority:
+      $("priority").value,
+
+    followup:
+      $("followup").value,
+
+    interviewDate:
+      $("interviewDate").value,
+
+    noticePeriod:
+      $("noticePeriod")
+        .value
+        .trim(),
+
+    currentCtc:
+      $("currentCtc")
+        .value
+        .trim(),
+
+    expectedCtc:
+      $("expectedCtc")
+        .value
+        .trim(),
+
+    offeredCtc:
+      $("offeredCtc")
         .value
         .trim(),
 
@@ -2438,8 +2379,7 @@ async function saveApp(){
         .trim(),
 
     contacted:
-      $("contacted")
-        .value,
+      $("contacted").value,
 
     email:
       $("email")
@@ -2463,10 +2403,33 @@ async function saveApp(){
 
   };
 
+}
 
-  /* =================================================
-     EDIT
-  ================================================= */
+
+/* =========================
+   SAVE APPLICATION
+========================= */
+
+async function saveApp(){
+
+  if(
+    !$("company")
+      .value
+      .trim()
+  ){
+
+    alert(
+      "Please enter the company name."
+    );
+
+    return;
+
+  }
+
+
+  const payload =
+    getPayload();
+
 
   if(editingId){
 
@@ -2495,7 +2458,7 @@ async function saveApp(){
 
     const statusChanged =
       old.status !==
-      status;
+      payload.status;
 
 
     apps[idx] = {
@@ -2510,56 +2473,26 @@ async function saveApp(){
     };
 
 
-    save();
+    if(statusChanged){
 
+      apps[idx].history.push({
 
-    if(
-      statusChanged &&
-      sb &&
-      currentSession
-    ){
+        status:
+          payload.status,
 
-      const {
-        error
-      } =
-        await sb
-          .from(
-            "application_events"
-          )
-          .insert({
+        date:
+          new Date()
+            .toISOString(),
 
-            application_id:
-              editingId,
+        source:
+          "manual"
 
-            user_id:
-              currentSession
-                .user.id,
-
-            event_type:
-              status,
-
-            event_date:
-              new Date()
-                .toISOString(),
-
-            details:{
-              source:
-                "manual"
-            }
-
-          });
-
-
-      if(error){
-
-        console.error(
-          "Status event insert error:",
-          error
-        );
-
-      }
+      });
 
     }
+
+
+    save();
 
 
     if(
@@ -2611,7 +2544,30 @@ async function saveApp(){
               payload.url,
 
             notes:
-              payload.notes
+              payload.notes,
+
+            priority:
+              payload.priority,
+
+            followup_date:
+              payload.followup ||
+              null,
+
+            interview_date:
+              payload.interviewDate ||
+              null,
+
+            notice_period:
+              payload.noticePeriod,
+
+            current_ctc:
+              payload.currentCtc,
+
+            expected_ctc:
+              payload.expectedCtc,
+
+            offered_ctc:
+              payload.offeredCtc
 
           })
           .eq(
@@ -2620,30 +2576,36 @@ async function saveApp(){
           )
           .eq(
             "user_id",
-            currentSession
-              .user.id
+            currentSession.user.id
           );
 
 
       if(error){
 
         console.error(
-          "Update application error:",
+          "Cloud update error:",
           error
+        );
+
+      }
+
+
+      if(statusChanged){
+
+        await insertCloudEvent(
+          editingId,
+          payload.status,
+          {
+            source:
+              "manual"
+          }
         );
 
       }
 
     }
 
-  }
-
-
-  /* =================================================
-     CREATE
-  ================================================= */
-
-  else{
+  }else{
 
     let newId =
       crypto.randomUUID();
@@ -2665,8 +2627,7 @@ async function saveApp(){
           .insert({
 
             user_id:
-              currentSession
-                .user.id,
+              currentSession.user.id,
 
             company:
               payload.company,
@@ -2703,7 +2664,30 @@ async function saveApp(){
               payload.url,
 
             notes:
-              payload.notes
+              payload.notes,
+
+            priority:
+              payload.priority,
+
+            followup_date:
+              payload.followup ||
+              null,
+
+            interview_date:
+              payload.interviewDate ||
+              null,
+
+            notice_period:
+              payload.noticePeriod,
+
+            current_ctc:
+              payload.currentCtc,
+
+            expected_ctc:
+              payload.expectedCtc,
+
+            offered_ctc:
+              payload.offeredCtc
 
           })
           .select()
@@ -2713,7 +2697,7 @@ async function saveApp(){
       if(error){
 
         console.error(
-          "Insert application error:",
+          "Cloud insert error:",
           error
         );
 
@@ -2734,47 +2718,14 @@ async function saveApp(){
       }
 
 
-      const {
-        error:eventError
-      } =
-        await sb
-          .from(
-            "application_events"
-          )
-          .insert({
-
-            application_id:
-              newId,
-
-            user_id:
-              currentSession
-                .user.id,
-
-            event_type:
-              payload.status,
-
-            event_date:
-              new Date(
-                payload.applied ||
-                today()
-              ).toISOString(),
-
-            details:{
-              source:
-                "manual"
-            }
-
-          });
-
-
-      if(eventError){
-
-        console.error(
-          "Initial event error:",
-          eventError
-        );
-
-      }
+      await insertCloudEvent(
+        newId,
+        payload.status,
+        {
+          source:
+            "manual"
+        }
+      );
 
     }
 
@@ -2794,7 +2745,8 @@ async function saveApp(){
             payload.status,
 
           date:
-            payload.applied,
+            new Date()
+              .toISOString(),
 
           source:
             "manual"
@@ -2817,9 +2769,68 @@ async function saveApp(){
 }
 
 
-/* =====================================================
+/* =========================
+   CLOUD EVENT
+========================= */
+
+async function insertCloudEvent(
+  applicationId,
+  status,
+  details={}
+){
+
+  if(
+    !sb ||
+    !currentSession
+  ){
+
+    return;
+
+  }
+
+
+  const {
+    error
+  } =
+    await sb
+      .from(
+        "application_events"
+      )
+      .insert({
+
+        application_id:
+          applicationId,
+
+        user_id:
+          currentSession.user.id,
+
+        event_type:
+          status,
+
+        event_date:
+          new Date()
+            .toISOString(),
+
+        details
+
+      });
+
+
+  if(error){
+
+    console.error(
+      "Cloud event error:",
+      error
+    );
+
+  }
+
+}
+
+
+/* =========================
    CHANGE STATUS
-===================================================== */
+========================= */
 
 async function changeStatus(
   id,
@@ -2833,15 +2844,12 @@ async function changeStatus(
     );
 
 
-  if(!a){
-
-    return;
-
-  }
+  if(!a) return;
 
 
   if(
-    a.status === status
+    a.status ===
+    status
   ){
 
     return;
@@ -2886,7 +2894,7 @@ async function changeStatus(
   ){
 
     const {
-      error:updateError
+      error
     } =
       await sb
         .from(
@@ -2901,16 +2909,15 @@ async function changeStatus(
         )
         .eq(
           "user_id",
-          currentSession
-            .user.id
+          currentSession.user.id
         );
 
 
-    if(updateError){
+    if(error){
 
       console.error(
-        "Update status error:",
-        updateError
+        "Status update error:",
+        error
       );
 
 
@@ -2918,25 +2925,14 @@ async function changeStatus(
         oldStatus;
 
 
-      a.history =
-        a.history.filter(
-          e =>
-            !(
-              e.status ===
-                status &&
-              e.source ===
-                "manual"
-            )
-        );
-
+      a.history.pop();
 
       save();
 
       render();
 
-
       alert(
-        "Could not update the cloud status. Please try again."
+        "Could not update the cloud status."
       );
 
       return;
@@ -2944,63 +2940,28 @@ async function changeStatus(
     }
 
 
-    const {
-      error:eventError
-    } =
-      await sb
-        .from(
-          "application_events"
-        )
-        .insert({
+    await insertCloudEvent(
+      id,
+      status,
+      {
+        source:
+          "manual",
 
-          application_id:
-            id,
-
-          user_id:
-            currentSession
-              .user.id,
-
-          event_type:
-            status,
-
-          event_date:
-            new Date()
-              .toISOString(),
-
-          details:{
-
-            source:
-              "manual",
-
-            previous_status:
-              oldStatus
-
-          }
-
-        });
-
-
-    if(eventError){
-
-      console.error(
-        "Status event error:",
-        eventError
-      );
-
-    }
+        previous_status:
+          oldStatus
+      }
+    );
 
   }
 
 }
 
 
-/* =====================================================
+/* =========================
    DELETE
-===================================================== */
+========================= */
 
-async function removeApp(
-  id
-){
+async function removeApp(id){
 
   if(
     !confirm(
@@ -3051,15 +3012,14 @@ async function removeApp(
         )
         .eq(
           "user_id",
-          currentSession
-            .user.id
+          currentSession.user.id
         );
 
 
     if(error){
 
       console.error(
-        "Delete application error:",
+        "Delete error:",
         error
       );
 
@@ -3078,7 +3038,7 @@ async function removeApp(
 
 
       alert(
-        "Could not delete the application from the cloud."
+        "Could not delete the cloud application."
       );
 
     }
@@ -3088,9 +3048,9 @@ async function removeApp(
 }
 
 
-/* =====================================================
+/* =========================
    ACCOUNT
-===================================================== */
+========================= */
 
 function toggleAccount(){
 
@@ -3103,36 +3063,21 @@ function toggleAccount(){
 }
 
 
-/* =====================================================
-   SUPABASE CONFIG
-===================================================== */
-
 function configured(){
 
   return (
-
-    window
-      .JOB_TRACKER_SUPABASE &&
-
-    window
-      .JOB_TRACKER_SUPABASE
-      .publishableKey &&
-
-    !window
-      .JOB_TRACKER_SUPABASE
-      .publishableKey
-      .includes(
-        "PASTE_YOUR"
-      )
-
+    window.JOB_TRACKER_SUPABASE &&
+    window.JOB_TRACKER_SUPABASE.publishableKey &&
+    !window.JOB_TRACKER_SUPABASE.publishableKey
+      .includes("PASTE_YOUR")
   );
 
 }
 
 
-/* =====================================================
-   LOAD CLOUD APPLICATIONS
-===================================================== */
+/* =========================
+   CLOUD LOAD
+========================= */
 
 async function loadCloudApplications(){
 
@@ -3157,8 +3102,7 @@ async function loadCloudApplications(){
       .select("*")
       .eq(
         "user_id",
-        currentSession
-          .user.id
+        currentSession.user.id
       )
       .order(
         "created_at",
@@ -3191,8 +3135,7 @@ async function loadCloudApplications(){
       .select("*")
       .eq(
         "user_id",
-        currentSession
-          .user.id
+        currentSession.user.id
       )
       .order(
         "event_date",
@@ -3205,7 +3148,7 @@ async function loadCloudApplications(){
   if(eventError){
 
     console.error(
-      "Load application events error:",
+      "Load events error:",
       eventError
     );
 
@@ -3216,131 +3159,155 @@ async function loadCloudApplications(){
     {};
 
 
-  (
-    eventData || []
-  )
-  .forEach(
-    event => {
-
-      if(
-        !eventsByApplication[
-          event.application_id
-        ]
-      ){
-
-        eventsByApplication[
-          event.application_id
-        ] = [];
-
-      }
-
-
-      eventsByApplication[
-        event.application_id
-      ].push({
-
-        status:
-          event.event_type ||
-          "Status update",
-
-        date:
-          event.event_date,
-
-        source:
-          event.details?.source ||
-          "system"
-
-      });
-
-    }
-  );
-
-
-  apps =
-    (
-      data || []
-    )
-    .map(
-      a => {
-
-        let history =
-          eventsByApplication[
-            a.id
-          ] || [];
-
+  (eventData || [])
+    .forEach(
+      event => {
 
         if(
-          history.length === 0 &&
-          a.applied_date
+          !eventsByApplication[
+            event.application_id
+          ]
         ){
 
-          history = [
-
-            {
-
-              status:
-                "Applied",
-
-              date:
-                a.applied_date,
-
-              source:
-                "legacy"
-
-            }
-
-          ];
+          eventsByApplication[
+            event.application_id
+          ] = [];
 
         }
 
 
-        return {
-
-          id:
-            a.id,
-
-          company:
-            a.company,
-
-          role:
-            a.role,
-
-          source:
-            a.source,
+        eventsByApplication[
+          event.application_id
+        ].push({
 
           status:
-            a.status,
+            event.event_type ||
+            "Status update",
 
-          applied:
-            a.applied_date,
+          date:
+            event.event_date,
 
-          location:
-            a.location,
+          source:
+            event.details?.source ||
+            "system"
 
-          recruiter:
-            a.recruiter_name,
-
-          contacted:
-            a.contacted_date,
-
-          email:
-            a.recruiter_email,
-
-          phone:
-            a.recruiter_phone,
-
-          url:
-            a.job_url,
-
-          notes:
-            a.notes,
-
-          history
-
-        };
+        });
 
       }
     );
+
+
+  apps =
+    (data || [])
+      .map(
+        a => {
+
+          let history =
+            eventsByApplication[
+              a.id
+            ] || [];
+
+
+          if(
+            history.length === 0 &&
+            a.applied_date
+          ){
+
+            history = [
+
+              {
+
+                status:
+                  "Applied",
+
+                date:
+                  a.applied_date,
+
+                source:
+                  "legacy"
+
+              }
+
+            ];
+
+          }
+
+
+          return {
+
+            id:
+              a.id,
+
+            company:
+              a.company,
+
+            role:
+              a.role,
+
+            source:
+              a.source,
+
+            status:
+              a.status,
+
+            applied:
+              a.applied_date,
+
+            location:
+              a.location,
+
+            recruiter:
+              a.recruiter_name,
+
+            contacted:
+              a.contacted_date,
+
+            email:
+              a.recruiter_email,
+
+            phone:
+              a.recruiter_phone,
+
+            url:
+              a.job_url,
+
+            notes:
+              a.notes,
+
+            priority:
+              a.priority ||
+              "Medium",
+
+            followup:
+              a.followup_date ||
+              "",
+
+            interviewDate:
+              a.interview_date ||
+              "",
+
+            noticePeriod:
+              a.notice_period ||
+              "",
+
+            currentCtc:
+              a.current_ctc ||
+              "",
+
+            expectedCtc:
+              a.expected_ctc ||
+              "",
+
+            offeredCtc:
+              a.offered_ctc ||
+              "",
+
+            history
+
+          };
+
+        }
+      );
 
 
   save();
@@ -3348,9 +3315,9 @@ async function loadCloudApplications(){
 }
 
 
-/* =====================================================
+/* =========================
    AUTH
-===================================================== */
+========================= */
 
 function showAuth(){
 
@@ -3360,11 +3327,13 @@ function showAuth(){
 
       <div class="small">
 
-        Supabase is not configured
-        in this build yet.
+        Supabase is not configured.
 
         Add the Publishable Key to
-        <b>supabase-config.js</b>.
+
+        <b>
+          supabase-config.js
+        </b>
 
       </div>
 
@@ -3378,36 +3347,30 @@ function showAuth(){
   if(!sb){
 
     sb =
-      window
-        .supabase
-        .createClient(
+      window.supabase.createClient(
 
-          window
-            .JOB_TRACKER_SUPABASE
-            .url,
+        window.JOB_TRACKER_SUPABASE.url,
 
-          window
-            .JOB_TRACKER_SUPABASE
-            .publishableKey,
+        window.JOB_TRACKER_SUPABASE.publishableKey,
 
-          {
+        {
 
-            auth:{
+          auth:{
 
-              persistSession:
-                true,
+            persistSession:
+              true,
 
-              autoRefreshToken:
-                true,
+            autoRefreshToken:
+              true,
 
-              detectSessionInUrl:
-                true
-
-            }
+            detectSessionInUrl:
+              true
 
           }
 
-        );
+        }
+
+      );
 
   }
 
@@ -3428,77 +3391,76 @@ function showAuth(){
     );
 
 
-  sb.auth
-    .onAuthStateChange(
-      async (
-        event,
-        session
-      ) => {
+  sb.auth.onAuthStateChange(
+    async (
+      event,
+      session
+    ) => {
 
-        currentSession =
-          session;
-
-
-        gmailConnected =
-          !!(
-            session &&
-            session.provider_token
-          );
+      currentSession =
+        session;
 
 
-        if(
+      gmailConnected =
+        !!(
           session &&
           session.provider_token
-        ){
-
-          sessionStorage.setItem(
-            "jobTrackerGoogleToken",
-            session.provider_token
-          );
-
-        }
+        );
 
 
-        if(
-          session &&
-          session.provider_refresh_token
-        ){
+      if(
+        session &&
+        session.provider_token
+      ){
 
-          sessionStorage.setItem(
-            "jobTrackerGoogleRefreshToken",
-            session.provider_refresh_token
-          );
-
-        }
-
-
-        if(
-          event ===
-          "SIGNED_OUT"
-        ){
-
-          sessionStorage.removeItem(
-            "jobTrackerGoogleToken"
-          );
-
-          sessionStorage.removeItem(
-            "jobTrackerGoogleRefreshToken"
-          );
-
-        }
-
-
-        updateAuthUI();
+        sessionStorage.setItem(
+          "jobTrackerGoogleToken",
+          session.provider_token
+        );
 
       }
-    );
+
+
+      if(
+        session &&
+        session.provider_refresh_token
+      ){
+
+        sessionStorage.setItem(
+          "jobTrackerGoogleRefreshToken",
+          session.provider_refresh_token
+        );
+
+      }
+
+
+      if(
+        event ===
+        "SIGNED_OUT"
+      ){
+
+        sessionStorage.removeItem(
+          "jobTrackerGoogleToken"
+        );
+
+        sessionStorage.removeItem(
+          "jobTrackerGoogleRefreshToken"
+        );
+
+      }
+
+
+      updateAuthUI();
+
+    }
+  );
 
 }
 
 
-/* =====================================================
+/* =========================
    AUTH UI
-===================================================== */
+========================= */
 
 function updateAuthUI(){
 
@@ -3544,9 +3506,7 @@ function updateAuthUI(){
 
 
   const email =
-    currentSession
-      .user
-      .email ||
+    currentSession.user.email ||
     "Google account";
 
 
@@ -3619,7 +3579,7 @@ function updateAuthUI(){
 
 
   $("notice").textContent =
-    "☁️ Gmail connected. Your applications and status history are synced with the cloud.";
+    "☁️ Gmail connected. Applications and status history are synced with the cloud.";
 
 
   loadCloudApplications()
@@ -3636,16 +3596,16 @@ function updateAuthUI(){
 }
 
 
-/* =====================================================
+/* =========================
    GOOGLE CONNECT
-===================================================== */
+========================= */
 
 async function connectGoogle(){
 
   if(!configured()){
 
     alert(
-      "First add the Supabase Publishable Key to supabase-config.js in GitHub."
+      "First add the Supabase Publishable Key to supabase-config.js."
     );
 
     return;
@@ -3656,33 +3616,32 @@ async function connectGoogle(){
   const {
     error
   } =
-    await sb.auth
-      .signInWithOAuth({
+    await sb.auth.signInWithOAuth({
 
-        provider:
-          "google",
+      provider:
+        "google",
 
-        options:{
+      options:{
 
-          scopes:
-            "openid email profile https://www.googleapis.com/auth/gmail.readonly",
+        scopes:
+          "openid email profile https://www.googleapis.com/auth/gmail.readonly",
 
-          queryParams:{
+        queryParams:{
 
-            access_type:
-              "offline",
+          access_type:
+            "offline",
 
-            prompt:
-              "consent"
+          prompt:
+            "consent"
 
-          },
+        },
 
-          redirectTo:
-            window.location.href
+        redirectTo:
+          window.location.href
 
-        }
+      }
 
-      });
+    });
 
 
   if(error){
@@ -3696,9 +3655,9 @@ async function connectGoogle(){
 }
 
 
-/* =====================================================
+/* =========================
    SIGN OUT
-===================================================== */
+========================= */
 
 async function signOut(){
 
@@ -3712,9 +3671,9 @@ async function signOut(){
 }
 
 
-/* =====================================================
+/* =========================
    GMAIL SYNC
-===================================================== */
+========================= */
 
 async function syncGmail(){
 
@@ -3736,8 +3695,7 @@ async function syncGmail(){
       data,
       error:sessionError
     } =
-      await sb.auth
-        .getSession();
+      await sb.auth.getSession();
 
 
     if(sessionError){
@@ -3747,9 +3705,7 @@ async function syncGmail(){
     }
 
 
-    if(
-      !data.session
-    ){
+    if(!data.session){
 
       throw new Error(
         "Please connect Gmail again."
@@ -3759,8 +3715,7 @@ async function syncGmail(){
 
 
     const gmailAccessToken =
-      data.session
-        .provider_token;
+      data.session.provider_token;
 
 
     if(!gmailAccessToken){
@@ -3795,8 +3750,7 @@ async function syncGmail(){
           body:
             JSON.stringify({
 
-              gmailAccessToken:
-                gmailAccessToken
+              gmailAccessToken
 
             })
 
@@ -3884,9 +3838,278 @@ async function syncGmail(){
 }
 
 
-/* =====================================================
-   SEARCH / FILTER EVENTS
-===================================================== */
+/* =========================
+   CSV EXPORT
+========================= */
+
+function csvEscape(value){
+
+  const text =
+    String(
+      value ?? ""
+    );
+
+
+  if(
+    text.includes(",") ||
+    text.includes('"') ||
+    text.includes("\n")
+  ){
+
+    return `"${text.replace(
+      /"/g,
+      '""'
+    )}"`;
+
+  }
+
+
+  return text;
+
+}
+
+
+function exportCSV(){
+
+  const headers = [
+
+    "Company",
+    "Role",
+    "Source",
+    "Status",
+    "Applied Date",
+    "Location",
+    "Priority",
+    "Follow-up Date",
+    "Interview Date",
+    "Notice Period",
+    "Current CTC",
+    "Expected CTC",
+    "Offered CTC",
+    "Recruiter",
+    "Contacted Date",
+    "Email",
+    "Phone",
+    "Job URL",
+    "Notes"
+
+  ];
+
+
+  const rows =
+    apps.map(
+      a => [
+
+        a.company,
+        a.role,
+        a.source,
+        a.status,
+        a.applied,
+        a.location,
+        a.priority,
+        a.followup,
+        a.interviewDate,
+        a.noticePeriod,
+        a.currentCtc,
+        a.expectedCtc,
+        a.offeredCtc,
+        a.recruiter,
+        a.contacted,
+        a.email,
+        a.phone,
+        a.url,
+        a.notes
+
+      ]
+        .map(csvEscape)
+        .join(",")
+    );
+
+
+  const csv =
+    [
+      headers
+        .map(csvEscape)
+        .join(","),
+
+      ...rows
+
+    ].join("\n");
+
+
+  downloadFile(
+    csv,
+    "job-tracker-export.csv",
+    "text/csv"
+  );
+
+}
+
+
+/* =========================
+   JSON BACKUP
+========================= */
+
+function backupJSON(){
+
+  const data =
+    JSON.stringify(
+      apps,
+      null,
+      2
+    );
+
+
+  downloadFile(
+    data,
+    `job-tracker-backup-${today()}.json`,
+    "application/json"
+  );
+
+}
+
+
+function downloadFile(
+  content,
+  filename,
+  type
+){
+
+  const blob =
+    new Blob(
+      [content],
+      {type}
+    );
+
+
+  const url =
+    URL.createObjectURL(
+      blob
+    );
+
+
+  const a =
+    document.createElement(
+      "a"
+    );
+
+
+  a.href =
+    url;
+
+  a.download =
+    filename;
+
+  document.body.appendChild(a);
+
+  a.click();
+
+  a.remove();
+
+  URL.revokeObjectURL(
+    url
+  );
+
+}
+
+
+/* =========================
+   JSON IMPORT
+========================= */
+
+function importJSON(event){
+
+  const file =
+    event.target.files[0];
+
+
+  if(!file) return;
+
+
+  const reader =
+    new FileReader();
+
+
+  reader.onload =
+    function(){
+
+      try{
+
+        const imported =
+          JSON.parse(
+            reader.result
+          );
+
+
+        if(
+          !Array.isArray(
+            imported
+          )
+        ){
+
+          throw new Error(
+            "Invalid backup file."
+          );
+
+        }
+
+
+        const ok =
+          confirm(
+            `Import ${imported.length} applications? This will replace your current local list.`
+          );
+
+
+        if(!ok){
+
+          event.target.value =
+            "";
+
+          return;
+
+        }
+
+
+        apps =
+          imported;
+
+
+        save();
+
+        render();
+
+
+        alert(
+          "Backup imported successfully."
+        );
+
+
+      }catch(error){
+
+        alert(
+          "Could not import backup: " +
+          error.message
+        );
+
+      }
+
+
+      event.target.value =
+        "";
+
+    };
+
+
+  reader.readAsText(
+    file
+  );
+
+}
+
+
+/* =========================
+   SEARCH / FILTER
+========================= */
 
 $("search").oninput =
   render;
@@ -3900,13 +4123,17 @@ $("sourceFilter").onchange =
   render;
 
 
-$("sortFilter").onchange =
+$("priorityFilter").onchange =
   render;
 
 
-/* =====================================================
+$("sortBy").onchange =
+  render;
+
+
+/* =========================
    INITIALIZE
-===================================================== */
+========================= */
 
 fill();
 
@@ -3915,20 +4142,12 @@ render();
 showAuth();
 
 
-/* =====================================================
-   SERVICE WORKER
-===================================================== */
-
 if(
-  "serviceWorker"
-  in navigator
+  "serviceWorker" in navigator
 ){
 
-  navigator
-    .serviceWorker
-    .register(
-      "sw.js"
-    )
+  navigator.serviceWorker
+    .register("sw.js")
     .catch(
       () => {}
     );
@@ -3938,5 +4157,4 @@ if(
 </script>
 
 </body>
-
 </html>
