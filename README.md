@@ -1,18 +1,38 @@
-# Job Tracker — iPhone PWA
+# Job Tracker
 
-This is the GitHub Pages-ready mobile version.
+A simple iPhone-first job application tracker.
 
-## Upload
-Upload `index.html`, `manifest.webmanifest`, and `sw.js` to the root of your `job-tracker` repository.
+## Current builds
 
-## Enable GitHub Pages
-Repository → Settings → Pages → Deploy from a branch → `main` → `/ (root)` → Save.
+### Native iPhone app
+The native SwiftUI MVP is in `ios/JobTrackerApp/`.
 
-After GitHub publishes it, open:
-https://ganesh932.github.io/job-tracker/
+It includes:
 
-On iPhone Safari:
-Share → Add to Home Screen → Add.
+- Dashboard counts
+- Application search and status filter
+- Company and job title
+- LinkedIn / Naukri / Other source
+- Applied date
+- Recruiter name, email and phone
+- Recruiter contacted date
+- Location and job URL
+- Notes
+- Status updates
+- Local persistence with SwiftData
 
-## Current version
-This mobile build stores applications locally on the iPhone. Automatic Gmail/Outlook/LinkedIn/Naukri status updates require a secure backend and OAuth integration; never put passwords or API secrets into this static site.
+See [`ios/README.md`](ios/README.md) for the Xcode setup and next steps.
+
+### iPhone web/PWA
+The existing GitHub Pages version remains available for quick testing. It stores applications locally on the device. Automatic Gmail/LinkedIn/Naukri status updates require a secure backend and supported OAuth/API integrations.
+
+## Product roadmap
+
+1. Native iPhone MVP
+2. Gmail OAuth + automatic job-email detection
+3. AI extraction and duplicate matching
+4. Push notifications
+5. Supported LinkedIn/Naukri integrations where official access permits
+6. Secure backend sync and analytics
+
+Never store Gmail, LinkedIn or Naukri passwords or API secrets in the app or repository.
