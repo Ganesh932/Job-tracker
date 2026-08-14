@@ -8,381 +8,2276 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="Job Tracker">
 <link rel="manifest" href="manifest.webmanifest">
+
 <title>Job Tracker</title>
+
 <style>
-*{box-sizing:border-box}body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#f6f7f9;color:#111827}button,input,select,textarea{font:inherit}button{border:0;border-radius:12px;padding:12px 15px;background:#111827;color:#fff;font-weight:650;cursor:pointer}.secondary{background:#eef0f3;color:#111827}.danger{background:#fee2e2;color:#991b1b}header{position:sticky;top:0;z-index:10;background:rgba(255,255,255,.96);backdrop-filter:blur(12px);padding:14px 16px;border-bottom:1px solid #e5e7eb;display:flex;justify-content:space-between;align-items:center;gap:10px}h1{margin:0;font-size:23px}.sub{margin-top:3px;color:#6b7280;font-size:12px}main{max-width:760px;margin:auto;padding:14px 14px 100px}.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:2px 0 14px}.stat{background:#fff;border-radius:15px;padding:12px 5px;text-align:center;border:1px solid #eceef1}.num{font-size:20px;font-weight:750}.label{font-size:11px;color:#6b7280;margin-top:2px}.toolbar{display:flex;gap:8px;margin-bottom:10px}.toolbar>*:first-child{flex:1}input,select,textarea{width:100%;padding:12px;border:1px solid #d7dbe0;border-radius:11px;background:#fff;color:#111827;outline:none}.form{display:none;background:#fff;border:1px solid #e5e7eb;border-radius:17px;padding:16px;margin:12px 0}.form h2{margin:0 0 14px;font-size:20px}.field{margin-bottom:10px}.field label{display:block;font-size:12px;font-weight:650;color:#4b5563;margin:0 0 5px}.grid2{display:grid;grid-template-columns:1fr 1fr;gap:9px}.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:9px}.actions{display:flex;gap:8px;margin-top:5px}.actions>*{flex:1}.app{background:#fff;border:1px solid #e7e9ec;border-radius:17px;padding:15px;margin:10px 0}.app-head{display:flex;justify-content:space-between;gap:12px}.company{font-size:17px;font-weight:750}.role{font-size:14px;margin-top:2px}.muted{color:#6b7280;font-size:12px;margin-top:4px}.pill{display:inline-block;border-radius:999px;padding:5px 9px;background:#eef2ff;color:#3730a3;font-size:11px;font-weight:650;white-space:nowrap}.contact{margin-top:12px;padding-top:11px;border-top:1px solid #eef0f2;font-size:13px}.contact a{color:#111827;text-decoration:none}.contact-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px}.contact-row a,.contact-row span{background:#f4f5f6;border-radius:9px;padding:7px 9px}.details{margin-top:10px}.details summary{font-size:13px;font-weight:650;cursor:pointer}.timeline{margin:10px 0 0 4px;border-left:2px solid #e5e7eb;padding-left:12px}.event{margin:0 0 11px;position:relative}.event:before{content:"";position:absolute;left:-18px;top:4px;width:7px;height:7px;border-radius:50%;background:#111827}.event strong{font-size:12px}.event small{display:block;color:#6b7280;margin-top:2px}.empty{text-align:center;color:#6b7280;padding:42px 15px}.bottom{position:fixed;left:0;right:0;bottom:0;background:rgba(255,255,255,.97);backdrop-filter:blur(12px);border-top:1px solid #e5e7eb;padding:10px 14px calc(10px + env(safe-area-inset-bottom));z-index:20}.bottom button{width:100%}.notice{background:#eef6ff;border:1px solid #d8eaff;color:#1e40af;border-radius:13px;padding:11px 12px;font-size:12px;margin-bottom:12px}.account{display:none;background:#fff;border:1px solid #e5e7eb;border-radius:17px;padding:15px;margin-bottom:12px}.account h2{margin:0 0 10px;font-size:18px}.account-row{display:flex;justify-content:space-between;gap:10px;align-items:center}.status-dot{font-size:12px;color:#166534}.small{font-size:11px;color:#6b7280}@media(max-width:430px){.stats{gap:6px}.stat{padding:11px 2px}.grid2{grid-template-columns:1fr}.grid3{grid-template-columns:1fr}header button{padding:9px 10px}}
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  background:#f6f7f9;
+  color:#111827
+}
+
+button,input,select,textarea{
+  font:inherit
+}
+
+button{
+  border:0;
+  border-radius:12px;
+  padding:12px 15px;
+  background:#111827;
+  color:#fff;
+  font-weight:650;
+  cursor:pointer
+}
+
+.secondary{
+  background:#eef0f3;
+  color:#111827
+}
+
+.danger{
+  background:#fee2e2;
+  color:#991b1b
+}
+
+header{
+  position:sticky;
+  top:0;
+  z-index:10;
+  background:rgba(255,255,255,.96);
+  backdrop-filter:blur(12px);
+  padding:14px 16px;
+  border-bottom:1px solid #e5e7eb;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px
+}
+
+h1{
+  margin:0;
+  font-size:23px
+}
+
+.sub{
+  margin-top:3px;
+  color:#6b7280;
+  font-size:12px
+}
+
+main{
+  max-width:760px;
+  margin:auto;
+  padding:14px 14px 100px
+}
+
+.stats{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:8px;
+  margin:2px 0 14px
+}
+
+.stat{
+  background:#fff;
+  border-radius:15px;
+  padding:12px 5px;
+  text-align:center;
+  border:1px solid #eceef1
+}
+
+.num{
+  font-size:20px;
+  font-weight:750
+}
+
+.label{
+  font-size:11px;
+  color:#6b7280;
+  margin-top:2px
+}
+
+.toolbar{
+  display:flex;
+  gap:8px;
+  margin-bottom:10px
+}
+
+.toolbar>*:first-child{
+  flex:1
+}
+
+input,select,textarea{
+  width:100%;
+  padding:12px;
+  border:1px solid #d7dbe0;
+  border-radius:11px;
+  background:#fff;
+  color:#111827;
+  outline:none
+}
+
+.form{
+  display:none;
+  background:#fff;
+  border:1px solid #e5e7eb;
+  border-radius:17px;
+  padding:16px;
+  margin:12px 0
+}
+
+.form h2{
+  margin:0 0 14px;
+  font-size:20px
+}
+
+.field{
+  margin-bottom:10px
+}
+
+.field label{
+  display:block;
+  font-size:12px;
+  font-weight:650;
+  color:#4b5563;
+  margin:0 0 5px
+}
+
+.grid2{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:9px
+}
+
+.grid3{
+  display:grid;
+  grid-template-columns:1fr 1fr 1fr;
+  gap:9px
+}
+
+.actions{
+  display:flex;
+  gap:8px;
+  margin-top:5px
+}
+
+.actions>*{
+  flex:1
+}
+
+.app{
+  background:#fff;
+  border:1px solid #e7e9ec;
+  border-radius:17px;
+  padding:15px;
+  margin:10px 0
+}
+
+.app-head{
+  display:flex;
+  justify-content:space-between;
+  gap:12px
+}
+
+.company{
+  font-size:17px;
+  font-weight:750
+}
+
+.role{
+  font-size:14px;
+  margin-top:2px
+}
+
+.muted{
+  color:#6b7280;
+  font-size:12px;
+  margin-top:4px
+}
+
+.pill{
+  display:inline-block;
+  border-radius:999px;
+  padding:5px 9px;
+  background:#eef2ff;
+  color:#3730a3;
+  font-size:11px;
+  font-weight:650;
+  white-space:nowrap
+}
+
+.contact{
+  margin-top:12px;
+  padding-top:11px;
+  border-top:1px solid #eef0f2;
+  font-size:13px
+}
+
+.contact a{
+  color:#111827;
+  text-decoration:none
+}
+
+.contact-row{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  margin-top:6px
+}
+
+.contact-row a,
+.contact-row span{
+  background:#f4f5f6;
+  border-radius:9px;
+  padding:7px 9px
+}
+
+.details{
+  margin-top:10px
+}
+
+.details summary{
+  font-size:13px;
+  font-weight:650;
+  cursor:pointer
+}
+
+.timeline{
+  margin:10px 0 0 4px;
+  border-left:2px solid #e5e7eb;
+  padding-left:12px
+}
+
+.event{
+  margin:0 0 11px;
+  position:relative
+}
+
+.event:before{
+  content:"";
+  position:absolute;
+  left:-18px;
+  top:4px;
+  width:7px;
+  height:7px;
+  border-radius:50%;
+  background:#111827
+}
+
+.event strong{
+  font-size:12px
+}
+
+.event small{
+  display:block;
+  color:#6b7280;
+  margin-top:2px
+}
+
+.empty{
+  text-align:center;
+  color:#6b7280;
+  padding:42px 15px
+}
+
+.bottom{
+  position:fixed;
+  left:0;
+  right:0;
+  bottom:0;
+  background:rgba(255,255,255,.97);
+  backdrop-filter:blur(12px);
+  border-top:1px solid #e5e7eb;
+  padding:10px 14px calc(10px + env(safe-area-inset-bottom));
+  z-index:20
+}
+
+.bottom button{
+  width:100%
+}
+
+.notice{
+  background:#eef6ff;
+  border:1px solid #d8eaff;
+  color:#1e40af;
+  border-radius:13px;
+  padding:11px 12px;
+  font-size:12px;
+  margin-bottom:12px
+}
+
+.account{
+  display:none;
+  background:#fff;
+  border:1px solid #e5e7eb;
+  border-radius:17px;
+  padding:15px;
+  margin-bottom:12px
+}
+
+.account h2{
+  margin:0 0 10px;
+  font-size:18px
+}
+
+.account-row{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  align-items:center
+}
+
+.status-dot{
+  font-size:12px;
+  color:#166534
+}
+
+.small{
+  font-size:11px;
+  color:#6b7280
+}
+
+.sync-status{
+  margin-top:8px;
+  font-size:11px;
+  color:#6b7280
+}
+
+@media(max-width:430px){
+  .stats{
+    gap:6px
+  }
+
+  .stat{
+    padding:11px 2px
+  }
+
+  .grid2{
+    grid-template-columns:1fr
+  }
+
+  .grid3{
+    grid-template-columns:1fr
+  }
+
+  header button{
+    padding:9px 10px
+  }
+}
 </style>
 </head>
+
 <body>
-<header><div><h1>💼 Job Tracker</h1><div class="sub">Simple job application dashboard</div></div><button class="secondary" onclick="toggleAccount()">Account</button></header>
+
+<header>
+  <div>
+    <h1>💼 Job Tracker</h1>
+    <div class="sub">Simple job application dashboard</div>
+  </div>
+
+  <button class="secondary" onclick="toggleAccount()">
+    Account
+  </button>
+</header>
+
 <main>
-<div class="notice" id="notice">🔒 Applications stay on this device until cloud sync is enabled.</div>
+
+<div class="notice" id="notice">
+  🔒 Applications stay on this device until cloud sync is enabled.
+</div>
+
 <section class="account" id="account">
-<h2>Account & Gmail</h2>
-<div id="authArea"></div>
+
+  <h2>Account & Gmail</h2>
+
+  <div id="authArea"></div>
+
 </section>
-<section class="stats"><div class="stat"><div class="num" id="total">0</div><div class="label">Applications</div></div><div class="stat"><div class="num" id="interviews">0</div><div class="label">Interviews</div></div><div class="stat"><div class="num" id="offers">0</div><div class="label">Offers</div></div><div class="stat"><div class="num" id="rejected">0</div><div class="label">Rejected</div></div></section>
-<div class="toolbar"><input id="search" placeholder="Search company, role or recruiter" autocomplete="off"><button onclick="openForm()">＋ Add</button></div>
-<div class="toolbar"><select id="filter"><option value="">All statuses</option></select><select id="sourceFilter"><option value="">All sources</option><option>LinkedIn</option><option>Naukri</option><option>Other</option></select></div>
-<section class="form" id="form"><h2 id="formTitle">Add application</h2>
-<div class="grid2"><div class="field"><label>Company *</label><input id="company" placeholder="e.g. Cisco"></div><div class="field"><label>Job title</label><input id="role" placeholder="e.g. Network Engineer"></div></div>
-<div class="grid2"><div class="field"><label>Source</label><select id="source"><option>LinkedIn</option><option>Naukri</option><option>Other</option></select></div><div class="field"><label>Status</label><select id="status"></select></div></div>
-<div class="grid2"><div class="field"><label>Applied date</label><input id="applied" type="date"></div><div class="field"><label>Location</label><input id="location" placeholder="Hyderabad / Remote"></div></div>
-<div class="grid2"><div class="field"><label>Recruiter name</label><input id="recruiter" placeholder="Recruiter / HR name"></div><div class="field"><label>Contacted date</label><input id="contacted" type="date"></div></div>
-<div class="grid2"><div class="field"><label>Recruiter email</label><input id="email" type="email" placeholder="name@company.com"></div><div class="field"><label>Recruiter phone</label><input id="phone" type="tel" placeholder="+91..."></div></div>
-<div class="field"><label>Job URL</label><input id="url" type="url" placeholder="https://..."></div><div class="field"><label>Notes</label><textarea id="notes" rows="3" placeholder="Interview details, follow-up notes, salary, etc."></textarea></div>
-<div class="actions"><button onclick="saveApp()">Save</button><button class="secondary" onclick="closeForm()">Cancel</button></div></section>
+
+<section class="stats">
+
+  <div class="stat">
+    <div class="num" id="total">0</div>
+    <div class="label">Applications</div>
+  </div>
+
+  <div class="stat">
+    <div class="num" id="interviews">0</div>
+    <div class="label">Interviews</div>
+  </div>
+
+  <div class="stat">
+    <div class="num" id="offers">0</div>
+    <div class="label">Offers</div>
+  </div>
+
+  <div class="stat">
+    <div class="num" id="rejected">0</div>
+    <div class="label">Rejected</div>
+  </div>
+
+</section>
+
+<div class="toolbar">
+
+  <input
+    id="search"
+    placeholder="Search company, role or recruiter"
+    autocomplete="off"
+  >
+
+  <button onclick="openForm()">
+    ＋ Add
+  </button>
+
+</div>
+
+<div class="toolbar">
+
+  <select id="filter">
+    <option value="">All statuses</option>
+  </select>
+
+  <select id="sourceFilter">
+    <option value="">All sources</option>
+    <option>LinkedIn</option>
+    <option>Naukri</option>
+    <option>Other</option>
+    <option>Email</option>
+  </select>
+
+</div>
+
+<section class="form" id="form">
+
+  <h2 id="formTitle">
+    Add application
+  </h2>
+
+  <div class="grid2">
+
+    <div class="field">
+      <label>Company *</label>
+      <input id="company" placeholder="e.g. Cisco">
+    </div>
+
+    <div class="field">
+      <label>Job title</label>
+      <input id="role" placeholder="e.g. Network Engineer">
+    </div>
+
+  </div>
+
+  <div class="grid2">
+
+    <div class="field">
+      <label>Source</label>
+
+      <select id="source">
+        <option>LinkedIn</option>
+        <option>Naukri</option>
+        <option>Other</option>
+        <option>Email</option>
+      </select>
+
+    </div>
+
+    <div class="field">
+      <label>Status</label>
+      <select id="status"></select>
+    </div>
+
+  </div>
+
+  <div class="grid2">
+
+    <div class="field">
+      <label>Applied date</label>
+      <input id="applied" type="date">
+    </div>
+
+    <div class="field">
+      <label>Location</label>
+      <input id="location" placeholder="Hyderabad / Remote">
+    </div>
+
+  </div>
+
+  <div class="grid2">
+
+    <div class="field">
+      <label>Recruiter name</label>
+      <input id="recruiter" placeholder="Recruiter / HR name">
+    </div>
+
+    <div class="field">
+      <label>Contacted date</label>
+      <input id="contacted" type="date">
+    </div>
+
+  </div>
+
+  <div class="grid2">
+
+    <div class="field">
+      <label>Recruiter email</label>
+      <input id="email" type="email" placeholder="name@company.com">
+    </div>
+
+    <div class="field">
+      <label>Recruiter phone</label>
+      <input id="phone" type="tel" placeholder="+91...">
+    </div>
+
+  </div>
+
+  <div class="field">
+
+    <label>Job URL</label>
+
+    <input
+      id="url"
+      type="url"
+      placeholder="https://..."
+    >
+
+  </div>
+
+  <div class="field">
+
+    <label>Notes</label>
+
+    <textarea
+      id="notes"
+      rows="3"
+      placeholder="Interview details, follow-up notes, salary, etc."
+    ></textarea>
+
+  </div>
+
+  <div class="actions">
+
+    <button onclick="saveApp()">
+      Save
+    </button>
+
+    <button class="secondary" onclick="closeForm()">
+      Cancel
+    </button>
+
+  </div>
+
+</section>
+
 <section id="list"></section>
-</main><div class="bottom"><button onclick="openForm()">＋ Add Job Application</button></div>
+
+</main>
+
+<div class="bottom">
+
+  <button onclick="openForm()">
+    ＋ Add Job Application
+  </button>
+
+</div>
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="supabase-config.js"></script>
+
 <script>
-const statuses=["Applied","Application Viewed","Shortlisted","Recruiter Contacted","Interview","Assessment","Offer","Rejected","Withdrawn"];
-const $=id=>document.getElementById(id);let apps=JSON.parse(localStorage.getItem("jobTrackerApps")||"[]");let sb=null;let currentSession=null;let gmailConnected=false;let editingId=null;
-function today(){return new Date().toISOString().slice(0,10)}
-function fmt(d){if(!d)return "—";const p=d.split("-");return p.length===3?`${p[2]} ${new Date(d).toLocaleString("en-IN",{month:"short"})} ${p[0]}`:d}
-function esc(s){return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
-function attr(s){return esc(s).replace(/`/g,"&#96;")}
-function fill(){$("status").innerHTML=statuses.map(s=>`<option>${s}</option>`).join("");$("filter").innerHTML='<option value="">All statuses</option>'+statuses.map(s=>`<option>${s}</option>`).join("")}
-function save(){localStorage.setItem("jobTrackerApps",JSON.stringify(apps))}
+
+const statuses = [
+  "Applied",
+  "Application Viewed",
+  "Shortlisted",
+  "Recruiter Contacted",
+  "Interview",
+  "Assessment",
+  "Offer",
+  "Rejected",
+  "Withdrawn"
+];
+
+const $ = id => document.getElementById(id);
+
+let apps = JSON.parse(
+  localStorage.getItem("jobTrackerApps") || "[]"
+);
+
+let sb = null;
+let currentSession = null;
+let gmailConnected = false;
+let editingId = null;
+
+
+/* ---------------------------------------------------------
+   BASIC HELPERS
+--------------------------------------------------------- */
+
+function today(){
+  return new Date().toISOString().slice(0,10);
+}
+
+
+function fmt(d){
+
+  if(!d) return "—";
+
+  const p = d.split("-");
+
+  return p.length === 3
+    ? `${p[2]} ${new Date(d).toLocaleString("en-IN",{month:"short"})} ${p[0]}`
+    : d;
+}
+
+
+function esc(s){
+
+  return String(s ?? "").replace(
+    /[&<>"']/g,
+    c => ({
+      "&":"&amp;",
+      "<":"&lt;",
+      ">":"&gt;",
+      '"':"&quot;",
+      "'":"&#39;"
+    }[c])
+  );
+}
+
+
+function attr(s){
+
+  return esc(s).replace(/`/g,"&#96;");
+}
+
+
+function save(){
+
+  localStorage.setItem(
+    "jobTrackerApps",
+    JSON.stringify(apps)
+  );
+}
+
+
+/* ---------------------------------------------------------
+   FORM / FILTER SETUP
+--------------------------------------------------------- */
+
+function fill(){
+
+  $("status").innerHTML =
+    statuses.map(
+      s => `<option>${s}</option>`
+    ).join("");
+
+  $("filter").innerHTML =
+    '<option value="">All statuses</option>' +
+    statuses.map(
+      s => `<option>${s}</option>`
+    ).join("");
+}
+
+
+/* ---------------------------------------------------------
+   RENDER
+--------------------------------------------------------- */
+
 function render(){
- $("total").textContent=apps.length;$("interviews").textContent=apps.filter(a=>a.status==="Interview").length;$("offers").textContent=apps.filter(a=>a.status==="Offer").length;$("rejected").textContent=apps.filter(a=>a.status==="Rejected").length;
- const q=$("search").value.toLowerCase().trim(),f=$("filter").value,sf=$("sourceFilter").value;const list=apps.filter(a=>(!q||`${a.company} ${a.role} ${a.recruiter||""}`.toLowerCase().includes(q))&&(!f||a.status===f)&&(!sf||a.source===sf));$("list").innerHTML=list.length?list.map(card).join(""):'<div class="empty">No applications found.<br>Add your first application above.</div>';
+
+  $("total").textContent = apps.length;
+
+  $("interviews").textContent =
+    apps.filter(a => a.status === "Interview").length;
+
+  $("offers").textContent =
+    apps.filter(a => a.status === "Offer").length;
+
+  $("rejected").textContent =
+    apps.filter(a => a.status === "Rejected").length;
+
+
+  const q =
+    $("search").value.toLowerCase().trim();
+
+  const f =
+    $("filter").value;
+
+  const sf =
+    $("sourceFilter").value;
+
+
+  const list = apps.filter(a =>
+
+    (
+      !q ||
+      `${a.company} ${a.role} ${a.recruiter || ""}`
+        .toLowerCase()
+        .includes(q)
+    )
+
+    &&
+
+    (!f || a.status === f)
+
+    &&
+
+    (!sf || a.source === sf)
+
+  );
+
+
+  $("list").innerHTML =
+    list.length
+      ? list.map(card).join("")
+      : `
+        <div class="empty">
+          No applications found.<br>
+          Add your first application above.
+        </div>
+      `;
 }
+
+
+/* ---------------------------------------------------------
+   APPLICATION CARD
+--------------------------------------------------------- */
+
 function card(a){
- const events=(a.history||[]).slice().reverse().map(e=>`<div class="event"><strong>${esc(e.status)}</strong><small>${fmt(e.date)}</small></div>`).join("");
- const hasContact = a.recruiter || a.email || a.phone;
- return `<article class="app"><div class="app-head"><div><div class="company">${esc(a.company)}</div><div class="role">${esc(a.role||"Job application")}</div><div class="muted">${esc(a.source)} · Applied ${fmt(a.applied)}</div></div><span class="pill">${esc(a.status)}</span></div>${a.location?`<div class="muted">📍 ${esc(a.location)}</div>`:""}${hasContact?`<div class="contact"><b>Recruiter</b><div>${esc(a.recruiter||"—")}${a.contacted?` · Contacted ${fmt(a.contacted)}`:""}</div><div class="contact-row">${a.email?`<a href="mailto:${attr(a.email)}">✉ Email</a>`:""}${a.phone?`<a href="tel:${attr(a.phone)}">📞 ${esc(a.phone)}</a>`:""}</div></div>`:""}<details class="details"><summary>View details</summary><div class="timeline">${events||'<div class="small">No status history yet.</div>'}</div>${a.notes?`<p class="small">📝 ${esc(a.notes)}</p>`:""}${a.url?`<p><a href="${attr(a.url)}" target="_blank" rel="noopener">Open job posting ↗</a></p>`:""}<div class="grid3"><select onchange="changeStatus('${a.id}',this.value)">${statuses.map(s=>`<option ${s===a.status?'selected':''}>${s}</option>`).join("")}</select><button class="secondary" onclick="openForm('${a.id}')">Edit</button><button class="danger" onclick="removeApp('${a.id}')">Delete</button></div></details></article>`
+
+  const events =
+    (a.history || [])
+      .slice()
+      .reverse()
+      .map(
+        e => `
+          <div class="event">
+            <strong>${esc(e.status)}</strong>
+            <small>${fmt(e.date)}</small>
+          </div>
+        `
+      )
+      .join("");
+
+
+  const hasContact =
+    a.recruiter ||
+    a.email ||
+    a.phone;
+
+
+  return `
+    <article class="app">
+
+      <div class="app-head">
+
+        <div>
+
+          <div class="company">
+            ${esc(a.company)}
+          </div>
+
+          <div class="role">
+            ${esc(a.role || "Job application")}
+          </div>
+
+          <div class="muted">
+            ${esc(a.source)} · Applied ${fmt(a.applied)}
+          </div>
+
+        </div>
+
+        <span class="pill">
+          ${esc(a.status)}
+        </span>
+
+      </div>
+
+
+      ${
+        a.location
+          ? `
+            <div class="muted">
+              📍 ${esc(a.location)}
+            </div>
+          `
+          : ""
+      }
+
+
+      ${
+        hasContact
+          ? `
+            <div class="contact">
+
+              <b>Recruiter</b>
+
+              <div>
+                ${esc(a.recruiter || "—")}
+                ${
+                  a.contacted
+                    ? ` · Contacted ${fmt(a.contacted)}`
+                    : ""
+                }
+              </div>
+
+              <div class="contact-row">
+
+                ${
+                  a.email
+                    ? `
+                      <a href="mailto:${attr(a.email)}">
+                        ✉ Email
+                      </a>
+                    `
+                    : ""
+                }
+
+                ${
+                  a.phone
+                    ? `
+                      <a href="tel:${attr(a.phone)}">
+                        📞 ${esc(a.phone)}
+                      </a>
+                    `
+                    : ""
+                }
+
+              </div>
+
+            </div>
+          `
+          : ""
+      }
+
+
+      <details class="details">
+
+        <summary>
+          View details
+        </summary>
+
+        <div class="timeline">
+
+          ${
+            events ||
+            '<div class="small">No status history yet.</div>'
+          }
+
+        </div>
+
+
+        ${
+          a.notes
+            ? `
+              <p class="small">
+                📝 ${esc(a.notes)}
+              </p>
+            `
+            : ""
+        }
+
+
+        ${
+          a.url
+            ? `
+              <p>
+                <a
+                  href="${attr(a.url)}"
+                  target="_blank"
+                  rel="noopener"
+                >
+                  Open job posting ↗
+                </a>
+              </p>
+            `
+            : ""
+        }
+
+
+        <div class="grid3">
+
+          <select
+            onchange="changeStatus('${attr(a.id)}',this.value)"
+          >
+
+            ${statuses.map(
+              s => `
+                <option
+                  ${s === a.status ? "selected" : ""}
+                >
+                  ${s}
+                </option>
+              `
+            ).join("")}
+
+          </select>
+
+
+          <button
+            class="secondary"
+            onclick="openForm('${attr(a.id)}')"
+          >
+            Edit
+          </button>
+
+
+          <button
+            class="danger"
+            onclick="removeApp('${attr(a.id)}')"
+          >
+            Delete
+          </button>
+
+        </div>
+
+      </details>
+
+    </article>
+  `;
 }
+
+
+/* ---------------------------------------------------------
+   FORM
+--------------------------------------------------------- */
+
 function openForm(id){
- editingId = id || null;
- $("form").style.display="block";
- if(id){
-   const a = apps.find(x=>x.id===id);
-   $("formTitle").textContent="Edit application";
-   if(a){
-     $("company").value=a.company||"";
-     $("role").value=a.role||"";
-     $("source").value=a.source||"LinkedIn";
-     $("status").value=a.status||"Applied";
-     $("applied").value=a.applied||today();
-     $("location").value=a.location||"";
-     $("recruiter").value=a.recruiter||"";
-     $("contacted").value=a.contacted||"";
-     $("email").value=a.email||"";
-     $("phone").value=a.phone||"";
-     $("url").value=a.url||"";
-     $("notes").value=a.notes||"";
-   }
- } else {
-   $("formTitle").textContent="Add application";
-   ["company","role","location","recruiter","contacted","email","phone","url","notes"].forEach(x=>$(x).value="");
-   $("applied").value=today();
-   $("status").value="Applied";
-   $("source").value="LinkedIn";
- }
- window.scrollTo({top:0,behavior:"smooth"});
+
+  editingId = id || null;
+
+  $("form").style.display = "block";
+
+
+  if(id){
+
+    const a =
+      apps.find(x => x.id === id);
+
+
+    $("formTitle").textContent =
+      "Edit application";
+
+
+    if(a){
+
+      $("company").value =
+        a.company || "";
+
+      $("role").value =
+        a.role || "";
+
+      $("source").value =
+        a.source || "LinkedIn";
+
+      $("status").value =
+        a.status || "Applied";
+
+      $("applied").value =
+        a.applied || today();
+
+      $("location").value =
+        a.location || "";
+
+      $("recruiter").value =
+        a.recruiter || "";
+
+      $("contacted").value =
+        a.contacted || "";
+
+      $("email").value =
+        a.email || "";
+
+      $("phone").value =
+        a.phone || "";
+
+      $("url").value =
+        a.url || "";
+
+      $("notes").value =
+        a.notes || "";
+
+    }
+
+  }else{
+
+    $("formTitle").textContent =
+      "Add application";
+
+
+    [
+      "company",
+      "role",
+      "location",
+      "recruiter",
+      "contacted",
+      "email",
+      "phone",
+      "url",
+      "notes"
+    ].forEach(
+      x => $(x).value = ""
+    );
+
+
+    $("applied").value =
+      today();
+
+    $("status").value =
+      "Applied";
+
+    $("source").value =
+      "LinkedIn";
+  }
+
+
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  });
 }
-function closeForm(){$("form").style.display="none";editingId=null}
+
+
+function closeForm(){
+
+  $("form").style.display =
+    "none";
+
+  editingId = null;
+}
+
+
+/* ---------------------------------------------------------
+   SAVE APPLICATION
+--------------------------------------------------------- */
 
 async function saveApp(){
- if(!$("company").value.trim()){alert("Please enter the company name.");return}
- const status=$("status").value;
- const payload={
-   company:$("company").value.trim(),
-   role:$("role").value.trim(),
-   source:$("source").value,
-   status,
-   applied:$("applied").value||today(),
-   location:$("location").value.trim(),
-   recruiter:$("recruiter").value.trim(),
-   contacted:$("contacted").value,
-   email:$("email").value.trim(),
-   phone:$("phone").value.trim(),
-   url:$("url").value.trim(),
-   notes:$("notes").value.trim(),
- };
 
- if(editingId){
-   const idx=apps.findIndex(a=>a.id===editingId);
-   if(idx>-1){
-     const prevHistory=apps[idx].history||[];
-     const statusChanged=apps[idx].status!==status;
-     apps[idx]={...apps[idx],...payload,history:statusChanged?[...prevHistory,{status,date:today()}]:prevHistory};
-   }
-   if(sb && currentSession){
-     const {error}=await sb.from('applications').update({
-       company:payload.company,
-       role:payload.role,
-       source:payload.source,
-       status:payload.status,
-       applied_date:payload.applied,
-       location:payload.location,
-       recruiter_name:payload.recruiter,
-       contacted_date:payload.contacted||null,
-       recruiter_email:payload.email,
-       recruiter_phone:payload.phone,
-       job_url:payload.url,
-       notes:payload.notes,
-     }).eq('id',editingId).eq('user_id',currentSession.user.id);
-     if(error)console.error('Update application error:',error);
-   }
- } else {
-   let newId=crypto.randomUUID();
-   if(sb && currentSession){
-     const {data,error}=await sb.from('applications').insert({
-       user_id:currentSession.user.id,
-       company:payload.company,
-       role:payload.role,
-       source:payload.source,
-       status:payload.status,
-       applied_date:payload.applied,
-       location:payload.location,
-       recruiter_name:payload.recruiter,
-       contacted_date:payload.contacted||null,
-       recruiter_email:payload.email,
-       recruiter_phone:payload.phone,
-       job_url:payload.url,
-       notes:payload.notes,
-     }).select().single();
-     if(error)console.error('Insert application error:',error);
-     else if(data)newId=data.id;
-   }
-   apps.unshift({id:newId,...payload,history:[{status,date:payload.applied}]});
- }
+  if(!$("company").value.trim()){
 
- editingId=null;
- save();
- closeForm();
- render();
+    alert(
+      "Please enter the company name."
+    );
+
+    return;
+  }
+
+
+  const status =
+    $("status").value;
+
+
+  const payload = {
+
+    company:
+      $("company").value.trim(),
+
+    role:
+      $("role").value.trim(),
+
+    source:
+      $("source").value,
+
+    status,
+
+    applied:
+      $("applied").value || today(),
+
+    location:
+      $("location").value.trim(),
+
+    recruiter:
+      $("recruiter").value.trim(),
+
+    contacted:
+      $("contacted").value,
+
+    email:
+      $("email").value.trim(),
+
+    phone:
+      $("phone").value.trim(),
+
+    url:
+      $("url").value.trim(),
+
+    notes:
+      $("notes").value.trim()
+
+  };
+
+
+  /* -------------------------------------------------------
+     EDIT EXISTING APPLICATION
+  ------------------------------------------------------- */
+
+  if(editingId){
+
+    const idx =
+      apps.findIndex(
+        a => a.id === editingId
+      );
+
+
+    if(idx > -1){
+
+      const prevHistory =
+        apps[idx].history || [];
+
+      const statusChanged =
+        apps[idx].status !== status;
+
+
+      apps[idx] = {
+
+        ...apps[idx],
+
+        ...payload,
+
+        history:
+          statusChanged
+            ? [
+                ...prevHistory,
+                {
+                  status,
+                  date:today()
+                }
+              ]
+            : prevHistory
+
+      };
+
+    }
+
+
+    save();
+    render();
+
+
+    /* Update cloud */
+
+    if(sb && currentSession){
+
+      const {error} =
+        await sb
+          .from("applications")
+          .update({
+
+            company:payload.company,
+            role:payload.role,
+            source:payload.source,
+            status:payload.status,
+            applied_date:payload.applied,
+            location:payload.location,
+            recruiter_name:payload.recruiter,
+            contacted_date:
+              payload.contacted || null,
+            recruiter_email:payload.email,
+            recruiter_phone:payload.phone,
+            job_url:payload.url,
+            notes:payload.notes
+
+          })
+          .eq("id",editingId)
+          .eq(
+            "user_id",
+            currentSession.user.id
+          );
+
+
+      if(error){
+
+        console.error(
+          "Update application error:",
+          error
+        );
+
+      }
+
+    }
+
+
+  }else{
+
+    /* -----------------------------------------------------
+       NEW APPLICATION
+    ----------------------------------------------------- */
+
+    /*
+     * Every new application gets its own UUID.
+     * This prevents one application from replacing another.
+     */
+
+    const localId =
+      crypto.randomUUID();
+
+
+    const localApplication = {
+
+      id:localId,
+
+      ...payload,
+
+      history:[
+        {
+          status,
+          date:payload.applied
+        }
+      ]
+
+    };
+
+
+    /*
+     * Add locally FIRST.
+     *
+     * Even if Supabase is unavailable or the
+     * insert fails, the application remains on
+     * this device.
+     */
+
+    apps.unshift(
+      localApplication
+    );
+
+    save();
+    render();
+
+
+    let cloudApplication = null;
+
+
+    /* -----------------------------------------------------
+       SAVE TO SUPABASE
+    ----------------------------------------------------- */
+
+    if(sb && currentSession){
+
+      const {
+        data,
+        error
+      } =
+        await sb
+          .from("applications")
+          .insert({
+
+            user_id:
+              currentSession.user.id,
+
+            company:
+              payload.company,
+
+            role:
+              payload.role,
+
+            source:
+              payload.source,
+
+            status:
+              payload.status,
+
+            applied_date:
+              payload.applied,
+
+            location:
+              payload.location,
+
+            recruiter_name:
+              payload.recruiter,
+
+            contacted_date:
+              payload.contacted || null,
+
+            recruiter_email:
+              payload.email,
+
+            recruiter_phone:
+              payload.phone,
+
+            job_url:
+              payload.url,
+
+            notes:
+              payload.notes
+
+          })
+          .select()
+          .single();
+
+
+      if(error){
+
+        console.error(
+          "Insert application error:",
+          error
+        );
+
+        /*
+         * Keep local application.
+         *
+         * We deliberately DO NOT remove it.
+         */
+
+      }else if(data){
+
+        cloudApplication = data;
+
+
+        /*
+         * Replace the temporary local UUID
+         * with the real Supabase UUID.
+         */
+
+        const localIndex =
+          apps.findIndex(
+            a => a.id === localId
+          );
+
+
+        if(localIndex > -1){
+
+          apps[localIndex] = {
+
+            ...apps[localIndex],
+
+            id:data.id
+
+          };
+
+        }
+
+        save();
+        render();
+      }
+
+    }
+
+  }
+
+
+  editingId = null;
+
+  closeForm();
+
+  render();
 }
+
+
+/* ---------------------------------------------------------
+   CHANGE STATUS
+--------------------------------------------------------- */
 
 async function changeStatus(id,status){
- const a=apps.find(x=>x.id===id);if(!a)return;
- if(a.status!==status){
-   a.status=status;a.history=a.history||[];a.history.push({status,date:today()});
-   save();render();
-   if(sb && currentSession){
-     const {error}=await sb.from('applications').update({status}).eq('id',id).eq('user_id',currentSession.user.id);
-     if(error)console.error('Update status error:',error);
-     else{
-       await sb.from('application_events').insert({
-         application_id:id,
-         user_id:currentSession.user.id,
-         event_type:status,
-         event_date:new Date().toISOString(),
-         details:{source:'manual'},
-       });
-     }
-   }
- }
+
+  const a =
+    apps.find(
+      x => x.id === id
+    );
+
+
+  if(!a) return;
+
+
+  if(a.status !== status){
+
+    a.status =
+      status;
+
+
+    a.history =
+      a.history || [];
+
+
+    a.history.push({
+
+      status,
+
+      date:today()
+
+    });
+
+
+    save();
+
+    render();
+
+
+    if(sb && currentSession){
+
+      const {
+        error
+      } =
+        await sb
+          .from("applications")
+          .update({
+            status
+          })
+          .eq("id",id)
+          .eq(
+            "user_id",
+            currentSession.user.id
+          );
+
+
+      if(error){
+
+        console.error(
+          "Update status error:",
+          error
+        );
+
+      }else{
+
+        await sb
+          .from("application_events")
+          .insert({
+
+            application_id:id,
+
+            user_id:
+              currentSession.user.id,
+
+            event_type:
+              status,
+
+            event_date:
+              new Date().toISOString(),
+
+            details:{
+              source:"manual"
+            }
+
+          });
+
+      }
+
+    }
+
+  }
 }
+
+
+/* ---------------------------------------------------------
+   DELETE
+--------------------------------------------------------- */
 
 async function removeApp(id){
- if(!confirm("Delete this application?"))return;
- apps=apps.filter(a=>a.id!==id);
- save();render();
- if(sb && currentSession){
-   const {error}=await sb.from('applications').delete().eq('id',id).eq('user_id',currentSession.user.id);
-   if(error)console.error('Delete application error:',error);
- }
+
+  if(!confirm(
+    "Delete this application?"
+  )) return;
+
+
+  apps =
+    apps.filter(
+      a => a.id !== id
+    );
+
+
+  save();
+
+  render();
+
+
+  if(sb && currentSession){
+
+    const {
+      error
+    } =
+      await sb
+        .from("applications")
+        .delete()
+        .eq("id",id)
+        .eq(
+          "user_id",
+          currentSession.user.id
+        );
+
+
+    if(error){
+
+      console.error(
+        "Delete application error:",
+        error
+      );
+
+    }
+
+  }
 }
 
-function toggleAccount(){$("account").style.display=$("account").style.display==="block"?"none":"block"}
-function configured(){return window.JOB_TRACKER_SUPABASE&&window.JOB_TRACKER_SUPABASE.publishableKey&&!window.JOB_TRACKER_SUPABASE.publishableKey.includes("PASTE_YOUR")}
+
+/* ---------------------------------------------------------
+   ACCOUNT
+--------------------------------------------------------- */
+
+function toggleAccount(){
+
+  $("account").style.display =
+    $("account").style.display === "block"
+      ? "none"
+      : "block";
+}
+
+
+function configured(){
+
+  return (
+    window.JOB_TRACKER_SUPABASE &&
+    window.JOB_TRACKER_SUPABASE.publishableKey &&
+    !window.JOB_TRACKER_SUPABASE.publishableKey.includes(
+      "PASTE_YOUR"
+    )
+  );
+
+}
+
+
+/* ---------------------------------------------------------
+   CONVERT CLOUD APPLICATION
+--------------------------------------------------------- */
+
+function cloudToLocal(a){
+
+  return {
+
+    id:a.id,
+
+    company:a.company,
+
+    role:a.role,
+
+    source:a.source,
+
+    status:a.status,
+
+    applied:a.applied_date,
+
+    location:a.location,
+
+    recruiter:a.recruiter_name,
+
+    contacted:a.contacted_date,
+
+    email:a.recruiter_email,
+
+    phone:a.recruiter_phone,
+
+    url:a.job_url,
+
+    notes:a.notes,
+
+    history:[
+      {
+        status:a.status,
+        date:a.applied_date
+      }
+    ]
+
+  };
+
+}
+
+
+/* ---------------------------------------------------------
+   MERGE LOCAL + CLOUD
+--------------------------------------------------------- */
+
+function mergeApplications(
+  localApps,
+  cloudApps
+){
+
+  const merged = [];
+
+  const byId =
+    new Map();
+
+
+  /*
+   * First add local applications.
+   */
+
+  for(const app of localApps){
+
+    if(!app.id){
+
+      app.id =
+        crypto.randomUUID();
+
+    }
+
+    byId.set(
+      app.id,
+      app
+    );
+
+    merged.push(app);
+
+  }
+
+
+  /*
+   * Then add cloud applications.
+   *
+   * Cloud records update existing records
+   * with the same ID.
+   */
+
+  for(const cloud of cloudApps){
+
+    const cloudApp =
+      cloudToLocal(cloud);
+
+
+    const existing =
+      byId.get(cloudApp.id);
+
+
+    if(existing){
+
+      /*
+       * Keep local history if available.
+       */
+
+      const history =
+        existing.history &&
+        existing.history.length
+          ? existing.history
+          : cloudApp.history;
+
+
+      const mergedApp = {
+
+        ...existing,
+
+        ...cloudApp,
+
+        history
+
+      };
+
+
+      const index =
+        merged.findIndex(
+          x => x.id === cloudApp.id
+        );
+
+
+      if(index > -1){
+
+        merged[index] =
+          mergedApp;
+
+      }
+
+      byId.set(
+        cloudApp.id,
+        mergedApp
+      );
+
+
+    }else{
+
+      merged.push(
+        cloudApp
+      );
+
+      byId.set(
+        cloudApp.id,
+        cloudApp
+      );
+
+    }
+
+  }
+
+
+  return merged;
+}
+
+
+/* ---------------------------------------------------------
+   LOAD CLOUD APPLICATIONS
+--------------------------------------------------------- */
 
 async function loadCloudApplications(){
- if(!sb || !currentSession) return;
- const {data,error}=await sb.from('applications').select('*').order('created_at',{ascending:false});
- if(error){console.error('Load applications error:',error);return}
- apps=(data||[]).map(a=>({
-   id:a.id,
-   company:a.company,
-   role:a.role,
-   source:a.source,
-   status:a.status,
-   applied:a.applied_date,
-   location:a.location,
-   recruiter:a.recruiter_name,
-   contacted:a.contacted_date,
-   email:a.recruiter_email,
-   phone:a.recruiter_phone,
-   url:a.job_url,
-   notes:a.notes,
-   history:[{status:a.status,date:a.applied_date}]
- }));
- save();
+
+  if(!sb || !currentSession){
+
+    return;
+
+  }
+
+
+  const {
+    data,
+    error
+  } =
+    await sb
+      .from("applications")
+      .select("*")
+      .eq(
+        "user_id",
+        currentSession.user.id
+      )
+      .order(
+        "created_at",
+        {
+          ascending:false
+        }
+      );
+
+
+  if(error){
+
+    console.error(
+      "Load applications error:",
+      error
+    );
+
+    /*
+     * IMPORTANT:
+     * Do not destroy local applications
+     * if cloud loading fails.
+     */
+
+    save();
+
+    return;
+
+  }
+
+
+  const cloudApps =
+    data || [];
+
+
+  /*
+   * IMPORTANT FIX:
+   *
+   * Previously:
+   *
+   * apps = cloudApps
+   *
+   * That caused locally stored applications
+   * to disappear.
+   *
+   * Now we MERGE them.
+   */
+
+  apps =
+    mergeApplications(
+      apps,
+      cloudApps
+    );
+
+
+  save();
+
 }
 
+
+/* ---------------------------------------------------------
+   SUPABASE AUTH
+--------------------------------------------------------- */
+
 function showAuth(){
- if(!configured()){$("authArea").innerHTML='<div class="small">Supabase is not configured in this build yet. Add the Publishable Key to <b>supabase-config.js</b>.</div>';return}
- if(!sb)sb=window.supabase.createClient(window.JOB_TRACKER_SUPABASE.url,window.JOB_TRACKER_SUPABASE.publishableKey,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}});
- sb.auth.getSession().then(({data})=>{currentSession=data.session;updateAuthUI()});
- sb.auth.onAuthStateChange((event,session)=>{currentSession=session;gmailConnected=!!(session&&session.provider_token);updateAuthUI();if(session&&session.provider_token)sessionStorage.setItem("jobTrackerGoogleToken",session.provider_token);if(session&&session.provider_refresh_token)sessionStorage.setItem("jobTrackerGoogleRefreshToken",session.provider_refresh_token);if(event==="SIGNED_OUT"){sessionStorage.removeItem("jobTrackerGoogleToken");sessionStorage.removeItem("jobTrackerGoogleRefreshToken")}})
-}
-function updateAuthUI() {
-  if (!currentSession) {
+
+  if(!configured()){
+
     $("authArea").innerHTML = `
+      <div class="small">
+        Supabase is not configured in this build yet.
+        Add the Publishable Key to
+        <b>supabase-config.js</b>.
+      </div>
+    `;
+
+    return;
+
+  }
+
+
+  if(!sb){
+
+    sb =
+      window.supabase.createClient(
+
+        window.JOB_TRACKER_SUPABASE.url,
+
+        window.JOB_TRACKER_SUPABASE.publishableKey,
+
+        {
+          auth:{
+            persistSession:true,
+            autoRefreshToken:true,
+            detectSessionInUrl:true
+          }
+        }
+
+      );
+
+  }
+
+
+  sb.auth.getSession()
+    .then(({data}) => {
+
+      currentSession =
+        data.session;
+
+      updateAuthUI();
+
+    });
+
+
+  sb.auth.onAuthStateChange(
+    (event,session) => {
+
+      currentSession =
+        session;
+
+      gmailConnected =
+        !!(
+          session &&
+          session.provider_token
+        );
+
+
+      updateAuthUI();
+
+
+      if(
+        session &&
+        session.provider_token
+      ){
+
+        sessionStorage.setItem(
+          "jobTrackerGoogleToken",
+          session.provider_token
+        );
+
+      }
+
+
+      if(
+        session &&
+        session.provider_refresh_token
+      ){
+
+        sessionStorage.setItem(
+          "jobTrackerGoogleRefreshToken",
+          session.provider_refresh_token
+        );
+
+      }
+
+
+      if(event === "SIGNED_OUT"){
+
+        sessionStorage.removeItem(
+          "jobTrackerGoogleToken"
+        );
+
+        sessionStorage.removeItem(
+          "jobTrackerGoogleRefreshToken"
+        );
+
+      }
+
+    }
+  );
+
+}
+
+
+/* ---------------------------------------------------------
+   AUTH UI
+--------------------------------------------------------- */
+
+function updateAuthUI(){
+
+  if(!currentSession){
+
+    $("authArea").innerHTML = `
+
       <div class="account-row">
+
         <div>
+
           <b>Gmail</b>
+
           <div class="small">
             Connect Google to enable Gmail job-email detection.
           </div>
+
         </div>
-        <button onclick="connectGoogle()">Connect Gmail</button>
+
+        <button onclick="connectGoogle()">
+          Connect Gmail
+        </button>
+
       </div>
+
     `;
+
 
     $("notice").textContent =
       "🔒 Local mode. Connect Gmail when you are ready to automate application tracking.";
 
     return;
+
   }
 
-  const email = currentSession.user.email || "Google account";
+
+  const email =
+    currentSession.user.email ||
+    "Google account";
+
 
   $("authArea").innerHTML = `
+
     <div class="account-row">
+
       <div>
+
         <b>${esc(email)}</b>
-        <div class="status-dot">● Gmail connected</div>
+
+        <div class="status-dot">
+          ● Gmail connected
+        </div>
+
       </div>
 
-      <div style="display:flex;gap:8px;flex-wrap:wrap">
-        <button onclick="syncGmail()">Sync Gmail</button>
-        <button class="secondary" onclick="signOut()">Sign out</button>
+
+      <div
+        style="
+          display:flex;
+          gap:8px;
+          flex-wrap:wrap
+        "
+      >
+
+        <button onclick="syncGmail()">
+          Sync Gmail
+        </button>
+
+        <button
+          class="secondary"
+          onclick="signOut()"
+        >
+          Sign out
+        </button>
+
       </div>
+
     </div>
 
-    <div style="margin-top:12px" class="small">
+
+    <div
+      style="margin-top:12px"
+      class="small"
+    >
       Gmail permission: read-only.
       Press <b>Sync Gmail</b> to scan recent job emails.
     </div>
 
-    <div id="syncResult" class="small" style="margin-top:8px"></div>
+
+    <div
+      id="syncResult"
+      class="sync-status"
+    ></div>
+
   `;
+
 
   $("notice").textContent =
     "☁️ Gmail connected. Ready to sync job applications.";
 
-  loadCloudApplications().then(()=>{ fill(); render(); });
+
+  /*
+   * Load cloud data WITHOUT replacing local data.
+   */
+
+  loadCloudApplications()
+    .then(() => {
+
+      fill();
+
+      render();
+
+    });
+
 }
 
 
-async function connectGoogle() {
-  if (!configured()) {
+/* ---------------------------------------------------------
+   GOOGLE CONNECT
+--------------------------------------------------------- */
+
+async function connectGoogle(){
+
+  if(!configured()){
+
     alert(
       "First add the Supabase Publishable Key to supabase-config.js in GitHub."
     );
+
     return;
+
   }
 
-  const { error } = await sb.auth.signInWithOAuth({
-    provider: "google",
-    options: {
-      scopes:
-        "openid email profile https://www.googleapis.com/auth/gmail.readonly",
-      queryParams: {
-        access_type: "offline",
-        prompt: "consent"
-      },
-      redirectTo: window.location.href
-    }
-  });
 
-  if (error) alert(error.message);
+  const {
+    error
+  } =
+    await sb.auth.signInWithOAuth({
+
+      provider:"google",
+
+      options:{
+
+        scopes:
+          "openid email profile https://www.googleapis.com/auth/gmail.readonly",
+
+        queryParams:{
+          access_type:"offline",
+          prompt:"consent"
+        },
+
+        redirectTo:
+          window.location.href
+
+      }
+
+    });
+
+
+  if(error){
+
+    alert(
+      error.message
+    );
+
+  }
+
 }
 
 
-async function signOut() {
+/* ---------------------------------------------------------
+   SIGN OUT
+--------------------------------------------------------- */
+
+async function signOut(){
+
   await sb.auth.signOut();
-  currentSession = null;
+
+  currentSession =
+    null;
+
   updateAuthUI();
+
 }
 
 
-async function syncGmail() {
-  const result = $("syncResult");
+/* ---------------------------------------------------------
+   GMAIL SYNC
+--------------------------------------------------------- */
 
-  if (result) {
-    result.textContent = "⏳ Scanning Gmail...";
+async function syncGmail(){
+
+  const result =
+    $("syncResult");
+
+
+  if(result){
+
+    result.textContent =
+      "⏳ Scanning Gmail...";
+
   }
 
-  try {
-    const { data, error: sessionError } =
+
+  try{
+
+    const {
+      data,
+      error:sessionError
+    } =
       await sb.auth.getSession();
 
-    if (sessionError) {
+
+    if(sessionError){
+
       throw sessionError;
+
     }
 
-    if (!data.session) {
-      throw new Error("Please connect Gmail again.");
+
+    if(!data.session){
+
+      throw new Error(
+        "Please connect Gmail again."
+      );
+
     }
 
-    /*
-     * IMPORTANT:
-     * Supabase stores the Google provider token in
-     * provider_token when Google OAuth is used.
-     */
+
     const gmailAccessToken =
       data.session.provider_token;
 
-    if (!gmailAccessToken) {
+
+    if(!gmailAccessToken){
+
       throw new Error(
         "Gmail access token is unavailable. Please disconnect and reconnect Gmail."
       );
+
     }
 
-    const response = await fetch(
-      "https://kmupwiaesqrmzdgfzedr.supabase.co/functions/v1/sync-gmail",
-      {
-        method: "POST",
-        headers: {
-          "Authorization":
-            `Bearer ${data.session.access_token}`,
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          gmailAccessToken: gmailAccessToken
-        })
-      }
-    );
 
-    const json = await response.json();
+    const response =
+      await fetch(
 
-    if (!response.ok) {
+        "https://kmupwiaesqrmzdgfzedr.supabase.co/functions/v1/sync-gmail",
+
+        {
+
+          method:"POST",
+
+          headers:{
+
+            "Authorization":
+              `Bearer ${data.session.access_token}`,
+
+            "Content-Type":
+              "application/json"
+
+          },
+
+          body:JSON.stringify({
+
+            gmailAccessToken:
+              gmailAccessToken
+
+          })
+
+        }
+
+      );
+
+
+    const json =
+      await response.json();
+
+
+    if(!response.ok){
+
       throw new Error(
+
         json.error ||
         json.details ||
         "Gmail sync failed."
+
       );
+
     }
 
-    if (result) {
+
+    if(result){
+
       result.innerHTML = `
+
         ✅ Gmail Sync Complete<br>
-        Emails scanned: <b>${json.scanned || 0}</b><br>
-        New applications: <b>${json.newApplications || 0}</b><br>
-        Updated applications: <b>${json.updatedApplications || 0}</b>
+
+        Emails scanned:
+        <b>${json.scanned || 0}</b><br>
+
+        New applications:
+        <b>${json.newApplications || 0}</b><br>
+
+        Updated applications:
+        <b>${json.updatedApplications || 0}</b>
+
       `;
+
     }
+
+
+    /*
+     * IMPORTANT:
+     *
+     * Reload cloud applications and MERGE them
+     * with local applications.
+     */
 
     await loadCloudApplications();
+
     fill();
+
     render();
 
-  } catch (error) {
-    console.error("Gmail Sync Error:", error);
 
-    if (result) {
+  }catch(error){
+
+    console.error(
+      "Gmail Sync Error:",
+      error
+    );
+
+
+    if(result){
+
       result.innerHTML =
-        `❌ ${esc(error.message || "Gmail sync failed.")}`;
+        `❌ ${esc(
+          error.message ||
+          "Gmail sync failed."
+        )}`;
+
     }
+
   }
+
 }
-$("search").oninput=render;$("filter").onchange=render;$("sourceFilter").onchange=render;fill();render();showAuth();if("serviceWorker" in navigator)navigator.serviceWorker.register("sw.js").catch(()=>{});
+
+
+/* ---------------------------------------------------------
+   INITIALIZE
+--------------------------------------------------------- */
+
+$("search").oninput =
+  render;
+
+$("filter").onchange =
+  render;
+
+$("sourceFilter").onchange =
+  render;
+
+
+fill();
+
+render();
+
+showAuth();
+
+
+if("serviceWorker" in navigator){
+
+  navigator.serviceWorker
+    .register("sw.js")
+    .catch(() => {});
+
+}
+
 </script>
+
 </body>
 </html>
