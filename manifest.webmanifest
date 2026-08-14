@@ -1,9 +1,11 @@
 {
-  "name":"Job Tracker",
-  "short_name":"Job Tracker",
-  "start_url":".",
-  "display":"standalone",
-  "background_color":"#f5f7fb",
-  "theme_color":"#111827",
-  "icons":[]
+  "name": "Job Tracker",
+  "short_name": "Job Tracker",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f6f7f9",
+  "theme_color": "#111827",
+  "description": "Simple personal job application tracker",
+  "lang": "en-IN"
 }
