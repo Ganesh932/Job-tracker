@@ -4,5 +4,5 @@
 // Supabase Dashboard → Project Settings → API Keys.
 window.JOB_TRACKER_SUPABASE = {
   url: 'https://kmupwiaesqrmzdgfzedr.supabase.co',
-  publishableKey: 'PASTE_YOUR_SUPABASE_PUBLISHABLE_KEY_HERE'
+  publishableKey: 'sb_publishable_L6e9vZPmmfeBatitJJZ9cw_Wcl6XDZG'
 };
