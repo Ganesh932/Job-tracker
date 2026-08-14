@@ -63,9 +63,168 @@ function showAuth(){
  sb.auth.getSession().then(({data})=>{currentSession=data.session;updateAuthUI()});
  sb.auth.onAuthStateChange((event,session)=>{currentSession=session;gmailConnected=!!(session&&session.provider_token);updateAuthUI();if(session&&session.provider_token)sessionStorage.setItem("jobTrackerGoogleToken",session.provider_token);if(session&&session.provider_refresh_token)sessionStorage.setItem("jobTrackerGoogleRefreshToken",session.provider_refresh_token);if(event==="SIGNED_OUT"){sessionStorage.removeItem("jobTrackerGoogleToken");sessionStorage.removeItem("jobTrackerGoogleRefreshToken")}})
 }
-function updateAuthUI(){if(!currentSession){$("authArea").innerHTML='<div class="account-row"><div><b>Gmail</b><div class="small">Connect Google to enable Gmail job-email detection.</div></div><button onclick="connectGoogle()">Connect Gmail</button></div>';$("notice").textContent="🔒 Local mode. Connect Gmail when you are ready to automate application tracking.";return}const email=currentSession.user.email||"Google account";$("authArea").innerHTML=`<div class="account-row"><div><b>${esc(email)}</b><div class="status-dot">● Google connected</div></div><button class="secondary" onclick="signOut()">Sign out</button></div><div style="margin-top:12px" class="small">Gmail permission requested: read-only. Automatic email parsing will be added next.</div>`;$("notice").textContent="☁️ Google connected. Your existing local applications are still kept on this device."}
-async function connectGoogle(){if(!configured()){alert("First add the Supabase Publishable Key to supabase-config.js in GitHub.");return}const {error}=await sb.auth.signInWithOAuth({provider:"google",options:{scopes:"openid email profile https://www.googleapis.com/auth/gmail.readonly",queryParams:{access_type:"offline",prompt:"consent"},redirectTo:window.location.href}});if(error)alert(error.message)}
-async function signOut(){await sb.auth.signOut();currentSession=null;updateAuthUI()}
+function updateAuthUI() {
+  if (!currentSession) {
+    $("authArea").innerHTML = `
+      <div class="account-row">
+        <div>
+          <b>Gmail</b>
+          <div class="small">
+            Connect Google to enable Gmail job-email detection.
+          </div>
+        </div>
+        <button onclick="connectGoogle()">Connect Gmail</button>
+      </div>
+    `;
+
+    $("notice").textContent =
+      "🔒 Local mode. Connect Gmail when you are ready to automate application tracking.";
+
+    return;
+  }
+
+  const email = currentSession.user.email || "Google account";
+
+  $("authArea").innerHTML = `
+    <div class="account-row">
+      <div>
+        <b>${esc(email)}</b>
+        <div class="status-dot">● Gmail connected</div>
+      </div>
+
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <button onclick="syncGmail()">Sync Gmail</button>
+        <button class="secondary" onclick="signOut()">Sign out</button>
+      </div>
+    </div>
+
+    <div style="margin-top:12px" class="small">
+      Gmail permission: read-only.
+      Press <b>Sync Gmail</b> to scan recent job emails.
+    </div>
+
+    <div id="syncResult" class="small" style="margin-top:8px"></div>
+  `;
+
+  $("notice").textContent =
+    "☁️ Gmail connected. Ready to sync job applications.";
+}
+
+
+async function connectGoogle() {
+  if (!configured()) {
+    alert(
+      "First add the Supabase Publishable Key to supabase-config.js in GitHub."
+    );
+    return;
+  }
+
+  const { error } = await sb.auth.signInWithOAuth({
+    provider: "google",
+    options: {
+      scopes:
+        "openid email profile https://www.googleapis.com/auth/gmail.readonly",
+      queryParams: {
+        access_type: "offline",
+        prompt: "consent"
+      },
+      redirectTo: window.location.href
+    }
+  });
+
+  if (error) alert(error.message);
+}
+
+
+async function signOut() {
+  await sb.auth.signOut();
+  currentSession = null;
+  updateAuthUI();
+}
+
+
+async function syncGmail() {
+  const result = $("syncResult");
+
+  if (result) {
+    result.textContent = "⏳ Scanning Gmail...";
+  }
+
+  try {
+    const { data, error: sessionError } =
+      await sb.auth.getSession();
+
+    if (sessionError) {
+      throw sessionError;
+    }
+
+    if (!data.session) {
+      throw new Error("Please connect Gmail again.");
+    }
+
+    /*
+     * IMPORTANT:
+     * Supabase stores the Google provider token in
+     * provider_token when Google OAuth is used.
+     */
+    const gmailAccessToken =
+      data.session.provider_token;
+
+    if (!gmailAccessToken) {
+      throw new Error(
+        "Gmail access token is unavailable. Please disconnect and reconnect Gmail."
+      );
+    }
+
+    const response = await fetch(
+      "https://kmupwiaesqrmzdgfzedr.supabase.co/functions/v1/sync-gmail",
+      {
+        method: "POST",
+        headers: {
+          "Authorization":
+            `Bearer ${data.session.access_token}`,
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          gmailAccessToken: gmailAccessToken
+        })
+      }
+    );
+
+    const json = await response.json();
+
+    if (!response.ok) {
+      throw new Error(
+        json.error ||
+        json.details ||
+        "Gmail sync failed."
+      );
+    }
+
+    if (result) {
+      result.innerHTML = `
+        ✅ Gmail Sync Complete<br>
+        Emails scanned: <b>${json.scanned || 0}</b><br>
+        New applications: <b>${json.newApplications || 0}</b><br>
+        Updated applications: <b>${json.updatedApplications || 0}</b>
+      `;
+    }
+
+    /*
+     * Refresh the local application dashboard.
+     */
+    fill();
+    render();
+
+  } catch (error) {
+    console.error("Gmail Sync Error:", error);
+
+    if (result) {
+      result.innerHTML =
+        `❌ ${esc(error.message || "Gmail sync failed.")}`;
+    }
+  }
+}
 $("search").oninput=render;$("filter").onchange=render;$("sourceFilter").onchange=render;fill();render();showAuth();if("serviceWorker" in navigator)navigator.serviceWorker.register("sw.js").catch(()=>{});
 </script>
 </body>
